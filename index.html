@@ -1,1397 +1,1208 @@
-```html
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="he" dir="rtl" class="h-full overflow-hidden">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, interactive-widget=resizes-content">
   <title>יובל & כרמל: מילאנו & אגם קומו</title>
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
-  <!-- Google Font - Heebo & Inter -->
+  <!-- Google Fonts - Rubik for Hebrew -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Heebo', 'Inter', 'sans-serif'],
-          },
-          colors: {
-            terracotta: {
-              50: '#fff7ed',
-              100: '#ffedd5',
-              400: '#fb923c',
-              500: '#ea580c',
-              600: '#c2410c',
-            },
-            como: {
-              50: '#f0fdfa',
-              100: '#ccfbf1',
-              500: '#14b8a6',
-              700: '#0f766e',
-              900: '#134e4a',
-            }
-          }
-        }
-      }
-    }
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
+    html, body {
+      height: 100%;
+      height: 100dvh;
+      margin: 0;
+      padding: 0;
+      overflow: hidden; /* Prevents outer window scroll entirely */
+    }
+    * {
+      font-family: 'Rubik', system-ui, -apple-system, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      box-sizing: border-box;
+    }
     body {
-      font-family: 'Heebo', sans-serif;
+      background-color: #64748b; /* Sleek elegant slate background */
+      color: #0f172a;
       font-size: 15px;
       line-height: 1.5;
-      -webkit-tap-highlight-color: transparent;
     }
-    input, textarea, select {
-      user-select: text !important;
-      -webkit-user-select: text !important;
+    /* Elegant smooth custom scrollbars */
+    .custom-scroll::-webkit-scrollbar {
+      width: 5px;
     }
-    .hide-scrollbar::-webkit-scrollbar {
-      display: none;
+    .custom-scroll::-webkit-scrollbar-track {
+      background: transparent;
     }
-    .hide-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
     }
-    .modal-backdrop {
-      background-color: rgba(15, 23, 42, 0.65);
-      backdrop-filter: blur(4px);
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
     }
   </style>
 </head>
-<body class="bg-slate-400/90 text-slate-800 min-h-screen pb-12 antialiased flex flex-col items-center">
+<body class="h-full w-full flex justify-center items-center sm:p-2 md:p-3">
 
-  <!-- Main Container (Mobile Frame Constraint with darker background) -->
-  <div class="w-full max-w-md min-h-screen bg-slate-200/90 flex flex-col relative shadow-2xl">
-
-    <!-- Sticky App Header -->
-    <header id="mainAppHeader" class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-300 px-4 pt-3.5 pb-2.5 shadow-sm">
-      
-      <!-- Top Row: App Title & Exchange Rate -->
-      <div class="flex items-center justify-between gap-2 mb-3">
-        <div class="flex items-center gap-2.5">
-          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 to-terracotta-500 text-white flex items-center justify-center font-black text-base shadow-xs shrink-0">
-            🇮🇹
-          </div>
-          <div>
-            <h1 class="text-base font-extrabold text-slate-900 tracking-tight leading-tight">יובל & כרמל: מילאנו & אגם קומו</h1>
-            <p class="text-xs text-slate-500 font-medium">22 - 26 באוקטובר 2026 • 5 ימים זוגיים</p>
-          </div>
-        </div>
-
-        <!-- Exchange Rate Quick Button -->
-        <button onclick="openRateModal()" title="שנה שער יורו" class="flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 border border-amber-200 hover:bg-amber-100 text-amber-900 rounded-full text-xs font-bold transition active:scale-95 shadow-2xs shrink-0">
-          <i class="fa-solid fa-coins text-amber-600 text-xs"></i>
-          <span id="headerRateBadge">1€ = 3.50 ₪</span>
-        </button>
-      </div>
-
-      <!-- Second Row: 3 Equal-Sized Navigation Buttons -->
-      <div class="grid grid-cols-3 gap-2">
-        <button onclick="switchTab('schedule')" id="nav-btn-schedule" class="nav-top-btn py-2.5 px-2 rounded-xl text-xs font-extrabold transition flex flex-col items-center justify-center gap-1 shadow-xs active:scale-95 bg-slate-900 text-white hover:bg-slate-800 border border-slate-900">
-          <i class="fa-solid fa-lightbulb text-sm"></i>
-          <span class="truncate">תכנית ורעיונות</span>
-        </button>
-
-        <button onclick="switchTab('budget')" id="nav-btn-budget" class="nav-top-btn py-2.5 px-2 rounded-xl text-xs font-extrabold transition flex flex-col items-center justify-center gap-1 shadow-2xs active:scale-95 bg-white text-slate-700 hover:bg-slate-100 border border-slate-300">
-          <i class="fa-solid fa-wallet text-sm"></i>
-          <span class="truncate">תקציב</span>
-        </button>
-
-        <button onclick="openAiChatModal()" id="nav-btn-ai" class="nav-top-btn py-2.5 px-2 rounded-xl text-xs font-extrabold transition flex flex-col items-center justify-center gap-1 shadow-2xs active:scale-95 bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200">
-          <i class="fa-solid fa-database text-sm text-blue-600"></i>
-          <span class="truncate">Data מהמיילים</span>
-        </button>
-      </div>
-
-      <!-- Plan Mode Switcher: Daily View vs General All-Days View -->
-      <div id="planModeBar" class="mt-2.5 pt-2 border-t border-slate-200 grid grid-cols-2 gap-2">
-        <button onclick="setPlanMode('daily')" id="mode-btn-daily" class="py-1.5 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 bg-terracotta-500 text-white shadow-2xs">
-          <i class="fa-solid fa-calendar-day"></i>
-          <span>לפי ימים</span>
-        </button>
-        <button onclick="setPlanMode('all')" id="mode-btn-all" class="py-1.5 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 bg-slate-100 text-slate-700 hover:bg-slate-200">
-          <i class="fa-solid fa-list-check"></i>
-          <span>רשימה כללית (כל הימים)</span>
-        </button>
+  <!-- Main Mobile App Shell Frame (Strict Viewport Lock) -->
+  <div class="w-full max-w-xl bg-slate-100 h-full max-h-[100dvh] sm:max-h-[96dvh] sm:rounded-[2rem] shadow-2xl border border-slate-300 flex flex-col overflow-hidden relative">
+    
+    <!-- 1. Global Header Bar - Luxury Midnight Slate with Warm Amber Accents -->
+    <header class="relative px-4 py-3.5 border-b border-slate-800 bg-slate-900 shadow-md z-30 shrink-0 overflow-hidden flex items-center justify-center text-center">
+      <div class="relative z-10 mx-auto">
+        <h1 class="text-base sm:text-lg font-black text-white leading-tight flex items-center justify-center gap-2 tracking-tight">
+          <span>יובל & כרמל: מילאנו & אגם קומו</span>
+          <span class="text-base sm:text-lg drop-shadow">🇮🇹</span>
+        </h1>
+        <p class="text-xs sm:text-sm font-semibold text-amber-400 mt-0.5 tracking-wide">22 - 26 באוקטובר 2026 • 5 ימים זוגיים</p>
       </div>
     </header>
 
-    <main class="flex-1 p-4 space-y-4">
-
-      <!-- ================= SECTION 1: TRIP PLAN & CUSTOM IDEAS ================= -->
-      <div id="section-schedule" class="space-y-3.5">
+    <!-- 2. Primary Top Navigation Tabs (PERMANENTLY PINNED AT TOP) -->
+    <div class="px-4 py-2.5 bg-slate-100 border-b border-slate-200/80 z-30 shrink-0">
+      <div class="grid grid-cols-3 gap-2">
         
-        <!-- VIEW 1: DAILY FLOW & IDEAS -->
-        <div id="view-daily" class="space-y-3.5">
-          
-          <!-- Sticky Days Horizontal Carousel (Stays fixed while scrolling) -->
-          <div class="sticky top-[138px] z-20 bg-slate-200/95 backdrop-blur-md py-2 -mx-4 px-4 border-b border-slate-300 shadow-2xs">
-            <div class="flex items-center gap-1.5 overflow-x-auto hide-scrollbar">
-              <button onclick="selectDay(0)" class="day-tab-btn flex-1 min-w-[70px] py-2 px-1 rounded-xl text-center border font-bold text-xs transition bg-slate-900 text-white border-slate-900 shadow-xs" data-day="0">
-                <span class="day-name block text-[11px] text-slate-300">חמישי</span>
-                <span class="day-num block font-black text-sm text-white">22.10</span>
-                <span class="day-tag block text-[10px] text-slate-400 font-medium">מילאנו</span>
-              </button>
-              <button onclick="selectDay(1)" class="day-tab-btn flex-1 min-w-[70px] py-2 px-1 rounded-xl text-center border font-bold text-xs transition bg-white text-slate-700 border-slate-300 hover:bg-slate-50 shadow-2xs" data-day="1">
-                <span class="day-name block text-[11px] text-slate-400">שישי</span>
-                <span class="day-num block font-black text-sm text-slate-900">23.10</span>
-                <span class="day-tag block text-[10px] text-slate-400 font-medium">מילאנו/קומו</span>
-              </button>
-              <button onclick="selectDay(2)" class="day-tab-btn flex-1 min-w-[70px] py-2 px-1 rounded-xl text-center border font-bold text-xs transition bg-white text-slate-700 border-slate-300 hover:bg-slate-50 shadow-2xs" data-day="2">
-                <span class="day-name block text-[11px] text-slate-400">שבת</span>
-                <span class="day-num block font-black text-sm text-slate-900">24.10</span>
-                <span class="day-tag block text-[10px] text-slate-400 font-medium">קומו</span>
-              </button>
-              <button onclick="selectDay(3)" class="day-tab-btn flex-1 min-w-[70px] py-2 px-1 rounded-xl text-center border font-bold text-xs transition bg-white text-slate-700 border-slate-300 hover:bg-slate-50 shadow-2xs" data-day="3">
-                <span class="day-name block text-[11px] text-slate-400">ראשון</span>
-                <span class="day-num block font-black text-sm text-slate-900">25.10</span>
-                <span class="day-tag block text-[10px] text-slate-400 font-medium">קומו</span>
-              </button>
-              <button onclick="selectDay(4)" class="day-tab-btn flex-1 min-w-[70px] py-2 px-1 rounded-xl text-center border font-bold text-xs transition bg-white text-slate-700 border-slate-300 hover:bg-slate-50 shadow-2xs" data-day="4">
-                <span class="day-name block text-[11px] text-slate-400">שני</span>
-                <span class="day-num block font-black text-sm text-slate-900">26.10</span>
-                <span class="day-tag block text-[10px] text-slate-400 font-medium">המראה</span>
-              </button>
-            </div>
-          </div>
+        <!-- Tab 1: Plan & Ideas -->
+        <button type="button" id="tabBtnPlan" onclick="window.switchTab('plan')" class="flex flex-col items-center justify-center py-2.5 px-1 rounded-2xl font-black text-xs transition duration-150 cursor-pointer shadow-sm active:scale-95 bg-slate-900 text-white">
+          <i class="fa-solid fa-lightbulb text-sm mb-1"></i>
+          <span>תכנית ורעיונות</span>
+        </button>
 
-          <!-- Active Day Header & Add Button -->
-          <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs space-y-3">
-            <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
-              <div>
-                <span id="activeDayCity" class="text-xs font-bold text-terracotta-500 block">מילאנו</span>
-                <h2 id="activeDayDate" class="text-base font-extrabold text-slate-900">יום חמישי, 22 באוקטובר 2026</h2>
-              </div>
-              <span id="activeDayCount" class="text-xs font-bold px-2.5 py-1 rounded-full bg-slate-100 text-slate-700">0 רעיונות</span>
-            </div>
+        <!-- Tab 2: Budget -->
+        <button type="button" id="tabBtnBudget" onclick="window.switchTab('budget')" class="flex flex-col items-center justify-center py-2.5 px-1 rounded-2xl font-black text-xs transition duration-150 cursor-pointer shadow-xs active:scale-95 bg-white text-slate-700 border border-slate-200">
+          <i class="fa-solid fa-wallet text-sm mb-1"></i>
+          <span>תקציב</span>
+        </button>
 
-            <button onclick="openAddIdeaModal(state.currentDayIdx)" class="w-full py-2.5 px-4 bg-terracotta-500 hover:bg-terracotta-600 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 shadow-xs active:scale-95">
-              <i class="fa-solid fa-plus-circle text-sm"></i>
-              <span>הוספת רעיון או מקום ליום זה</span>
-            </button>
-          </div>
+        <!-- Tab 3: Data from Emails -->
+        <button type="button" id="tabBtnData" onclick="window.openDataModal()" class="flex flex-col items-center justify-center py-2.5 px-1 rounded-2xl font-black text-xs transition duration-150 cursor-pointer shadow-xs active:scale-95 bg-white text-slate-700 border border-slate-200 hover:bg-slate-50">
+          <i class="fa-solid fa-database text-sm mb-1 text-slate-700"></i>
+          <span>Data מהמיילים</span>
+        </button>
 
-          <!-- Active Day Ideas List -->
-          <div id="dayIdeasList" class="space-y-2.5">
-            <!-- Populated dynamically via JS -->
-          </div>
+      </div>
+    </div>
 
+    <!-- SECTION 1: PLAN & IDEAS (Header + Days Permanently Pinned, Only Body Scrolls) -->
+    <main id="sectionPlan" class="flex-1 flex flex-col min-h-0 overflow-hidden">
+      
+      <!-- Pinned Plan Header: View Mode Switcher + Days Row (NEVER SCROLLS AWAY) -->
+      <div class="shrink-0 bg-slate-100 border-b border-slate-200 shadow-xs z-20">
+        
+        <!-- View mode switch: By Day vs All Days -->
+        <div class="px-4 pt-2.5 pb-2 flex gap-2">
+          <button type="button" id="subTabDay" onclick="window.setPlanViewMode('day')" class="flex-1 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer active:scale-95 bg-amber-600 text-white shadow-xs">
+            <i class="fa-regular fa-calendar-days ml-1"></i>
+            <span>לפי ימים</span>
+          </button>
+          <button type="button" id="subTabAll" onclick="window.setPlanViewMode('all')" class="flex-1 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer active:scale-95 bg-slate-200 text-slate-700 hover:bg-slate-300">
+            <i class="fa-solid fa-list-ul ml-1"></i>
+            <span>רשימה כללית (כל הימים)</span>
+          </button>
         </div>
 
-        <!-- VIEW 2: ALL DAYS GENERAL LIST -->
-        <div id="view-all" class="hidden space-y-3.5">
-          <div class="flex items-center justify-between px-1">
-            <div>
-              <h2 class="text-base font-extrabold text-slate-900">כל הרעיונות לטיול</h2>
-              <p class="text-xs text-slate-600">רשימה מרוכזת של כל המקומות שביררתם</p>
-            </div>
-            <button onclick="openAddIdeaModal('general')" class="py-2 px-3 bg-terracotta-500 hover:bg-terracotta-600 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-xs active:scale-95">
-              <i class="fa-solid fa-plus"></i>
-              <span>הוסף רעיון</span>
+        <!-- Fixed Days Row (Buttons turn dark slate when active - NEVER SCROLLS AWAY) -->
+        <div id="daysRowContainer" class="px-4 pb-2.5 pt-0.5">
+          <div class="grid grid-cols-5 gap-1.5">
+            
+            <!-- Day 1 -->
+            <button type="button" onclick="window.selectDay(0)" id="dayBtn-0" class="flex flex-col items-center justify-center py-2 px-1 rounded-xl transition duration-150 cursor-pointer border active:scale-95 bg-slate-900 text-white border-slate-900 shadow-sm">
+              <span class="text-[11px] font-medium text-slate-400">חמישי</span>
+              <span class="text-sm font-black leading-tight">22.10</span>
+              <span class="text-[10px] font-semibold text-slate-400 mt-0.5">מילאנו</span>
             </button>
-          </div>
 
-          <div id="allIdeasList" class="space-y-4">
-            <!-- Populated dynamically via JS -->
+            <!-- Day 2 -->
+            <button type="button" onclick="window.selectDay(1)" id="dayBtn-1" class="flex flex-col items-center justify-center py-2 px-1 rounded-xl transition duration-150 cursor-pointer border active:scale-95 bg-white text-slate-700 border-slate-200 shadow-xs hover:bg-slate-50">
+              <span class="text-[11px] font-medium text-slate-400">שישי</span>
+              <span class="text-sm font-black leading-tight">23.10</span>
+              <span class="text-[10px] font-semibold text-slate-400 mt-0.5">מילאנו/קומו</span>
+            </button>
+
+            <!-- Day 3 -->
+            <button type="button" onclick="window.selectDay(2)" id="dayBtn-2" class="flex flex-col items-center justify-center py-2 px-1 rounded-xl transition duration-150 cursor-pointer border active:scale-95 bg-white text-slate-700 border-slate-200 shadow-xs hover:bg-slate-50">
+              <span class="text-[11px] font-medium text-slate-400">שבת</span>
+              <span class="text-sm font-black leading-tight">24.10</span>
+              <span class="text-[10px] font-semibold text-slate-400 mt-0.5">קומו</span>
+            </button>
+
+            <!-- Day 4 -->
+            <button type="button" onclick="window.selectDay(3)" id="dayBtn-3" class="flex flex-col items-center justify-center py-2 px-1 rounded-xl transition duration-150 cursor-pointer border active:scale-95 bg-white text-slate-700 border-slate-200 shadow-xs hover:bg-slate-50">
+              <span class="text-[11px] font-medium text-slate-400">ראשון</span>
+              <span class="text-sm font-black leading-tight">25.10</span>
+              <span class="text-[10px] font-semibold text-slate-400 mt-0.5">קומו</span>
+            </button>
+
+            <!-- Day 5 -->
+            <button type="button" onclick="window.selectDay(4)" id="dayBtn-4" class="flex flex-col items-center justify-center py-2 px-1 rounded-xl transition duration-150 cursor-pointer border active:scale-95 bg-white text-slate-700 border-slate-200 shadow-xs hover:bg-slate-50">
+              <span class="text-[11px] font-medium text-slate-400">שני</span>
+              <span class="text-sm font-black leading-tight">26.10</span>
+              <span class="text-[10px] font-semibold text-slate-400 mt-0.5">המראה</span>
+            </button>
+
           </div>
         </div>
 
       </div>
 
-      <!-- ================= SECTION 2: BUDGET DASHBOARD ================= -->
-      <div id="section-budget" class="hidden space-y-4">
+      <!-- Independently Scrollable Ideas Body (Only this part scrolls!) -->
+      <div class="flex-1 overflow-y-auto custom-scroll p-4 space-y-4">
         
-        <!-- Sticky Grand Total Budget Card (Fixed while scrolling) -->
-        <div class="sticky top-[102px] z-20 bg-slate-200/95 backdrop-blur-md pt-1 pb-2">
-          <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 text-white p-4 sm:p-5 rounded-3xl shadow-xl border border-slate-800 space-y-3.5">
-            <!-- Top Row: Icon, Title & Exchange Rate -->
-            <div class="flex items-center justify-between gap-2">
-              <div class="flex items-center gap-2.5">
-                <span class="w-9 h-9 rounded-2xl bg-amber-400/15 text-amber-400 flex items-center justify-center text-sm font-bold shadow-inner">
-                  <i class="fa-solid fa-sack-dollar"></i>
-                </span>
-                <div>
-                  <span class="text-xs sm:text-sm font-extrabold text-white block tracking-tight">סך כל הוצאות הטיול</span>
-                  <span class="text-[11px] text-slate-400 block font-medium">קבועות (טיסות ומלונות) + שוטפות</span>
-                </div>
-              </div>
-              <button onclick="openRateModal()" class="text-xs px-2.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 active:scale-95 text-amber-300 border border-white/10 transition font-bold shrink-0">
-                1€ = <span id="rateLabelCard">3.50</span> ₪ ✏️
-              </button>
+        <!-- Day Banner Card -->
+        <div id="dayInfoCard" class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
+          <div>
+            <span id="dayRouteTag" class="text-xs font-black text-amber-600 uppercase tracking-wide">נתב"ג ⟵ מילאנו מלפנסה</span>
+            <h2 id="dayFullTitle" class="text-base font-black text-slate-800">יום חמישי, 22 באוקטובר 2026</h2>
+          </div>
+          <span id="dayIdeasCount" class="text-xs font-bold px-2.5 py-1 bg-slate-100 text-slate-600 rounded-lg">0 רעיונות</span>
+        </div>
+
+        <!-- Add Idea Action Button -->
+        <button type="button" onclick="window.openAddIdeaModal()" class="w-full py-3.5 px-4 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 active:scale-98 text-white rounded-2xl font-black text-sm shadow-md shadow-orange-500/20 flex items-center justify-center gap-2 transition cursor-pointer">
+          <i class="fa-solid fa-circle-plus text-base"></i>
+          <span>הוספת רעיון או מקום ליום זה</span>
+        </button>
+
+        <!-- Dynamic Ideas List Container -->
+        <div id="ideasContainer" class="space-y-3 pb-8">
+          <!-- Injected via JavaScript -->
+        </div>
+
+      </div>
+    </main>
+
+    <!-- SECTION 2: BUDGET (Summary black card permanently pinned above scrollable body) -->
+    <section id="sectionBudget" class="hidden flex-1 flex flex-col min-h-0 overflow-hidden">
+      
+      <!-- Pinned Budget Summary Card (NEVER SCROLLS AWAY) -->
+      <div class="shrink-0 px-4 py-2 border-b border-slate-200/80 bg-slate-100 shadow-xs z-20">
+        <div class="bg-slate-900 text-white rounded-2xl p-2.5 sm:p-3 shadow-lg border border-slate-800 space-y-2">
+          
+          <!-- Euro Rate pill button moved here inside black card -->
+          <div class="flex items-center justify-between px-1">
+            <span class="text-[11px] font-black text-slate-300 flex items-center gap-1">
+              <i class="fa-solid fa-coins text-amber-400"></i>
+              <span>שער חליפין (לחצו לעדכון):</span>
+            </span>
+            <button type="button" onclick="window.openRateModal()" class="flex items-center gap-1.5 px-2.5 py-1 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 rounded-xl text-amber-300 text-xs font-bold transition active:scale-95 cursor-pointer shadow-xs" title="עריכת שער חליפין">
+              <span id="budgetRateDisplay">1€ = 3.50 ₪</span>
+              <span>💰</span>
+            </button>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 text-center">
+            <!-- Euro Card -->
+            <div class="bg-slate-800/80 px-2 py-1.5 rounded-xl border border-slate-700/60">
+              <span class="text-[10px] font-medium text-slate-400 block mb-0.5">באירו</span>
+              <span id="grandTotalEuro" class="text-lg sm:text-xl font-black tracking-tight text-white block">€1,267.84</span>
             </div>
-
-            <!-- Bottom Grid: 2 Distinct Centered Currency Cards with Safe Padding -->
-            <div class="grid grid-cols-2 gap-2.5 pt-1 border-t border-slate-800/80">
-              <!-- Euro Card -->
-              <div class="bg-white/[0.05] border border-white/10 rounded-2xl px-3 py-2.5 flex flex-col items-center justify-center text-center">
-                <span class="text-[11px] font-semibold text-slate-400 mb-0.5">סך הכל באירו</span>
-                <span class="text-xl sm:text-2xl font-black tracking-tight text-white" id="grandTotalEur">€0.00</span>
-              </div>
-
-              <!-- ILS Card -->
-              <div class="bg-amber-400/[0.08] border border-amber-400/20 rounded-2xl px-3 py-2.5 flex flex-col items-center justify-center text-center">
-                <span class="text-[11px] font-semibold text-amber-300/90 mb-0.5">שווה ערך בשקלים</span>
-                <span class="text-xl sm:text-2xl font-black tracking-tight text-amber-400" id="grandTotalIls">₪0.00</span>
-              </div>
+            <!-- ILS Card -->
+            <div class="bg-amber-500/10 px-2 py-1.5 rounded-xl border border-amber-500/30">
+              <span class="text-[10px] font-medium text-amber-300 block mb-0.5">בשקלים חדשים</span>
+              <span id="grandTotalIls" class="text-lg sm:text-xl font-black tracking-tight text-amber-400 block">₪4,437.44</span>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- Fixed Costs Overview -->
-        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs space-y-2.5">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-1.5">
-              <span class="text-slate-400 text-xs"><i class="fa-solid fa-lock"></i></span>
-              <span class="text-xs font-bold text-slate-900">הוצאות קבועות מראש (טיסות ומלונות)</span>
+      <!-- Independently Scrollable Expenses Body -->
+      <div class="flex-1 overflow-y-auto custom-scroll p-4 space-y-4">
+        
+        <!-- Fixed Booked Expenses Accordion -->
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
+          <div class="px-4 py-3 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-lock text-slate-400 text-xs"></i>
+              <span class="text-xs font-black text-slate-700">הוצאות קבועות מראש (טיסות ומלונות)</span>
             </div>
-            <span class="text-xs font-black text-slate-900" id="fixedTotalEur">€1,267.84</span>
+            <span class="text-xs font-bold text-slate-800">€1,267.84</span>
           </div>
 
-          <div class="divide-y divide-slate-100 text-xs">
-            <!-- Wizz Air -->
-            <div class="py-2 flex items-center justify-between">
+          <div class="p-3.5 space-y-3 text-xs">
+            <!-- Flight -->
+            <div class="flex items-start justify-between pb-2.5 border-b border-slate-100">
               <div>
-                <span class="font-bold text-slate-800 block">✈️ טיסות Wizz Air (יובל & כרמל)</span>
-                <span class="text-[11px] text-emerald-600 font-medium">שולם במלואו מראש • PNR: SRKQWQ</span>
+                <h3 class="font-black text-slate-800 flex items-center gap-1.5">
+                  <i class="fa-solid fa-plane-departure text-blue-500"></i>
+                  <span>טיסות Wizz Air (יובל & כרמל)</span>
+                </h3>
+                <p class="text-slate-500 text-[11px] mt-0.5">שולם במלואו מראש • קוד PNR: SRKQWQ</p>
               </div>
-              <div class="text-left">
-                <span class="font-bold text-slate-800 block">€540.84</span>
-                <span class="text-[11px] text-slate-400 block" id="fixedWizzIls">₪1,892.94</span>
+              <div class="text-left font-black text-slate-800">
+                <span>€540.84</span>
+                <span class="block text-[10px] text-slate-400 font-normal">₪1,892.94</span>
               </div>
             </div>
 
-            <!-- Seta Hotel -->
-            <div class="py-2 flex items-center justify-between">
+            <!-- Bellagio Hotel -->
+            <div class="flex items-start justify-between pb-2.5 border-b border-slate-100">
               <div>
-                <span class="font-bold text-slate-800 block">🏨 מלון Seta בבלאג'ו (2 לילות)</span>
-                <span class="text-[11px] text-emerald-600 font-medium">שולם €432 + €12 מס עיר לתשלום במקום</span>
+                <h3 class="font-black text-slate-800 flex items-center gap-1.5">
+                  <i class="fa-solid fa-hotel text-emerald-500"></i>
+                  <span>מלון Seta בבלאג'ו (2 לילות)</span>
+                </h3>
+                <p class="text-slate-500 text-[11px] mt-0.5">שולם 432€ + 12€ מס עיר לתשלום במקום</p>
               </div>
-              <div class="text-left">
-                <span class="font-bold text-slate-800 block">€444.00</span>
-                <span class="text-[11px] text-slate-400 block" id="fixedSetaIls">₪1,554.00</span>
+              <div class="text-left font-black text-slate-800">
+                <span>€444.00</span>
+                <span class="block text-[10px] text-slate-400 font-normal">₪1,554.00</span>
               </div>
             </div>
 
             <!-- Milan Hotel -->
-            <div class="py-2 flex items-center justify-between">
+            <div class="flex items-start justify-between">
               <div>
-                <span class="font-bold text-slate-800 block">🏨 Smarthotel Duomo במילאנו (לילה 1)</span>
-                <span class="text-[11px] text-amber-600 font-medium">לתשלום בצ'ק-אין: €263 חדר + €20 מס במזומן</span>
+                <h3 class="font-black text-slate-800 flex items-center gap-1.5">
+                  <i class="fa-solid fa-hotel text-indigo-500"></i>
+                  <span>Smarthotel Duomo במילאנו (לילה 1)</span>
+                </h3>
+                <p class="text-amber-700 text-[11px] mt-0.5 font-medium">לתשלום בצ'ק-אין: 263€ חדר + 20€ מס במזומן</p>
               </div>
-              <div class="text-left">
-                <span class="font-bold text-slate-800 block">€283.00</span>
-                <span class="text-[11px] text-slate-400 block" id="fixedMilanIls">₪990.50</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Ongoing Expenses Category Breakdown -->
-        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs space-y-3">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-slate-900">פילוח הוצאות שוטפות לפי קטגוריות</span>
-            <span class="text-xs font-bold text-slate-700" id="variableTotalEur">€0.00</span>
-          </div>
-
-          <div class="space-y-2.5 text-xs">
-            <div>
-              <div class="flex justify-between text-xs mb-1">
-                <span class="text-slate-600">🍝 אוכל, מסעדות וקפה</span>
-                <span class="font-bold text-slate-900" id="catFoodEur">€0.00</span>
-              </div>
-              <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
-                <div id="barFood" class="bg-amber-500 h-1.5 rounded-full transition-all duration-300" style="width: 0%"></div>
-              </div>
-            </div>
-
-            <div>
-              <div class="flex justify-between text-xs mb-1">
-                <span class="text-slate-600">🚆 תחבורה, רכבות ומעבורות</span>
-                <span class="font-bold text-slate-900" id="catTransitEur">€0.00</span>
-              </div>
-              <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
-                <div id="barTransit" class="bg-teal-500 h-1.5 rounded-full transition-all duration-300" style="width: 0%"></div>
-              </div>
-            </div>
-
-            <div>
-              <div class="flex justify-between text-xs mb-1">
-                <span class="text-slate-600">🛍 קניות ושופינג</span>
-                <span class="font-bold text-slate-900" id="catShoppingEur">€0.00</span>
-              </div>
-              <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
-                <div id="barShopping" class="bg-purple-500 h-1.5 rounded-full transition-all duration-300" style="width: 0%"></div>
-              </div>
-            </div>
-
-            <div>
-              <div class="flex justify-between text-xs mb-1">
-                <span class="text-slate-600">🎟 אטרקציות וכניסות</span>
-                <span class="font-bold text-slate-900" id="catSightseeingEur">€0.00</span>
-              </div>
-              <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
-                <div id="barSightseeing" class="bg-blue-500 h-1.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+              <div class="text-left font-black text-slate-800">
+                <span>€283.00</span>
+                <span class="block text-[10px] text-slate-400 font-normal">₪990.50</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Add Expense Action Button -->
-        <div>
-          <button onclick="openExpenseModal()" class="w-full py-3.5 bg-gradient-to-r from-terracotta-500 to-amber-500 text-white rounded-2xl font-bold text-xs shadow-md active:scale-95 transition flex items-center justify-center gap-2">
-            <i class="fa-solid fa-plus-circle text-base"></i>
-            <span>הוספת הוצאה חדשה</span>
-          </button>
-        </div>
-
-        <!-- Ongoing Expenses Header -->
-        <div class="flex items-center justify-between text-xs font-bold text-slate-800 px-1 pt-1">
-          <span>רשימת הוצאות שוטפות</span>
-          <div class="flex items-center gap-2">
-            <span id="expenseCountText" class="text-slate-500 font-normal">0 רשומות</span>
-            <button type="button" onclick="clearAllExpenses()" id="clearAllExpensesBtn" class="hidden text-xs text-red-600 hover:text-red-700 font-bold bg-red-50 px-2.5 py-1 rounded-lg border border-red-200 transition active:scale-95">
-              <i class="fa-solid fa-trash-can ml-0.5"></i> נקה הכל
-            </button>
-          </div>
-        </div>
-
-        <!-- Ongoing Expenses Items List -->
-        <div id="expensesList" class="space-y-2">
-          <!-- Populated dynamically via JS -->
-        </div>
-
-      </div>
-
-    </main>
-
-    <!-- 1. AI CHAT MODAL -->
-    <div id="aiChatModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-start justify-center p-3 pt-5 pb-32 sm:p-4 sm:items-center">
-      <div class="bg-white w-[94%] max-w-sm rounded-3xl h-[56vh] max-h-[56vh] flex flex-col overflow-hidden shadow-2xl border border-slate-100">
-        
-        <div class="p-3 border-b border-slate-100 flex items-center justify-between bg-gradient-to-r from-blue-50 to-indigo-50 shrink-0">
-          <div class="flex items-center gap-2">
-            <div class="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-sm shadow-xs">
-              <i class="fa-solid fa-database"></i>
-            </div>
-            <div>
-              <h3 class="font-extrabold text-slate-900 text-sm">Data מהמיילים וההזמנות</h3>
-              <p class="text-xs text-slate-500">מענה חופשי ומדויק על כל פרטי הטיול</p>
-            </div>
-          </div>
-          <button onclick="closeAiChatModal()" class="w-8 h-8 rounded-full bg-slate-200/60 hover:bg-slate-200 flex items-center justify-center text-slate-600 transition active:scale-90 text-sm">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-        </div>
-
-        <div class="p-2 border-b border-slate-100 flex items-center gap-1.5 overflow-x-auto hide-scrollbar text-xs bg-slate-50 shrink-0">
-          <button onclick="askPresetAi('האם אפשר להשאיר מזוודות במלון?')" class="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 font-bold shrink-0 hover:bg-slate-100">🧳 שמירת מזוודות</button>
-          <button onclick="askPresetAi('באיזה מלון אני במילאנו?')" class="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 font-bold shrink-0 hover:bg-slate-100">🏨 מלון מילאנו</button>
-          <button onclick="askPresetAi('מה הקוד הסודי והטלפון של מלון סטה בבלאגו?')" class="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 font-bold shrink-0 hover:bg-slate-100">🔑 מלון Seta</button>
-          <button onclick="askPresetAi('מי יושב ליד החלון בטיסות?')" class="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 font-bold shrink-0 hover:bg-slate-100">🪟 מושבים וחלון</button>
-          <button onclick="askPresetAi('כמה שילמנו על הטיסות ומה הקוד PNR?')" class="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 font-bold shrink-0 hover:bg-slate-100">✈️ טיסות וויז</button>
-          <button onclick="askPresetAi('איזה כבודה מותר לנו לקחת לטיסה?')" class="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 font-bold shrink-0 hover:bg-slate-100">🎒 טרולי בטיסה</button>
-        </div>
-
-        <div id="aiChatMessages" class="flex-1 p-3 overflow-y-auto space-y-2.5 bg-slate-50/50 text-xs sm:text-sm">
-          <div class="flex items-start gap-2 max-w-[92%]">
-            <div class="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center text-xs shrink-0 font-bold">
-              Data
-            </div>
-            <div class="p-3 bg-white border border-slate-200 rounded-2xl rounded-tr-xs shadow-2xs space-y-1.5 text-slate-800 leading-relaxed text-xs sm:text-sm">
-              <p>היי יובל וכרמל! 👋 כל המידע מהמיילים, מההזמנות ומהכרטיסים שלכם מסונכרן כאן.</p>
-              <p>שאלו אותי כל דבר בכל ניסוח חופשי – טיסות, שעות, מלונות, שמירת מזוודות, קודים, מושבים, כבודה ותקציב.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="p-2.5 bg-white border-t border-slate-200 flex items-center gap-2 shrink-0 shadow-sm">
-          <input type="text" id="aiChatInput" autocomplete="off" onkeydown="handleAiChatKey(event)" placeholder="שאלו כל שאלה (למשל: אפשר להשאיר מזוודות במלון?)..." class="flex-1 py-2 px-3 bg-slate-100 border border-slate-300 rounded-xl text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:bg-white">
-          <button onclick="sendAiChatMessage()" class="w-9 h-9 rounded-xl bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center text-sm active:scale-95 transition shadow-xs shrink-0">
-            <i class="fa-solid fa-paper-plane"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2. ADD IDEA MODAL -->
-    <div id="ideaModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-end sm:items-center justify-center p-3 sm:p-6">
-      <div class="bg-white w-full max-w-md rounded-3xl p-6 sm:p-7 space-y-4 shadow-2xl animate-in zoom-in-95 duration-200 border border-slate-100">
-        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-          <h3 class="font-extrabold text-slate-900 text-base">הוספת רעיון או מקום לטיול ✨</h3>
-          <button onclick="closeIdeaModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 transition active:scale-95">
-            <i class="fa-solid fa-xmark text-sm"></i>
-          </button>
-        </div>
-
-        <form onsubmit="submitIdea(event)" class="space-y-4 text-xs">
-          <div>
-            <label class="block font-bold text-slate-700 mb-1.5 text-xs sm:text-sm">שם המקום או הרעיון</label>
-            <input type="text" id="ideaTitle" required placeholder="למשל: תצפית שקיעה / מסעדת פסטה / וילה מונסטרו" class="w-full py-2.5 px-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-bold text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-terracotta-500">
-          </div>
-
-          <div class="grid grid-cols-2 gap-2.5">
-            <div>
-              <label class="block font-bold text-slate-700 mb-1.5 text-xs">לאיזה יום?</label>
-              <select id="ideaDaySelect" class="w-full py-2.5 px-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-bold text-xs">
-                <option value="0">חמישי 22.10 (מילאנו)</option>
-                <option value="1">שישי 23.10 (מילאנו/קומו)</option>
-                <option value="2">שבת 24.10 (קומו)</option>
-                <option value="3">ראשון 25.10 (קומו)</option>
-                <option value="4">שני 26.10 (המראה)</option>
-                <option value="general">📋 כללי (לכל הימים)</option>
-              </select>
-            </div>
-            <div>
-              <label class="block font-bold text-slate-700 mb-1.5 text-xs">סוג הרעיון</label>
-              <select id="ideaCatSelect" class="w-full py-2.5 px-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-xs">
-                <option value="food">🍝 אוכל / מסעדה / קפה</option>
-                <option value="view">🌅 נוף / תצפית / שקיעה</option>
-                <option value="attraction">🏛 אתר / וילה / מוזיאון</option>
-                <option value="shopping">🛍 שופינג / קניות</option>
-                <option value="other">✨ חוויה / כללי</option>
-              </select>
-            </div>
-          </div>
-
-          <div>
-            <label class="block font-bold text-slate-700 mb-1.5 text-xs">הערות / טיפ שביררתם (אופציונלי)</label>
-            <textarea id="ideaNotes" rows="2" placeholder="למשל: שולחן מומלץ על המים, שעות פתיחה, להזמין מקום מראש..." class="w-full py-2.5 px-3.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-terracotta-500 text-xs"></textarea>
-          </div>
-
-          <button type="submit" class="w-full py-3 bg-terracotta-500 hover:bg-terracotta-600 text-white rounded-xl font-bold text-xs sm:text-sm shadow-md transition active:scale-95 mt-1">
-            שמור רעיון לטיול
-          </button>
-        </form>
-      </div>
-    </div>
-
-    <!-- 3. ADD EXPENSE MODAL -->
-    <div id="expenseModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-end sm:items-center justify-center p-3 sm:p-6">
-      <div class="bg-white w-full max-w-md rounded-3xl p-6 sm:p-7 space-y-4 shadow-2xl animate-in zoom-in-95 duration-200 border border-slate-100">
-        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-          <h3 class="font-extrabold text-slate-900 text-base">הוספת הוצאה שוטפת</h3>
-          <button onclick="closeExpenseModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 transition active:scale-95">
-            <i class="fa-solid fa-xmark text-sm"></i>
-          </button>
-        </div>
-
-        <form onsubmit="submitExpense(event)" class="space-y-4 text-xs">
-          <div>
-            <label class="block font-bold text-slate-700 mb-1.5 text-xs sm:text-sm">סכום באירו (€)</label>
-            <div class="relative">
-              <input type="number" step="0.01" id="expAmount" required placeholder="0.00" oninput="updateExpenseIlsPreview()" class="w-full py-2.5 pr-3.5 pl-16 bg-slate-50 border border-slate-200 rounded-xl text-base font-extrabold text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-terracotta-500">
-              <span id="expIlsPreview" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">≈ ₪0.00</span>
-            </div>
-          </div>
-
-          <div>
-            <label class="block font-bold text-slate-700 mb-1.5 text-xs">תיאור ההוצאה</label>
-            <input type="text" id="expDesc" required placeholder="למשל: ארוחת צהריים / ג'לטו / רכבת" class="w-full py-2.5 px-3.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-terracotta-500 text-xs">
-          </div>
-
-          <div class="grid grid-cols-2 gap-2.5">
-            <div>
-              <label class="block font-bold text-slate-700 mb-1.5 text-xs">קטגוריה</label>
-              <select id="expCategory" class="w-full py-2.5 px-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-xs">
-                <option value="food">🍝 אוכל ומסעדות</option>
-                <option value="transit">🚆 תחבורה ומעבורות</option>
-                <option value="shopping">🛍 קניות ושופינג</option>
-                <option value="sightseeing">🎟 אטרקציות וכניסות</option>
-              </select>
-            </div>
-            <div>
-              <label class="block font-bold text-slate-700 mb-1.5 text-xs">מי שילם?</label>
-              <select id="expPayer" class="w-full py-2.5 px-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-xs">
-                <option value="joint">קופה משותפת</option>
-                <option value="yuval">יובל</option>
-                <option value="carmel">כרמל</option>
-              </select>
-            </div>
-          </div>
-
-          <button type="submit" class="w-full py-3 bg-terracotta-500 hover:bg-terracotta-600 text-white rounded-xl font-bold text-xs sm:text-sm shadow-md transition active:scale-95 mt-1">
-            שמור הוצאה
-          </button>
-        </form>
-      </div>
-    </div>
-
-    <!-- 4. EXCHANGE RATE SETTINGS MODAL -->
-    <div id="rateModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
-      <div class="bg-white w-full max-w-xs rounded-3xl p-6 space-y-4 shadow-2xl animate-in zoom-in-95 duration-150 border border-slate-100">
-        <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
-          <h3 class="font-extrabold text-slate-900 text-sm sm:text-base">הגדרת שער אירו 💶</h3>
-          <button onclick="closeRateModal()" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 transition active:scale-95">
-            <i class="fa-solid fa-xmark text-xs"></i>
-          </button>
-        </div>
-
-        <div class="space-y-2.5 text-xs">
-          <p class="text-slate-500 text-xs">הגדר את שער ההמרה הנוכחי לחישוב השקלים:</p>
-          <div class="flex items-center justify-center gap-2 pt-1">
-            <span class="font-bold text-slate-700">1€ =</span>
-            <input type="number" step="0.01" id="rateInputVal" value="3.50" class="w-24 py-1.5 px-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-extrabold text-slate-900 text-center">
-            <span class="font-bold text-slate-700">₪ שקלים</span>
-          </div>
-        </div>
-
-        <button onclick="saveExchangeRate()" class="w-full py-2.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl font-bold text-xs shadow-xs transition active:scale-95">
-          עדכן שער בכל האפליקציה
+        <!-- Add Expense Full-Width Button -->
+        <button type="button" onclick="window.openAddExpenseModal()" class="w-full py-3.5 px-4 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 active:scale-98 text-white rounded-2xl font-black text-sm shadow-md shadow-orange-500/20 flex items-center justify-center gap-2 transition cursor-pointer">
+          <i class="fa-solid fa-circle-plus text-base"></i>
+          <span>הוספת הוצאה חדשה</span>
         </button>
-      </div>
-    </div>
 
-    <!-- Toast Notification Element -->
-    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-4 py-2 bg-slate-900/90 text-white text-xs font-bold rounded-full shadow-lg pointer-events-none opacity-0 transition-opacity duration-200">
-      הודעה
+        <!-- Categories Breakdown -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-xs">
+          <h3 class="text-xs font-black text-slate-700 mb-3">פילוח הוצאות שוטפות לפי קטגוריות</h3>
+          <div id="categoriesBreakdown" class="space-y-2 text-xs">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+
+        <!-- Active Expenses List -->
+        <div>
+          <h3 class="text-xs font-black text-slate-700 mb-2 px-1">רשימת ההוצאות השוטפות שהוספתם</h3>
+          <div id="expensesList" class="space-y-2 pb-8">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Toast Notification Message -->
+    <div id="toastNotification" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-5 py-3 rounded-2xl text-xs font-bold shadow-2xl transition-all duration-300 opacity-0 pointer-events-none z-50 flex items-center gap-2">
+      <span id="toastMessage">הודעה</span>
     </div>
 
   </div>
 
+  <!-- MODAL 1: Add Idea -->
+  <div id="modalAddIdea" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-md rounded-3xl p-6 sm:p-7 shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto">
+      
+      <div class="flex items-center justify-between pb-3 border-b border-slate-200 mb-4">
+        <h3 class="text-base font-black text-slate-800">הוספת רעיון או מקום לטיול ✨</h3>
+        <button type="button" onclick="window.closeIdeaModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 cursor-pointer">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+      </div>
+
+      <form id="ideaForm" onsubmit="window.submitIdea(event)" class="space-y-3.5 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">שם המקום או הרעיון *</label>
+          <input type="text" id="ideaTitle" required placeholder="למשל: תצפית שקיעה / מסעדת פסטה / וילה מונסטרו" class="w-full p-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-amber-500">
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">לאיזה יום?</label>
+            <select id="ideaDaySelect" class="w-full p-2.5 rounded-xl border border-slate-300 bg-white">
+              <option value="0">חמישי 22.10 (מילאנו)</option>
+              <option value="1">שישי 23.10 (מילאנו/קומו)</option>
+              <option value="2">שבת 24.10 (קומו)</option>
+              <option value="3">ראשון 25.10 (קומו)</option>
+              <option value="4">שני 26.10 (המראה)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">סוג הרעיון</label>
+            <select id="ideaCategory" class="w-full p-2.5 rounded-xl border border-slate-300 bg-white">
+              <option value="אוכל / מסעדה / קפה">🍝 אוכל / מסעדה / קפה</option>
+              <option value="אתר / תצפית / וילה">🏰 אתר / תצפית / וילה</option>
+              <option value="שיט / אטרקציה">🚤 שיט / אטרקציה</option>
+              <option value="שופינג / שיטוט">🛍️ שופינג / שיטוט</option>
+              <option value="טיפ כללי / חשוב">💡 טיפ כללי / חשוב</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">הערות / טיפ שביררתם (אופציונלי)</label>
+          <textarea id="ideaNotes" rows="2" placeholder="למשל: שולחן מומלץ על המים, שעות פתיחה, להזמין מקום מראש..." class="w-full p-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-amber-500"></textarea>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1 flex items-center gap-1.5">
+            <i class="fa-solid fa-link text-blue-500"></i>
+            <span>קישור / לינק (גוגל מפות, אתר מסעדה וכו' - אופציונלי)</span>
+          </label>
+          <input type="text" id="ideaUrl" dir="ltr" placeholder="https://maps.app.goo.gl/... או שם מקום" class="w-full p-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-left">
+          <p class="text-[10px] text-slate-400 mt-1">אפשר להדביק קישור ישיר, שיתוף מגוגל מפות, או שם מקום.</p>
+        </div>
+
+        <button type="submit" class="w-full py-3 bg-amber-600 hover:bg-amber-700 text-white rounded-xl font-black text-sm shadow-md transition cursor-pointer mt-2">
+          שמור רעיון לטיול
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 2: Add Expense -->
+  <div id="modalAddExpense" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-md rounded-3xl p-6 sm:p-7 shadow-2xl border border-slate-200">
+      
+      <div class="flex items-center justify-between pb-3 border-b border-slate-200 mb-4">
+        <h3 class="text-base font-black text-slate-800">הוספת הוצאה שוטפת 💶</h3>
+        <button type="button" onclick="window.closeExpenseModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 cursor-pointer">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+      </div>
+
+      <form id="expenseForm" onsubmit="window.submitExpense(event)" class="space-y-3.5 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">תיאור ההוצאה *</label>
+          <input type="text" id="expenseTitle" required placeholder="למשל: ארוחת ערב בבלאג'ו / כרטיס מעבורת / גלידה" class="w-full p-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-amber-500">
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">סכום באירו (€) *</label>
+            <input type="number" step="0.5" id="expenseAmount" required placeholder="25.00" class="w-full p-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-amber-500 text-left font-bold" dir="ltr">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">קטגוריה</label>
+            <select id="expenseCategory" class="w-full p-3 rounded-xl border border-slate-300 bg-white">
+              <option value="אוכל, מסעדות וקפה">🍝 אוכל ומסעדות</option>
+              <option value="תחבורה, רכבות ומעבורות">⛴ תחבורה ומעבורות</option>
+              <option value="קניות ושופינג">🛍 קניות ושופינג</option>
+              <option value="אטרקציות וכניסות">🎟️ אטרקציות וכניסות</option>
+              <option value="שונות">✨ שונות</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">מי שילם?</label>
+          <div class="grid grid-cols-3 gap-2">
+            <label class="flex items-center justify-center gap-1.5 p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50 text-xs font-semibold">
+              <input type="radio" name="paidBy" value="משותף" checked class="text-amber-600">
+              <span>משותף</span>
+            </label>
+            <label class="flex items-center justify-center gap-1.5 p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50 text-xs font-semibold">
+              <input type="radio" name="paidBy" value="יובל" class="text-amber-600">
+              <span>יובל</span>
+            </label>
+            <label class="flex items-center justify-center gap-1.5 p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50 text-xs font-semibold">
+              <input type="radio" name="paidBy" value="כרמל" class="text-amber-600">
+              <span>כרמל</span>
+            </label>
+          </div>
+        </div>
+
+        <button type="submit" class="w-full py-3 bg-amber-600 hover:bg-amber-700 text-white rounded-xl font-black text-sm shadow-md transition cursor-pointer mt-2">
+          שמור הוצאה
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 3: Rate Settings -->
+  <div id="modalRate" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl border border-slate-200">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-200 mb-4">
+        <h3 class="text-base font-black text-slate-800">עדכון שער אירו / שקל 💰</h3>
+        <button type="button" onclick="window.closeRateModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 cursor-pointer">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+      </div>
+
+      <div class="space-y-4 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">כמה שקלים שווה 1 אירו?</label>
+          <input type="number" step="0.05" id="inputCustomRate" value="3.50" class="w-full p-3 rounded-xl border border-slate-300 text-lg font-black text-center focus:ring-2 focus:ring-amber-500">
+        </div>
+        <p class="text-slate-500 text-[11px] leading-relaxed">
+          כל החישובים בשקלים יתעדכנו אוטומטית לפי שער זה.
+        </p>
+        <button type="button" onclick="window.saveCustomRate()" class="w-full py-3 bg-slate-900 hover:bg-black text-white rounded-xl font-black text-sm shadow-md transition cursor-pointer">
+          עדכן שער חליפין
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 4: Data from Emails & Bookings -->
+  <div id="modalData" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-50 flex items-start sm:items-center justify-center p-2 pt-3 sm:p-4 overflow-y-auto">
+    <div class="bg-white w-full max-w-lg rounded-3xl shadow-2xl border border-slate-200 flex flex-col h-[68dvh] sm:h-[75vh] max-h-[520px] overflow-hidden my-auto sm:my-0">
+      
+      <!-- Modal Header (Compact) -->
+      <div class="px-4 py-2.5 bg-slate-50 border-b border-slate-200 flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center text-xs shadow-xs">
+            <i class="fa-solid fa-database"></i>
+          </div>
+          <div>
+            <h3 class="text-xs sm:text-sm font-black text-slate-800 leading-tight">Data מהמיילים וההזמנות</h3>
+            <p class="text-[10px] text-slate-500 font-medium">מענה ישיר ומדויק על כל פרטי הטיול של יובל & כרמל</p>
+          </div>
+        </div>
+        <button type="button" onclick="window.closeDataModal()" class="w-7 h-7 rounded-full bg-slate-200/80 hover:bg-slate-300 flex items-center justify-center text-slate-600 cursor-pointer">
+          <i class="fa-solid fa-xmark text-xs"></i>
+        </button>
+      </div>
+
+      <!-- Quick Shortcuts (Compact horizontal scroll) -->
+      <div class="px-3 py-1.5 bg-slate-100/80 border-b border-slate-200 flex items-center gap-1.5 overflow-x-auto text-[10px] sm:text-[11px] font-bold text-slate-700 shrink-0">
+        <button type="button" onclick="window.askQuickData('שמירת מזוודות בשני המלונות')" class="whitespace-nowrap px-2.5 py-1 bg-white border border-slate-200 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">🧳 שמירת מזוודות</button>
+        <button type="button" onclick="window.askQuickData('קוד סודי ופרטי מלון בלאגו')" class="whitespace-nowrap px-2.5 py-1 bg-white border border-slate-200 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">🔑 מלון Seta וקוד</button>
+        <button type="button" onclick="window.askQuickData('מלון במילאנו וצק אין')" class="whitespace-nowrap px-2.5 py-1 bg-white border border-slate-200 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">🏨 מלון מילאנו</button>
+        <button type="button" onclick="window.askQuickData('מי יושב ליד החלון בטיסות')" class="whitespace-nowrap px-2.5 py-1 bg-white border border-slate-200 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">🪟 מושבים וחלון</button>
+        <button type="button" onclick="window.askQuickData('זמני טיסות וכבודה')" class="whitespace-nowrap px-2.5 py-1 bg-white border border-slate-200 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">✈️ כבודה וטיסות</button>
+      </div>
+
+      <!-- Chat Messages Container -->
+      <div id="dataChatMessages" class="flex-1 p-3 overflow-y-auto custom-scroll space-y-2.5 text-xs">
+        <div class="bg-blue-50 border border-blue-200/80 p-3 rounded-2xl text-slate-800 space-y-1">
+          <p class="font-bold text-blue-950 flex items-center gap-1.5 text-xs">
+            <i class="fa-solid fa-circle-check text-blue-600"></i>
+            <span>מאגר הנתונים מוכן!</span>
+          </p>
+          <p class="text-slate-600 text-[11px] leading-relaxed">
+            אפשר לשאול בכל ניסוח חופשי על שמירת מזוודות, קוד המלון, מושבי חלון, שעות הטיסה, מזומן למס עיר ועוד.
+          </p>
+        </div>
+      </div>
+
+      <!-- Chat Input Bar (Compact) -->
+      <div class="p-2.5 bg-white border-t border-slate-200 flex items-center gap-2 shrink-0">
+        <input type="text" id="dataQuestionInput" onkeypress="if(event.key==='Enter') window.sendDataQuestion()" placeholder="שאלו כל שאלה (למשל: מתי צ'ק אין במלון סטה?)" class="flex-1 p-2.5 rounded-xl border border-slate-300 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <button type="button" onclick="window.sendDataQuestion()" class="w-10 h-10 bg-blue-600 hover:bg-blue-700 active:scale-95 text-white rounded-xl flex items-center justify-center transition cursor-pointer shadow-md shrink-0">
+          <i class="fa-solid fa-paper-plane text-xs"></i>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
   <script>
-    // Storage Utilities
-    function safeGetItem(key, defaultVal) {
-      try {
-        const val = localStorage.getItem(key);
-        return val ? JSON.parse(val) : defaultVal;
-      } catch (e) {
-        return defaultVal;
-      }
-    }
-
-    function safeSetItem(key, val) {
-      try {
-        localStorage.setItem(key, JSON.stringify(val));
-      } catch (e) {}
-    }
-
-    const DAYS_CONFIG = [
-      { id: 0, dayName: 'חמישי', dateStr: '22 באוקטובר 2026', fullDate: 'יום חמישי, 22 באוקטובר 2026', city: 'מילאנו (נחיתה והתמקמות)' },
-      { id: 1, dayName: 'שישי', dateStr: '23 באוקטובר 2026', fullDate: 'יום שישי, 23 באוקטובר 2026', city: 'מילאנו ⟷ ורנה / בלאג\'ו (אגם קומו)' },
-      { id: 2, dayName: 'שבת', dateStr: '24 באוקטובר 2026', fullDate: 'יום שבת, 24 באוקטובר 2026', city: 'אגם קומו (משולש העיירות והוילות)' },
-      { id: 3, dayName: 'ראשון', dateStr: '25 באוקטובר 2026', fullDate: 'יום ראשון, 25 באוקטובר 2026', city: 'ורנה / בלאג\'ו ⟷ חזרה לאזור השדה' },
-      { id: 4, dayName: 'שני', dateStr: '26 באוקטובר 2026', fullDate: 'יום שני, 26 באוקטובר 2026', city: 'מלפנסה ⟷ נתב"ג (המראה 05:00)' }
+    // Trip Days Data Structure
+    const TRIP_DAYS = [
+      { id: 0, dayName: 'חמישי', dateStr: '22.10', locationTag: 'מילאנו', routeTag: 'נתב"ג ⟵ מילאנו מלפנסה', fullTitle: 'יום חמישי, 22 באוקטובר 2026' },
+      { id: 1, dayName: 'שישי', dateStr: '23.10', locationTag: 'מילאנו/קומו', routeTag: 'מילאנו ⟵ רכבת לורנה ⟵ בלאג\'ו', fullTitle: 'יום שישי, 23 באוקטובר 2026' },
+      { id: 2, dayName: 'שבת', dateStr: '24.10', locationTag: 'קומו', routeTag: 'אגם קומו: ורנה, בלאג\'ו ומעבורות', fullTitle: 'יום שבת, 24 באוקטובר 2026' },
+      { id: 3, dayName: 'ראשון', dateStr: '25.10', locationTag: 'קומו', routeTag: 'אגם קומו, וילות וחזרה דרומה', fullTitle: 'יום ראשון, 25 באוקטובר 2026' },
+      { id: 4, dayName: 'שני', dateStr: '26.10', locationTag: 'המראה', routeTag: 'מלפנסה ⟵ נתב"ג (המראה ב-05:00)', fullTitle: 'יום שני, 26 באוקטובר 2026' }
     ];
 
-    // Initialize App State
-    let state = {
-      currentTab: 'schedule',
-      planMode: 'daily', // 'daily' or 'all'
-      currentDayIdx: 0,
-      exchangeRate: safeGetItem('milan_rate', 3.50),
-      expenses: safeGetItem('milan_expenses', []),
-      ideas: safeGetItem('milan_user_ideas', [])
-    };
+    const FIXED_EXPENSES_EUR = 1267.84; // 540.84 flight + 444.00 Seta + 283.00 Milan
 
-    function saveState() {
-      safeSetItem('milan_rate', state.exchangeRate);
-      safeSetItem('milan_expenses', state.expenses);
-      safeSetItem('milan_user_ideas', state.ideas);
-    }
+    let currentTab = 'plan'; // 'plan' | 'budget'
+    let planViewMode = 'day'; // 'day' | 'all'
+    let selectedDayIndex = 0;
+    let euroRate = 3.50;
+    let ideasList = [];
+    let expensesList = [];
 
-    function switchTab(tabId) {
-      state.currentTab = tabId;
-      
-      const secSchedule = document.getElementById('section-schedule');
-      const secBudget = document.getElementById('section-budget');
-      const planModeBar = document.getElementById('planModeBar');
-
-      const btnSchedule = document.getElementById('nav-btn-schedule');
-      const btnBudget = document.getElementById('nav-btn-budget');
-
-      // Reset both main view buttons to clean inactive style
-      [btnSchedule, btnBudget].forEach(btn => {
-        if (!btn) return;
-        btn.classList.remove('bg-slate-900', 'text-white', 'hover:bg-slate-800', 'shadow-xs', 'border-slate-900');
-        btn.classList.add('bg-white', 'text-slate-700', 'border-slate-300', 'hover:bg-slate-100');
-      });
-
-      if (tabId === 'schedule') {
-        secSchedule.classList.remove('hidden');
-        secBudget.classList.add('hidden');
-        planModeBar.classList.remove('hidden');
-        
-        btnSchedule.classList.remove('bg-white', 'text-slate-700', 'border-slate-300', 'hover:bg-slate-100');
-        btnSchedule.classList.add('bg-slate-900', 'text-white', 'hover:bg-slate-800', 'shadow-xs', 'border-slate-900');
-        renderPlanView();
-      } else if (tabId === 'budget') {
-        secSchedule.classList.add('hidden');
-        secBudget.classList.remove('hidden');
-        planModeBar.classList.add('hidden');
-
-        btnBudget.classList.remove('bg-white', 'text-slate-700', 'border-slate-300', 'hover:bg-slate-100');
-        btnBudget.classList.add('bg-slate-900', 'text-white', 'hover:bg-slate-800', 'shadow-xs', 'border-slate-900');
-        renderBudgetSummary();
-      }
-    }
-
-    function setPlanMode(mode) {
-      state.planMode = mode;
-      const btnDaily = document.getElementById('mode-btn-daily');
-      const btnAll = document.getElementById('mode-btn-all');
-      const viewDaily = document.getElementById('view-daily');
-      const viewAll = document.getElementById('view-all');
-
-      if (mode === 'daily') {
-        btnDaily.classList.add('bg-terracotta-500', 'text-white');
-        btnDaily.classList.remove('bg-slate-100', 'text-slate-700');
-        btnAll.classList.remove('bg-terracotta-500', 'text-white');
-        btnAll.classList.add('bg-slate-100', 'text-slate-700');
-        viewDaily.classList.remove('hidden');
-        viewAll.classList.add('hidden');
-        renderDayView();
-      } else {
-        btnAll.classList.add('bg-terracotta-500', 'text-white');
-        btnAll.classList.remove('bg-slate-100', 'text-slate-700');
-        btnDaily.classList.remove('bg-terracotta-500', 'text-white');
-        btnDaily.classList.add('bg-slate-100', 'text-slate-700');
-        viewDaily.classList.add('hidden');
-        viewAll.classList.remove('hidden');
-        renderAllIdeasView();
-      }
-    }
-
-    function selectDay(idx) {
-      state.currentDayIdx = idx;
-      document.querySelectorAll('.day-tab-btn').forEach(btn => {
-        const bIdx = parseInt(btn.getAttribute('data-day'));
-        const dayName = btn.querySelector('.day-name');
-        const dayNum = btn.querySelector('.day-num');
-        const dayTag = btn.querySelector('.day-tag');
-
-        if (bIdx === idx) {
-          // Dark state for selected day button
-          btn.classList.remove('bg-white', 'text-slate-700', 'border-slate-300', 'hover:bg-slate-50');
-          btn.classList.add('bg-slate-900', 'text-white', 'border-slate-900', 'shadow-xs');
-          if (dayName) {
-            dayName.classList.remove('text-slate-400');
-            dayName.classList.add('text-slate-300');
-          }
-          if (dayNum) {
-            dayNum.classList.remove('text-slate-900');
-            dayNum.classList.add('text-white');
-          }
-          if (dayTag) {
-            dayTag.classList.remove('text-slate-400');
-            dayTag.classList.add('text-slate-300');
-          }
-        } else {
-          // Light state for unselected day buttons
-          btn.classList.remove('bg-slate-900', 'text-white', 'border-slate-900', 'shadow-xs');
-          btn.classList.add('bg-white', 'text-slate-700', 'border-slate-300', 'hover:bg-slate-50');
-          if (dayName) {
-            dayName.classList.remove('text-slate-300');
-            dayName.classList.add('text-slate-400');
-          }
-          if (dayNum) {
-            dayNum.classList.remove('text-white');
-            dayNum.classList.add('text-slate-900');
-          }
-          if (dayTag) {
-            dayTag.classList.remove('text-slate-300');
-            dayTag.classList.add('text-slate-400');
-          }
+    function loadState() {
+      try {
+        const savedRate = localStorage.getItem('trip_euro_rate');
+        if (savedRate && !isNaN(parseFloat(savedRate))) {
+          euroRate = parseFloat(savedRate);
         }
-      });
-      renderDayView();
+
+        const savedIdeas = localStorage.getItem('trip_ideas_v3');
+        if (savedIdeas) {
+          ideasList = JSON.parse(savedIdeas);
+        } else {
+          ideasList = [];
+        }
+
+        const savedExpenses = localStorage.getItem('trip_expenses_v3');
+        if (savedExpenses) {
+          expensesList = JSON.parse(savedExpenses);
+        } else {
+          expensesList = [];
+        }
+      } catch (e) {
+        console.warn('Storage read fallback', e);
+      }
+    }
+
+    function saveIdeasToStorage() {
+      try {
+        localStorage.setItem('trip_ideas_v3', JSON.stringify(ideasList));
+      } catch (e) {
+        console.warn('Storage save failed', e);
+      }
+    }
+
+    function saveExpensesToStorage() {
+      try {
+        localStorage.setItem('trip_expenses_v3', JSON.stringify(expensesList));
+      } catch (e) {
+        console.warn('Storage save failed', e);
+      }
+    }
+
+    function normalizeWebUrl(input) {
+      if (!input) return '';
+      let str = String(input).trim();
+      if (!str) return '';
+
+      const httpMatch = str.match(/https?:\/\/[^\s"'<>()[\]]+/i);
+      if (httpMatch) return httpMatch[0];
+
+      const wwwMatch = str.match(/www\.[^\s"'<>()[\]]+/i);
+      if (wwwMatch) return 'https://' + wwwMatch[0];
+
+      if (/^[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+(\/[^\s"'<>]*)?$/i.test(str)) {
+        return 'https://' + str;
+      }
+
+      return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(str);
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    function copyIdeaUrl(btn) {
+      if (!btn) return;
+      const url = btn.getAttribute('data-url');
+      if (!url) return;
+      copyTextToClipboard(url);
+    }
+
+    function copyTextToClipboard(text) {
+      if (!text) return;
+      const safe = normalizeWebUrl(text);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(safe).then(() => {
+          showToast('הקישור הועתק ללוח! 📋');
+        }).catch(() => {
+          legacyCopy(safe);
+        });
+      } else {
+        legacyCopy(safe);
+      }
+    }
+
+    function legacyCopy(text) {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast('הקישור הועתק ללוח! 📋');
+      } catch (err) {
+        showToast('לא ניתן להעתיק כעת');
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toastNotification');
+      const text = document.getElementById('toastMessage');
+      if (!toast || !text) return;
+      text.innerText = msg;
+      toast.classList.remove('opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'pointer-events-none');
+      }, 2500);
+    }
+
+    function switchTab(tab) {
+      currentTab = tab;
+      const planSection = document.getElementById('sectionPlan');
+      const budgetSection = document.getElementById('sectionBudget');
+      const planBtn = document.getElementById('tabBtnPlan');
+      const budgetBtn = document.getElementById('tabBtnBudget');
+
+      if (tab === 'plan') {
+        if (planSection) planSection.classList.remove('hidden');
+        if (budgetSection) budgetSection.classList.add('hidden');
+        
+        if (planBtn) {
+          planBtn.className = "flex flex-col items-center justify-center py-2.5 px-1 rounded-2xl font-black text-xs transition duration-150 cursor-pointer shadow-sm active:scale-95 bg-slate-900 text-white";
+        }
+        if (budgetBtn) {
+          budgetBtn.className = "flex flex-col items-center justify-center py-2.5 px-1 rounded-2xl font-black text-xs transition duration-150 cursor-pointer shadow-xs active:scale-95 bg-white text-slate-700 border border-slate-200";
+        }
+        renderPlanView();
+      } else if (tab === 'budget') {
+        if (planSection) planSection.classList.add('hidden');
+        if (budgetSection) budgetSection.classList.remove('hidden');
+
+        if (budgetBtn) {
+          budgetBtn.className = "flex flex-col items-center justify-center py-2.5 px-1 rounded-2xl font-black text-xs transition duration-150 cursor-pointer shadow-sm active:scale-95 bg-slate-900 text-white";
+        }
+        if (planBtn) {
+          planBtn.className = "flex flex-col items-center justify-center py-2.5 px-1 rounded-2xl font-black text-xs transition duration-150 cursor-pointer shadow-xs active:scale-95 bg-white text-slate-700 border border-slate-200";
+        }
+        renderBudgetView();
+      }
+    }
+
+    function setPlanViewMode(mode) {
+      planViewMode = mode;
+      const subTabDay = document.getElementById('subTabDay');
+      const subTabAll = document.getElementById('subTabAll');
+      const daysContainer = document.getElementById('daysRowContainer');
+
+      if (mode === 'day') {
+        if (subTabDay) subTabDay.className = "flex-1 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer active:scale-95 bg-amber-600 text-white shadow-xs";
+        if (subTabAll) subTabAll.className = "flex-1 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer active:scale-95 bg-slate-200 text-slate-700 hover:bg-slate-300";
+        if (daysContainer) daysContainer.classList.remove('hidden');
+      } else {
+        if (subTabAll) subTabAll.className = "flex-1 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer active:scale-95 bg-amber-600 text-white shadow-xs";
+        if (subTabDay) subTabDay.className = "flex-1 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer active:scale-95 bg-slate-200 text-slate-700 hover:bg-slate-300";
+        if (daysContainer) daysContainer.classList.add('hidden');
+      }
+      renderPlanView();
+    }
+
+    function selectDay(index) {
+      selectedDayIndex = index;
+      for (let i = 0; i < 5; i++) {
+        const btn = document.getElementById(`dayBtn-${i}`);
+        if (!btn) continue;
+        if (i === index) {
+          btn.className = "flex flex-col items-center justify-center py-2 px-1 rounded-xl transition duration-150 cursor-pointer border active:scale-95 bg-slate-900 text-white border-slate-900 shadow-sm";
+        } else {
+          btn.className = "flex flex-col items-center justify-center py-2 px-1 rounded-xl transition duration-150 cursor-pointer border active:scale-95 bg-white text-slate-700 border-slate-200 shadow-xs hover:bg-slate-50";
+        }
+      }
+      renderPlanView();
     }
 
     function renderPlanView() {
-      if (state.planMode === 'daily') {
-        renderDayView();
-      } else {
-        renderAllIdeasView();
-      }
-    }
+      const container = document.getElementById('ideasContainer');
+      const dayInfoCard = document.getElementById('dayInfoCard');
+      const routeTag = document.getElementById('dayRouteTag');
+      const fullTitle = document.getElementById('dayFullTitle');
+      const countTag = document.getElementById('dayIdeasCount');
+      if (!container) return;
 
-    function renderDayView() {
-      const day = DAYS_CONFIG[state.currentDayIdx];
-      if (!day) return;
+      if (planViewMode === 'day') {
+        const currentDay = TRIP_DAYS[selectedDayIndex];
+        if (dayInfoCard) dayInfoCard.classList.remove('hidden');
+        if (routeTag) routeTag.innerText = currentDay.routeTag;
+        if (fullTitle) fullTitle.innerText = currentDay.fullTitle;
 
-      document.getElementById('activeDayCity').innerText = day.city;
-      document.getElementById('activeDayDate').innerText = day.fullDate;
+        const dayIdeas = ideasList.filter(item => Number(item.dayIndex) === selectedDayIndex);
+        if (countTag) countTag.innerText = `${dayIdeas.length} רעיונות`;
 
-      const dayIdeas = state.ideas.filter(i => String(i.day) === String(state.currentDayIdx));
-      document.getElementById('activeDayCount').innerText = `${dayIdeas.length} רעיונות`;
-
-      const container = document.getElementById('dayIdeasList');
-
-      if (dayIdeas.length === 0) {
-        container.innerHTML = `
-          <div class="p-6 bg-white rounded-2xl border border-dashed border-slate-300 text-center space-y-2">
-            <div class="w-10 h-10 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center mx-auto text-lg">
-              <i class="fa-regular fa-lightbulb"></i>
-            </div>
-            <p class="font-bold text-slate-800 text-xs">אין עדיין רעיונות שהוזנו ליום זה</p>
-            <p class="text-xs text-slate-500">ביררתם מסעדה, וילה, תצפית או טיפ? לחצו על "הוספת רעיון או מקום ליום זה" למעלה!</p>
-          </div>
-        `;
-        return;
-      }
-
-      let html = '';
-      dayIdeas.forEach(idea => {
-        html += renderIdeaCard(idea);
-      });
-
-      container.innerHTML = html;
-    }
-
-    function renderAllIdeasView() {
-      const container = document.getElementById('allIdeasList');
-      if (state.ideas.length === 0) {
-        container.innerHTML = `
-          <div class="p-8 bg-white rounded-2xl border border-dashed border-slate-300 text-center space-y-2">
-            <div class="w-12 h-12 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center mx-auto text-xl">
-              <i class="fa-solid fa-list-check"></i>
-            </div>
-            <p class="font-bold text-slate-800 text-sm">רשימת הרעיונות ריקה כרגע</p>
-            <p class="text-xs text-slate-500">לחצו על "הוסף רעיון" כדי להזין מקומות ומסעדות שביררתם לקראת הטיול.</p>
-          </div>
-        `;
-        return;
-      }
-
-      let html = '';
-
-      // Group by Days (0..4) and General
-      const groups = [
-        { key: '0', title: 'יום חמישי 22.10 (מילאנו)' },
-        { key: '1', title: 'יום שישי 23.10 (מילאנו/קומו)' },
-        { key: '2', title: 'יום שבת 24.10 (קומו)' },
-        { key: '3', title: 'יום ראשון 25.10 (קומו)' },
-        { key: '4', title: 'יום שני 26.10 (המראה)' },
-        { key: 'general', title: '📋 רעיונות כלליים (לכל הימים)' }
-      ];
-
-      groups.forEach(g => {
-        const groupIdeas = state.ideas.filter(i => String(i.day) === g.key);
-        if (groupIdeas.length > 0) {
-          html += `
-            <div class="space-y-2">
-              <div class="flex items-center justify-between px-1">
-                <h3 class="font-extrabold text-xs text-slate-900">${g.title}</h3>
-                <span class="text-[11px] font-bold text-slate-500">${groupIdeas.length}</span>
+        if (dayIdeas.length === 0) {
+          container.innerHTML = `
+            <div class="bg-white p-8 rounded-3xl border border-slate-200 text-center shadow-xs">
+              <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center text-xl mx-auto mb-3">
+                💡
               </div>
-              <div class="space-y-2">
-                ${groupIdeas.map(i => renderIdeaCard(i)).join('')}
-              </div>
+              <h4 class="font-bold text-slate-800 text-sm mb-1">אין עדיין רעיונות שהוזנו ליום זה</h4>
+              <p class="text-xs text-slate-500 leading-relaxed max-w-xs mx-auto">
+                ביררתם מסעדה, תצפית או טיפ? לחצו על "הוספת רעיון או מקום ליום זה" למעלה!
+              </p>
             </div>
           `;
+          return;
         }
-      });
 
-      container.innerHTML = html;
+        container.innerHTML = dayIdeas.map(idea => renderIdeaCard(idea)).join('');
+      } else {
+        // All Days view
+        if (dayInfoCard) dayInfoCard.classList.add('hidden');
+        if (ideasList.length === 0) {
+          container.innerHTML = `
+            <div class="bg-white p-8 rounded-3xl border border-slate-200 text-center shadow-xs">
+              <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center text-xl mx-auto mb-3">
+                📋
+              </div>
+              <h4 class="font-bold text-slate-800 text-sm mb-1">רשימת הרעיונות שלכם ריקה</h4>
+              <p class="text-xs text-slate-500">הוסיפו רעיונות לכל אחד מימי הטיול והם ירוכזו כאן יחד.</p>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = ideasList.map(idea => {
+          const dayData = TRIP_DAYS[idea.dayIndex] || TRIP_DAYS[0];
+          return renderIdeaCard(idea, dayData);
+        }).join('');
+      }
     }
 
-    function renderIdeaCard(idea) {
-      const catInfo = getCatBadge(idea.category);
-      const isDone = idea.done === true;
+    function renderIdeaCard(idea, dayData = null) {
+      const safeUrl = normalizeWebUrl(idea.url);
+      const hasUrl = Boolean(safeUrl);
 
       return `
-        <div class="p-3.5 bg-white rounded-2xl border ${isDone ? 'border-emerald-200 bg-emerald-50/20' : 'border-slate-200'} shadow-2xs space-y-1.5 transition">
+        <div class="bg-white p-4 rounded-2xl border ${idea.done ? 'border-emerald-200 bg-emerald-50/20' : 'border-slate-200'} shadow-xs space-y-2.5 transition">
           <div class="flex items-start justify-between gap-2">
-            <div class="flex items-start gap-2.5">
-              <button onclick="toggleIdeaDone('${idea.id}')" title="סמן שבוצע" class="mt-0.5 w-5 h-5 rounded-lg border flex items-center justify-center text-xs transition ${isDone ? 'bg-emerald-500 border-emerald-500 text-white' : 'border-slate-300 text-transparent hover:border-slate-400'}">
-                <i class="fa-solid fa-check text-[10px]"></i>
-              </button>
-              <div>
-                <h4 class="font-bold text-xs ${isDone ? 'line-through text-slate-400' : 'text-slate-900'}">${idea.title}</h4>
-                <span class="inline-block mt-0.5 text-[10px] font-bold px-2 py-0.5 rounded-md ${catInfo.bg} ${catInfo.color}">${catInfo.label}</span>
-              </div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="px-2 py-0.5 rounded-md text-[10px] font-black bg-amber-100 text-amber-800">
+                ${escapeHtml(idea.category || 'רעיון')}
+              </span>
+              ${dayData ? `
+                <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-slate-100 text-slate-700">
+                  ${dayData.dayName} ${dayData.dateStr}
+                </span>
+              ` : ''}
+              ${idea.done ? `
+                <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-100 text-emerald-800">
+                  ✓ ביקרנו
+                </span>
+              ` : ''}
             </div>
-            
-            <button onclick="deleteIdea('${idea.id}')" title="מחק רעיון" class="w-7 h-7 rounded-lg bg-red-50 hover:bg-red-100 text-red-500 flex items-center justify-center transition active:scale-90 shrink-0">
-              <i class="fa-solid fa-trash-can text-xs"></i>
-            </button>
+
+            <div class="flex items-center gap-1.5">
+              <button type="button" onclick="window.toggleIdeaDone('${idea.id}')" class="w-8 h-8 rounded-xl ${idea.done ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'} flex items-center justify-center text-xs transition cursor-pointer" title="סמן כביקרנו">
+                <i class="fa-solid fa-check"></i>
+              </button>
+              <button type="button" onclick="window.deleteIdea('${idea.id}')" class="w-8 h-8 rounded-xl bg-slate-100 text-rose-500 hover:bg-rose-50 flex items-center justify-center text-xs transition cursor-pointer" title="מחק">
+                <i class="fa-regular fa-trash-can"></i>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="text-sm font-black text-slate-800 ${idea.done ? 'line-through text-slate-400' : ''}">${escapeHtml(idea.title)}</h4>
           </div>
 
           ${idea.notes ? `
-            <div class="p-2 bg-slate-50 rounded-xl text-slate-600 text-xs border border-slate-100">
-              💡 ${idea.notes}
+            <div class="p-2.5 bg-slate-50 rounded-xl text-slate-600 text-xs border border-slate-100">
+              💡 ${escapeHtml(idea.notes)}
+            </div>
+          ` : ''}
+
+          ${hasUrl ? `
+            <div class="pt-1 flex items-center gap-2 flex-wrap">
+              <a href="${escapeHtml(safeUrl)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3.5 py-2 bg-blue-600 hover:bg-blue-700 active:scale-95 text-white rounded-xl text-xs font-bold transition shadow-xs no-underline cursor-pointer">
+                <i class="fa-solid fa-arrow-up-right-from-square text-[11px]"></i>
+                <span>פתח קישור ששמרת 🌐</span>
+              </a>
+              <button type="button" data-url="${escapeHtml(safeUrl)}" onclick="window.copyIdeaUrl(this)" class="inline-flex items-center gap-1 px-2.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 rounded-xl text-xs font-bold transition active:scale-95 cursor-pointer" title="העתק קישור">
+                <i class="fa-regular fa-copy text-[11px]"></i>
+                <span>העתק</span>
+              </button>
             </div>
           ` : ''}
         </div>
       `;
     }
 
-    function getCatBadge(cat) {
-      if (cat === 'food') return { label: '🍝 אוכל ומסעדות', bg: 'bg-amber-50', color: 'text-amber-800' };
-      if (cat === 'view') return { label: '🌅 נוף ותצפית', bg: 'bg-sky-50', color: 'text-sky-800' };
-      if (cat === 'attraction') return { label: '🏛️ אתר ווילה', bg: 'bg-indigo-50', color: 'text-indigo-800' };
-      if (cat === 'shopping') return { label: '🛍 שופינג', bg: 'bg-purple-50', color: 'text-purple-800' };
-      return { label: '✨ חוויה', bg: 'bg-teal-50', color: 'text-teal-800' };
-    }
-
-    function openAddIdeaModal(targetDay) {
-      document.getElementById('ideaTitle').value = '';
-      document.getElementById('ideaNotes').value = '';
-      document.getElementById('ideaCatSelect').value = 'food';
-
-      const daySelect = document.getElementById('ideaDaySelect');
-      if (targetDay !== undefined && targetDay !== null) {
-        daySelect.value = String(targetDay);
-      } else {
-        daySelect.value = String(state.currentDayIdx);
-      }
-
-      document.getElementById('ideaModal').classList.remove('hidden');
+    function openAddIdeaModal() {
+      const select = document.getElementById('ideaDaySelect');
+      if (select) select.value = String(selectedDayIndex);
+      const modal = document.getElementById('modalAddIdea');
+      if (modal) modal.classList.remove('hidden');
     }
 
     function closeIdeaModal() {
-      document.getElementById('ideaModal').classList.add('hidden');
+      const modal = document.getElementById('modalAddIdea');
+      if (modal) modal.classList.add('hidden');
+      const form = document.getElementById('ideaForm');
+      if (form) form.reset();
     }
 
     function submitIdea(e) {
-      e.preventDefault();
-      const title = document.getElementById('ideaTitle').value.trim();
-      const day = document.getElementById('ideaDaySelect').value;
-      const cat = document.getElementById('ideaCatSelect').value;
-      const notes = document.getElementById('ideaNotes').value.trim();
+      if (e) e.preventDefault();
+      const titleInput = document.getElementById('ideaTitle');
+      const daySelect = document.getElementById('ideaDaySelect');
+      const categorySelect = document.getElementById('ideaCategory');
+      const notesInput = document.getElementById('ideaNotes');
+      const urlInput = document.getElementById('ideaUrl');
 
+      const title = titleInput ? titleInput.value.trim() : '';
       if (!title) return;
 
       const newIdea = {
-        id: 'idea_' + Date.now(),
+        id: 'idea_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
         title: title,
-        day: day,
-        category: cat,
-        notes: notes,
+        dayIndex: daySelect ? parseInt(daySelect.value, 10) : selectedDayIndex,
+        category: categorySelect ? categorySelect.value : 'רעיון',
+        notes: notesInput ? notesInput.value.trim() : '',
+        url: urlInput ? urlInput.value.trim() : '',
         done: false,
-        createdAt: new Date().toISOString()
+        createdAt: Date.now()
       };
 
-      state.ideas.unshift(newIdea);
-      saveState();
-      renderPlanView();
+      ideasList.unshift(newIdea);
+      saveIdeasToStorage();
       closeIdeaModal();
+      renderPlanView();
       showToast('הרעיון נשמר בהצלחה! ✨');
     }
 
     function toggleIdeaDone(id) {
-      const item = state.ideas.find(i => i.id === id);
+      const item = ideasList.find(x => x.id === id);
       if (item) {
         item.done = !item.done;
-        saveState();
+        saveIdeasToStorage();
         renderPlanView();
       }
     }
 
     function deleteIdea(id) {
-      state.ideas = state.ideas.filter(i => i.id !== id);
-      saveState();
+      ideasList = ideasList.filter(x => x.id !== id);
+      saveIdeasToStorage();
       renderPlanView();
-      showToast('הרעיון נמחק');
+      showToast('הרעיון הוסר');
     }
 
-    // Budget Calculations
-    const FIXED_COSTS = {
-      wizz: 540.84,
-      setaPaid: 432.00,
-      setaTax: 12.00,
-      milanRoom: 263.00,
-      milanTax: 20.00
-    };
+    function renderBudgetView() {
+      const grandEuroEl = document.getElementById('grandTotalEuro');
+      const grandIlsEl = document.getElementById('grandTotalIls');
+      const budgetRateEl = document.getElementById('budgetRateDisplay');
+      const headerRateEl = document.getElementById('headerRateDisplay');
+      const breakdownEl = document.getElementById('categoriesBreakdown');
+      const listEl = document.getElementById('expensesList');
 
-    function renderBudgetSummary() {
-      const rate = state.exchangeRate || 3.50;
+      if (budgetRateEl) budgetRateEl.innerText = `1€ = ${euroRate.toFixed(2)} ₪`;
+      if (headerRateEl) headerRateEl.innerText = `1€ = ${euroRate.toFixed(2)} ₪`;
 
-      document.getElementById('headerRateBadge').innerText = `1€ = ${rate.toFixed(2)} ₪`;
-      document.getElementById('rateLabelCard').innerText = rate.toFixed(2);
-      document.getElementById('rateInputVal').value = rate.toFixed(2);
+      const variableTotalEuro = expensesList.reduce((sum, item) => sum + (parseFloat(item.amount) || 0), 0);
+      const totalEuro = FIXED_EXPENSES_EUR + variableTotalEuro;
+      const totalIls = totalEuro * euroRate;
 
-      const fixedEur = FIXED_COSTS.wizz + FIXED_COSTS.setaPaid + FIXED_COSTS.setaTax + FIXED_COSTS.milanRoom + FIXED_COSTS.milanTax;
-      document.getElementById('fixedTotalEur').innerText = `€${fixedEur.toFixed(2)}`;
-      document.getElementById('fixedWizzIls').innerText = `₪${(FIXED_COSTS.wizz * rate).toFixed(2)}`;
-      document.getElementById('fixedSetaIls').innerText = `₪${((FIXED_COSTS.setaPaid + FIXED_COSTS.setaTax) * rate).toFixed(2)}`;
-      document.getElementById('fixedMilanIls').innerText = `₪${((FIXED_COSTS.milanRoom + FIXED_COSTS.milanTax) * rate).toFixed(2)}`;
+      if (grandEuroEl) grandEuroEl.innerText = `€${totalEuro.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      if (grandIlsEl) grandIlsEl.innerText = `₪${totalIls.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-      let varEur = 0;
-      let catSums = { food: 0, transit: 0, shopping: 0, sightseeing: 0 };
+      // Category breakdown
+      const categories = [
+        { name: 'אוכל, מסעדות וקפה', icon: '🍝' },
+        { name: 'תחבורה, רכבות ומעבורות', icon: '⛴️' },
+        { name: 'קניות ושופינג', icon: '🛍️' },
+        { name: 'אטרקציות וכניסות', icon: '🎟️' },
+        { name: 'שונות', icon: '✨' }
+      ];
 
-      state.expenses.forEach(e => {
-        const amt = parseFloat(e.amount) || 0;
-        varEur += amt;
-        if (catSums[e.category] !== undefined) {
-          catSums[e.category] += amt;
-        }
-      });
-
-      const grandTotalEur = fixedEur + varEur;
-      const grandTotalIls = grandTotalEur * rate;
-
-      document.getElementById('grandTotalEur').innerText = `€${grandTotalEur.toFixed(2)}`;
-      document.getElementById('grandTotalIls').innerText = `₪${grandTotalIls.toFixed(2)}`;
-      document.getElementById('variableTotalEur').innerText = `€${varEur.toFixed(2)}`;
-
-      document.getElementById('catFoodEur').innerText = `€${catSums.food.toFixed(2)}`;
-      document.getElementById('catTransitEur').innerText = `€${catSums.transit.toFixed(2)}`;
-      document.getElementById('catShoppingEur').innerText = `€${catSums.shopping.toFixed(2)}`;
-      document.getElementById('catSightseeingEur').innerText = `€${catSums.sightseeing.toFixed(2)}`;
-
-      const maxCat = Math.max(catSums.food, catSums.transit, catSums.shopping, catSums.sightseeing, 1);
-      document.getElementById('barFood').style.width = `${(catSums.food / maxCat) * 100}%`;
-      document.getElementById('barTransit').style.width = `${(catSums.transit / maxCat) * 100}%`;
-      document.getElementById('barShopping').style.width = `${(catSums.shopping / maxCat) * 100}%`;
-      document.getElementById('barSightseeing').style.width = `${(catSums.sightseeing / maxCat) * 100}%`;
-
-      renderExpensesList();
-    }
-
-    function renderExpensesList() {
-      const container = document.getElementById('expensesList');
-      const countText = document.getElementById('expenseCountText');
-      const clearAllBtn = document.getElementById('clearAllExpensesBtn');
-
-      countText.innerText = `${state.expenses.length} רשומות`;
-      if (state.expenses.length > 0) {
-        clearAllBtn.classList.remove('hidden');
-      } else {
-        clearAllBtn.classList.add('hidden');
-      }
-
-      if (state.expenses.length === 0) {
-        container.innerHTML = `
-          <div class="p-6 bg-white rounded-2xl border border-dashed border-slate-300 text-center text-slate-400 text-xs">
-            <i class="fa-solid fa-receipt text-xl mb-1 text-slate-300 block"></i>
-            אין עדיין הוצאות שוטפות שהוזנו.<br>לחצו על "הוספת הוצאה חדשה" למעלה!
-          </div>
-        `;
-        return;
-      }
-
-      let html = '';
-      state.expenses.forEach(exp => {
-        const ils = (parseFloat(exp.amount) * state.exchangeRate).toFixed(2);
-        const payerText = exp.payer === 'joint' ? 'משותף' : (exp.payer === 'yuval' ? 'יובל' : 'כרמל');
-
-        html += `
-          <div class="p-3 bg-white rounded-2xl border border-slate-200 shadow-2xs flex items-center justify-between text-xs">
-            <div class="space-y-0.5">
-              <span class="font-bold text-slate-900 block">${exp.desc}</span>
-              <span class="text-[11px] text-slate-400 block">${payerText} • ${getCategoryName(exp.category)}</span>
+      if (breakdownEl) {
+        breakdownEl.innerHTML = categories.map(cat => {
+          const sumCat = expensesList
+            .filter(item => item.category === cat.name)
+            .reduce((s, it) => s + (parseFloat(it.amount) || 0), 0);
+          return `
+            <div class="flex items-center justify-between py-1.5 border-b border-slate-100 last:border-0">
+              <span class="text-slate-600 flex items-center gap-1.5 font-medium">
+                <span>${cat.icon}</span>
+                <span>${cat.name}</span>
+              </span>
+              <span class="font-black text-slate-800">€${sumCat.toFixed(2)}</span>
             </div>
-            <div class="flex items-center gap-2">
-              <div class="text-left">
-                <span class="font-extrabold text-slate-900 block text-xs">€${parseFloat(exp.amount).toFixed(2)}</span>
-                <span class="text-[11px] text-slate-400 block font-medium">₪${ils}</span>
+          `;
+        }).join('');
+      }
+
+      // Expenses list
+      if (listEl) {
+        if (expensesList.length === 0) {
+          listEl.innerHTML = `
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 text-center text-xs text-slate-500 shadow-xs">
+              אין עדיין הוצאות שוטפות שהוזנו. לחצו על "הוספת הוצאה חדשה" למעלה!
+            </div>
+          `;
+        } else {
+          listEl.innerHTML = expensesList.map(exp => `
+            <div class="bg-white p-3.5 rounded-2xl border border-slate-200 flex items-center justify-between shadow-xs">
+              <div>
+                <h4 class="font-black text-slate-800 text-xs">${escapeHtml(exp.title)}</h4>
+                <p class="text-[10px] text-slate-500 mt-0.5">שילם/ה: ${escapeHtml(exp.paidBy || 'משותף')} • ${escapeHtml(exp.category)}</p>
               </div>
-              <button onclick="deleteExpense('${exp.id}')" title="מחק הוצאה" class="w-7 h-7 rounded-lg bg-red-50 hover:bg-red-100 text-red-500 flex items-center justify-center transition active:scale-90">
-                <i class="fa-solid fa-trash-can text-xs"></i>
-              </button>
+              <div class="flex items-center gap-3">
+                <div class="text-left font-black text-xs text-slate-800">
+                  <span>€${(parseFloat(exp.amount) || 0).toFixed(2)}</span>
+                  <span class="block text-[10px] text-slate-400 font-normal">₪${((parseFloat(exp.amount) || 0) * euroRate).toFixed(2)}</span>
+                </div>
+                <button type="button" onclick="window.deleteExpense('${exp.id}')" class="text-slate-400 hover:text-rose-500 p-1 cursor-pointer" title="מחק">
+                  <i class="fa-regular fa-trash-can text-xs"></i>
+                </button>
+              </div>
             </div>
-          </div>
-        `;
-      });
-
-      container.innerHTML = html;
+          `).join('');
+        }
+      }
     }
 
-    function getCategoryName(cat) {
-      if (cat === 'food') return 'אוכל ומסעדות';
-      if (cat === 'transit') return 'תחבורה ומעבורות';
-      if (cat === 'shopping') return 'קניות ושופינג';
-      if (cat === 'sightseeing') return 'אטרקציות';
-      return 'שונות';
+    function openAddExpenseModal() {
+      const modal = document.getElementById('modalAddExpense');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeExpenseModal() {
+      const modal = document.getElementById('modalAddExpense');
+      if (modal) modal.classList.add('hidden');
+      const form = document.getElementById('expenseForm');
+      if (form) form.reset();
     }
 
     function submitExpense(e) {
-      e.preventDefault();
-      const amt = parseFloat(document.getElementById('expAmount').value);
-      const desc = document.getElementById('expDesc').value.trim();
-      const cat = document.getElementById('expCategory').value;
-      const payer = document.getElementById('expPayer').value;
+      if (e) e.preventDefault();
+      const titleInput = document.getElementById('expenseTitle');
+      const amountInput = document.getElementById('expenseAmount');
+      const categorySelect = document.getElementById('expenseCategory');
+      const paidByRadio = document.querySelector('input[name="paidBy"]:checked');
 
-      if (!amt || !desc) return;
+      const title = titleInput ? titleInput.value.trim() : '';
+      const amount = amountInput ? parseFloat(amountInput.value) : 0;
+      if (!title || isNaN(amount) || amount <= 0) return;
 
       const newExpense = {
-        id: 'exp_' + Date.now(),
-        amount: amt,
-        desc: desc,
-        category: cat,
-        payer: payer,
-        date: new Date().toLocaleDateString('he-IL')
+        id: 'exp_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
+        title: title,
+        amount: amount,
+        category: categorySelect ? categorySelect.value : 'שונות',
+        paidBy: paidByRadio ? paidByRadio.value : 'משותף',
+        createdAt: Date.now()
       };
 
-      state.expenses.unshift(newExpense);
-      saveState();
-      renderBudgetSummary();
+      expensesList.unshift(newExpense);
+      saveExpensesToStorage();
       closeExpenseModal();
+      renderBudgetView();
       showToast('ההוצאה נוספה בהצלחה! 💶');
     }
 
     function deleteExpense(id) {
-      state.expenses = state.expenses.filter(e => e.id !== id);
-      saveState();
-      renderBudgetSummary();
+      expensesList = expensesList.filter(x => x.id !== id);
+      saveExpensesToStorage();
+      renderBudgetView();
       showToast('ההוצאה נמחקה');
     }
 
-    function clearAllExpenses() {
-      state.expenses = [];
-      saveState();
-      renderBudgetSummary();
-      showToast('כל ההוצאות השוטפות נמחקו 🗑️');
-    }
-
-    function updateExpenseIlsPreview() {
-      const amt = parseFloat(document.getElementById('expAmount').value) || 0;
-      const ils = (amt * state.exchangeRate).toFixed(2);
-      document.getElementById('expIlsPreview').innerText = `≈ ₪${ils}`;
-    }
-
-    function openExpenseModal() {
-      document.getElementById('expAmount').value = '';
-      document.getElementById('expDesc').value = '';
-      document.getElementById('expIlsPreview').innerText = '≈ ₪0.00';
-      document.getElementById('expenseModal').classList.remove('hidden');
-    }
-
-    function closeExpenseModal() {
-      document.getElementById('expenseModal').classList.add('hidden');
-    }
-
     function openRateModal() {
-      document.getElementById('rateInputVal').value = state.exchangeRate.toFixed(2);
-      document.getElementById('rateModal').classList.remove('hidden');
+      const input = document.getElementById('inputCustomRate');
+      if (input) input.value = euroRate.toFixed(2);
+      const modal = document.getElementById('modalRate');
+      if (modal) modal.classList.remove('hidden');
     }
 
     function closeRateModal() {
-      document.getElementById('rateModal').classList.add('hidden');
+      const modal = document.getElementById('modalRate');
+      if (modal) modal.classList.add('hidden');
     }
 
-    function saveExchangeRate() {
-      const newRate = parseFloat(document.getElementById('rateInputVal').value);
-      if (newRate && newRate > 0) {
-        state.exchangeRate = newRate;
-        saveState();
-        renderBudgetSummary();
+    function saveCustomRate() {
+      const input = document.getElementById('inputCustomRate');
+      if (!input) return;
+      const val = parseFloat(input.value);
+      if (!isNaN(val) && val > 0) {
+        euroRate = val;
+        try {
+          localStorage.setItem('trip_euro_rate', String(euroRate));
+        } catch (e) {}
         closeRateModal();
-        showToast(`השער עודכן ל-1€ = ${newRate.toFixed(2)} ₪`);
+        renderBudgetView();
+        showToast('שער החליפין עודכן! 💰');
       }
     }
 
-    function openAiChatModal() {
-      document.getElementById('aiChatModal').classList.remove('hidden');
-    }
-
-    function closeAiChatModal() {
-      document.getElementById('aiChatModal').classList.add('hidden');
-    }
-
-    function handleAiChatKey(e) {
-      if (e.key === 'Enter') {
-        sendAiChatMessage();
+    function openDataModal() {
+      const modal = document.getElementById('modalData');
+      if (modal) modal.classList.remove('hidden');
+      const input = document.getElementById('dataQuestionInput');
+      if (input) {
+        setTimeout(() => input.focus(), 150);
       }
     }
 
-    function askPresetAi(q) {
-      document.getElementById('aiChatInput').value = q;
-      openAiChatModal();
-      sendAiChatMessage();
+    function closeDataModal() {
+      const modal = document.getElementById('modalData');
+      if (modal) modal.classList.add('hidden');
     }
 
-    function sendAiChatMessage() {
-      const input = document.getElementById('aiChatInput');
-      const text = input.value.trim();
-      if (!text) return;
+    function askQuickData(q) {
+      const input = document.getElementById('dataQuestionInput');
+      if (input) input.value = q;
+      sendDataQuestion();
+    }
 
-      appendAiMessage(text, 'user');
+    function sendDataQuestion() {
+      const input = document.getElementById('dataQuestionInput');
+      if (!input) return;
+      const question = input.value.trim();
+      if (!question) return;
+
+      const chatContainer = document.getElementById('dataChatMessages');
+      if (!chatContainer) return;
+
+      // User speech bubble
+      const userBubble = document.createElement('div');
+      userBubble.className = "bg-slate-900 text-white p-3 rounded-2xl rounded-br-none text-left self-end max-w-[85%] text-xs font-semibold mr-auto";
+      userBubble.innerText = question;
+      chatContainer.appendChild(userBubble);
       input.value = '';
+      chatContainer.scrollTop = chatContainer.scrollHeight;
 
-      const container = document.getElementById('aiChatMessages');
-      const typingDiv = document.createElement('div');
-      typingDiv.className = 'flex items-start gap-2 max-w-[92%]';
-      typingDiv.innerHTML = `
-        <div class="w-6 h-6 rounded-lg bg-blue-600 text-white flex items-center justify-center text-[10px] shrink-0 font-bold">
-          Data
-        </div>
-        <div class="p-2.5 bg-white border border-slate-200 rounded-2xl rounded-tr-xs shadow-2xs text-slate-500 text-xs flex items-center gap-1.5">
-          <i class="fa-solid fa-circle-notch fa-spin text-blue-500 text-xs"></i>
-          <span>בודק בבנק הידע של הטיול...</span>
+      // Compute Answer from Comprehensive Trip Database
+      setTimeout(() => {
+        const answerHtml = computeDataAnswer(question);
+        const aiBubble = document.createElement('div');
+        aiBubble.className = "bg-blue-50 border border-blue-200/90 p-3.5 rounded-2xl rounded-tl-none text-slate-800 text-xs space-y-1.5 shadow-xs";
+        aiBubble.innerHTML = answerHtml;
+        chatContainer.appendChild(aiBubble);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+      }, 150);
+    }
+
+    function computeDataAnswer(rawQ) {
+      const q = rawQ.toLowerCase().replace(/['"״״]/g, '');
+
+      // 1. Luggage Storage at hotels
+      if (q.includes('מזווד') || q.includes('שמירת') || q.includes('תיק') || q.includes('לוקר') || q.includes('להשאיר')) {
+        return `
+          <div class="font-black text-blue-950 mb-1">🧳 שמירת מזוודות בשני המלונות שלכם:</div>
+          <div class="space-y-1.5 leading-relaxed">
+            <p><strong>1. מלון Seta בבלאג'ו:</strong> יש שמירת מזוודות (Deposito Bagagli) <strong>בחינם!</strong> אם תגיעו לפני הצ'ק-אין (14:00) או אחרי הצ'ק-אאוט (10:30), תוכלו להשאיר את המזוודות בקבלה ללא עלות עד הערב (הקבלה נסגרת ב-20:00).</p>
+            <p><strong>2. מלון BB Smarthotel Duomo במילאנו:</strong> יש שמירת חפצים מסודרת בקבלה הפתוחה 24/7, כך שתוכלו להסתובב חופשי במרכז מילאנו לפני או אחרי החדר.</p>
+            <p class="text-[11px] text-slate-500">💡 טיפ נוסף: בתחנת הרכבת Milano Centrale יש מתחם שמירת חפצים (KiPoint) בקומת הקרקע.</p>
+          </div>
+        `;
+      }
+
+      // 2. Secret code / Seta hotel in Bellagio
+      if (q.includes('סטה') || q.includes('seta') || q.includes('קוד') || q.includes('בלאג') || q.includes('פין') || q.includes('0650')) {
+        return `
+          <div class="font-black text-blue-950 mb-1">🔑 פרטי מלון Seta בבלאג'ו (23-25 באוקטובר):</div>
+          <div class="space-y-1 leading-relaxed">
+            <p>• <strong>הקוד הסודי לדלת הכניסה:</strong> <span class="bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded font-black font-mono">0650</span> (יש להקיש * או כפתור פתיחה בהתאם למנעול).</p>
+            <p>• <strong>מספר הזמנה:</strong> 5591469937 | <strong>טלפון ישיר:</strong> +39 340 147 0026.</p>
+            <p>• <strong>צ'ק-אין:</strong> 14:00 עד 20:00 <em>(חשוב: הקבלה נסגרת ב-20:00 בדיוק!)</em>.</p>
+            <p>• <strong>צ'ק-אאוט:</strong> עד 10:30 בבוקר.</p>
+            <p>• <strong>ארוחת בוקר:</strong> כלולה בהזמנה במרפסת המלון (07:30 עד 10:00).</p>
+            <p>• <strong>תשלום:</strong> שולם מראש 432€ + נותר לתשלום מס עיר 12€ במקום.</p>
+            <p class="text-[11px] text-slate-500">שימו לב: המלון היסטורי וללא מעלית (עולים במדרגות אלגנטיות).</p>
+          </div>
+        `;
+      }
+
+      // 3. Milan Hotel
+      if (q.includes('מילאנו') || q.includes('דואומו') || q.includes('סמארט') || q.includes('smarthotel') || q.includes('לילה ראשון')) {
+        return `
+          <div class="font-black text-blue-950 mb-1">🏨 מלון BB Smarthotel Duomo במילאנו (22-23 באוקטובר):</div>
+          <div class="space-y-1 leading-relaxed">
+            <p>• <strong>כתובת:</strong> Piazza Santa Maria Beltrade 4, מרכז מילאנו (דקות מהדואומו).</p>
+            <p>• <strong>קבלה:</strong> פעילה 24/7 (צ'ק-אין החל מ-14:00).</p>
+            <p>• <strong>תשלום במקום בצ'ק-אין:</strong> 263.00€ עבור החדר + <strong>20.00€ מס עיר עירוני במזומן בלבד!</strong></p>
+            <p>• <strong>שמירת מזוודות:</strong> זמינה בקבלה 24 שעות.</p>
+          </div>
+        `;
+      }
+
+      // 4. Seats & Window
+      if (q.includes('מושב') || q.includes('חלון') || q.includes('מי יושב') || q.includes('כיסא') || q.includes('מטוס') || q.includes('שורה')) {
+        return `
+          <div class="font-black text-blue-950 mb-1">🪟 מושבים ומיקום ליד החלון (Wizz Air):</div>
+          <div class="space-y-1 leading-relaxed">
+            <p>• <strong>הלוך (22.10 טיסה W4 6406):</strong></p>
+            <p class="mr-2">✈️ <strong>כרמל: מושב 18A ליד החלון!</strong></p>
+            <p class="mr-2">✈️️ <strong>יובל:</strong> מושב 18B (אמצעי, צמוד לכרמל).</p>
+            <p class="mt-1">• <strong>חזור (26.10 טיסה W4 6405):</strong></p>
+            <p class="mr-2">✈️ <strong>כרמל: מושב 18F ליד החלון!</strong></p>
+            <p class="mr-2">✈️ <strong>יובל:</strong> מושב 18E (אמצעי, צמוד לכרמל).</p>
+          </div>
+        `;
+      }
+
+      // 5. Flights, Baggage & PNR
+      if (q.includes('טיס') || q.includes('טיסה') || q.includes('כבוד') || q.includes('טרולי') || q.includes('תיק') || q.includes('pnr') || q.includes('שדה') || q.includes('וויז') || q.includes('wizz')) {
+        return `
+          <div class="font-black text-blue-950 mb-1">✈️ פרטי טיסות וכבודה (Wizz Air):</div>
+          <div class="space-y-1 leading-relaxed">
+            <p>• <strong>קוד הזמנה (PNR):</strong> <span class="font-mono font-bold bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded">SRKQWQ</span>.</p>
+            <p>• <strong>טיסת הלוך:</strong> חמישי 22.10 | המראה 10:40 מנתב"ג T3 ⟵ נחיתה 14:00 במילאנו מלפנסה (MXP T1).</p>
+            <p>• <strong>טיסת חזור:</strong> שני 26.10 | המראה 05:00 לפנות בוקר ממלפנסה MXP T1 ⟵ חובה להתייצב בשדה ב-<strong>02:30 בלילה!</strong></p>
+            <p>• <strong>כבודה מותרת (WIZZ Priority כלול לשניכם):</strong></p>
+            <p class="mr-2">1. תיק גב קטן מתחת למושב (עד 40x30x20 ס"מ).</p>
+            <p class="mr-2">2. טרולי תקני לתא הנוסעים עד 10 ק"ג (עד 55x40x23 ס"מ).</p>
+            <p class="mr-2 text-rose-600 font-semibold">* אין כבודה לבטן המטוס.</p>
+          </div>
+        `;
+      }
+
+      // 6. Trains & Transit
+      if (q.includes('רכבת') || q.includes('ורנה') || q.includes('מעבורת') || q.includes('תחבורה') || q.includes('איך מגיעים')) {
+        return `
+          <div class="font-black text-blue-950 mb-1">🚆 תחבורה ומעבורות:</div>
+          <div class="space-y-1 leading-relaxed">
+            <p>• <strong>רכבת מילאנו ⟵ ורנה:</strong> יוצאת מתחנת Milano Centrale ישירות ל-Varenna-Esino (שעה נסיעה). <em>טיפ זהב: שבו בצד שמאל של כיוון הנסיעה לנוף מרהיב לאגם!</em></p>
+            <p>• <strong>מעבורת ורנה ⟵ בלאג'ו:</strong> שיט קצר של כ-15 דקות בין הרציפים. כדאי לקנות כרטיס יומי חופשי למרכז האגם (Centro Lago Pass).</p>
+            <p>• <strong>מטרו במילאנו:</strong> פשוט מצמידים כרטיס אשראי Contactless / טלפון בכניסה וביציאה.</p>
+          </div>
+        `;
+      }
+
+      // Fallback response with summary overview
+      return `
+        <div class="font-black text-blue-950 mb-1">📋 סיכום נתוני הטיול שלכם:</div>
+        <div class="space-y-1 leading-relaxed">
+          <p>• <strong>כרמל ליד החלון</strong> בשתי הטיסות (18A הלוך, 18F חזור).</p>
+          <p>• <strong>שמירת מזוודות:</strong> חינם במלון Seta בבלאג'ו (עד 20:00) ו-24/7 במלון מילאנו.</p>
+          <p>• <strong>קוד דלת בלאג'ו:</strong> 0650 | <strong>מס עיר במילאנו:</strong> 20€ במזומן בלבד.</p>
+          <p>• <strong>טיסת חזור ב-05:00 בבוקר:</strong> הגעה למלפנסה עד 02:30 בלילה.</p>
         </div>
       `;
-      container.appendChild(typingDiv);
-      container.scrollTop = container.scrollHeight;
-
-      setTimeout(() => {
-        typingDiv.remove();
-        const reply = getAiResponse(text);
-        appendAiMessage(reply, 'ai');
-      }, 250);
     }
 
-    function appendAiMessage(msg, sender) {
-      const container = document.getElementById('aiChatMessages');
-      const isUser = sender === 'user';
-      const div = document.createElement('div');
-      div.className = `flex items-start gap-2 ${isUser ? 'justify-end' : 'max-w-[92%]'}`;
+    // Explicit Global Window Bindings for Click Handlers
+    window.switchTab = switchTab;
+    window.setPlanViewMode = setPlanViewMode;
+    window.selectDay = selectDay;
+    window.openAddIdeaModal = openAddIdeaModal;
+    window.closeIdeaModal = closeIdeaModal;
+    window.submitIdea = submitIdea;
+    window.toggleIdeaDone = toggleIdeaDone;
+    window.deleteIdea = deleteIdea;
+    window.copyIdeaUrl = copyIdeaUrl;
+    window.openAddExpenseModal = openAddExpenseModal;
+    window.closeExpenseModal = closeExpenseModal;
+    window.submitExpense = submitExpense;
+    window.deleteExpense = deleteExpense;
+    window.openRateModal = openRateModal;
+    window.closeRateModal = closeRateModal;
+    window.saveCustomRate = saveCustomRate;
+    window.openDataModal = openDataModal;
+    window.closeDataModal = closeDataModal;
+    window.sendDataQuestion = sendDataQuestion;
+    window.askQuickData = askQuickData;
 
-      if (isUser) {
-        div.innerHTML = `
-          <div class="p-2.5 bg-blue-600 text-white rounded-2xl rounded-tl-xs shadow-2xs text-xs sm:text-sm leading-relaxed max-w-[85%]">
-            ${msg}
-          </div>
-        `;
-      } else {
-        div.innerHTML = `
-          <div class="w-6 h-6 rounded-lg bg-blue-600 text-white flex items-center justify-center text-[10px] shrink-0 font-bold">
-            Data
-          </div>
-          <div class="p-2.5 bg-white border border-slate-200 rounded-2xl rounded-tr-xs shadow-2xs space-y-1.5 text-slate-800 leading-relaxed text-xs sm:text-sm">
-            ${msg}
-          </div>
-        `;
-      }
-
-      container.appendChild(div);
-      container.scrollTop = container.scrollHeight;
-    }
-
-    // High-Intel Semantic Knowledge Base
-    function getAiResponse(rawQuery) {
-      if (!rawQuery || !rawQuery.trim()) return "אפשר לשאול אותי כל שאלה חופשית על הטיסות, המלונות, המושבים או הלו\"ז שלכם!";
-
-      const q = rawQuery.toLowerCase().trim();
-
-      const cleanText = q
-        .replace(/["'״׳`?!.,:;()\-]/g, ' ')
-        .replace(/\s+/g, ' ');
-
-      const rawTokens = cleanText.split(' ').filter(w => w.length > 0);
-      const stemmedTokens = rawTokens.map(w => {
-        let stemmed = w;
-        if (/מיחאנו|מילנו|מילאנוו|milan|milano/.test(w)) return 'מילאנו';
-        if (/בלאגו|בלגיו|בלאגיו|בלג'יו|bellagio/.test(w)) return 'בלאג\'ו';
-        if (/ורנה|וארנה|varenna/.test(w)) return 'ורנה';
-        if (/וויז|ויז|wizz|wizzair/.test(w)) return 'wizz';
-        if (/סתה|סטה|seta/.test(w)) return 'סטה';
-        if (/מלפנסה|מלפנזה|malpensa|mxp/.test(w)) return 'מלפנסה';
-        if (/נתבג|נתב"ג|בןגוריון|בן-גוריון|tlv/.test(w)) return 'נתבג';
-        if (/קודד|סיסמה|סיסמא|פינקוד|pin/.test(w)) return 'קוד';
-        if (/כסא|כיסא|כסאות|מושבים/.test(w)) return 'מושב';
-        if (/חלונות|חלון/.test(w)) return 'חלון';
-        if (/אחסון|שמירה|השארה|להשאיר|לאחסן|לשמור|לוקר|לוקרים|storage|deposito/.test(w)) return 'שמירת_מזוודות';
-        if (/מזוודה|מזוודות|טרולי|תיק|תיקים|משקל/.test(w)) return 'כבודה';
-        if (/רכבת|רכבות|טראן|trenord/.test(w)) return 'רכבת';
-        if (/מעבורת|מעבורות|סירה|סירות|שיט/.test(w)) return 'מעבורת';
-        if (/שטרות|מזומן|מזומנים|cash/.test(w)) return 'מזומן';
-        if (/תקציב|מחיר|עלות|כסף|יורו|אירו|שקלים/.test(w)) return 'תקציב';
-
-        if (stemmed.length > 3) {
-          if (stemmed.startsWith('כש') || stemmed.startsWith('שב') || stemmed.startsWith('מה')) {
-            stemmed = stemmed.substring(2);
-          } else if (stemmed.startsWith('ב') || stemmed.startsWith('ל') || stemmed.startsWith('מ') || stemmed.startsWith('כ') || stemmed.startsWith('ה') || stemmed.startsWith('ש') || stemmed.startsWith('ו')) {
-            stemmed = stemmed.substring(1);
-          }
-        }
-        return stemmed;
-      });
-
-      const tokenSet = new Set([...rawTokens, ...stemmedTokens]);
-      const hasAny = (...words) => words.some(w => cleanText.includes(w) || tokenSet.has(w));
-
-      if (hasAny('שמירת_מזוודות') || 
-          (hasAny('להשאיר', 'השארה', 'שמירה', 'לאחסן', 'לוקר', 'לוקרים', 'storage', 'deposito') && hasAny('מזוודה', 'מזוודות', 'תיק', 'תיקים', 'כבודה', 'מלון', 'בלאג\'ו', 'מילאנו', 'חדר')) ||
-          cleanText.includes('להשאיר מזוודות') || cleanText.includes('שמירת מזוודות') || cleanText.includes('שמירת חפצים') || cleanText.includes('מזוודות במלון')) {
-        return `🧳 <strong>שמירת מזוודות והשארת חפצים במלונות שלכם:</strong><br><br>
-        • 🏨 <strong>במלון Seta בבלאג'ו (אגם קומו):</strong><br>
-        <strong>כן, יש שירות שמירת מזוודות מסודר בחינם! (Deposito Bagagli)</strong><br>
-        המלון מציין במפורש: אם אתם מגיעים לבלאג'ו לפני שעת הצ'ק-אין (לפני 14:00) או שרוצים לטייל עוד כמה שעות אחרי הצ'ק-אאוט (אחרי 10:30) – תוכלו להשאיר את המזוודות והתיקים בקבלה ללא כל עלות ולצאת לטייל בראש שקט (עד שעת סגירת הקבלה ב-20:00).<br><br>
-        • 🏨 <strong>במלון BB Smarthotel Duomo במילאנו:</strong><br>
-        <strong>כן, יש שמירת חפצים (Luggage Storage) בקבלה</strong> הפעילה 24 שעות ביממה (24/7). תוכלו להפקיד את הטרולי והתיקים בנחיתה ביום חמישי או ביום שישי בבוקר לפני היציאה לרכבת לאגם.<br><br>
-        • 🚆 <strong>בונוס תחבורתי:</strong> בתחנת הרכבת <em>Milano Centrale</em> פועל מתחם שמירת חפצים מאובטח (KiPoint) בקומת הקרקע למקרה שתרצו להסתובב בעיר ללא תיקים כלל.`;
-      }
-
-      if (hasAny('רעיון', 'רעיונות', 'שביררנו', 'ששמרנו', 'הוספנו', 'ברשימה', 'שביררתי')) {
-        if (state.ideas.length === 0) {
-          return `📋 <strong>רעיונות ומקומות שביררתם:</strong><br>עדיין לא הזנתם רעיונות באפליקציה. תוכלו ללחוץ על כפתור <em>"הוספת רעיון או מקום"</em> במסך הראשי והם יישמרו כאן מיד!`;
-        }
-        const listText = state.ideas.map((item, idx) => `• <strong>${item.title}</strong> (${getCatBadge(item.category).label})${item.notes ? ` - <em>${item.notes}</em>` : ''}`).join('<br>');
-        return `📋 <strong>מצאתי ${state.ideas.length} רעיונות שהזנתם ברשימה שלכם:</strong><br>${listText}`;
-      }
-
-      const matchedIdea = state.ideas.find(i => cleanText.includes(i.title.toLowerCase()) || (i.notes && cleanText.includes(i.notes.toLowerCase())));
-      if (matchedIdea) {
-        return `💡 <strong>פרטי המקום מתוך הרעיונות ששמרתם:</strong><br>
-        • <strong>שם:</strong> ${matchedIdea.title}<br>
-        • <strong>קטגוריה:</strong> ${getCatBadge(matchedIdea.category).label}<br>
-        • <strong>סטטוס ביקור:</strong> ${matchedIdea.done ? '✅ סומן שביקרתם בו' : 'טרם ביקרתם'}<br>
-        ${matchedIdea.notes ? `• <strong>הערה/טיפ:</strong> ${matchedIdea.notes}` : ''}`;
-      }
-
-      if (hasAny('קוד', 'סודי', 'pin', '0650', 'סיסמה', 'מפתח', 'דלת', 'כניסה')) {
-        return `🔑 <strong>הקוד הסודי (PIN Code) למלון Seta בבלאג'ו:</strong><br>
-        • <strong>הקוד הסודי הוא: 0650</strong><br>
-        • <strong>מספר הזמנה בבוקינג:</strong> 5591469937.<br>
-        • <strong>טלפון ישיר למלון:</strong> +39 340 147 0026.<br>
-        • <strong>כתובת:</strong> Via Teresio Olivelli 23, Bellagio.`;
-      }
-
-      if (hasAny('חלון', 'מושב', 'כיסא', 'כסא', 'לשבת', 'יושב', 'יושבת', 'יושבים', '18a', '18b', '18e', '18f', 'מקומות ישיבה')) {
-        return `🪟 <strong>חלוקת המושבים בטיסות Wizz Air:</strong><br>
-        • <strong>כרמל יושבת ליד החלון בשתי הטיסות! 🎉</strong><br>
-        • 🛫 <strong>טיסת הלוך (חמישי 22.10):</strong> כרמל מושב <strong>18A (חלון)</strong> | יובל מושב <strong>18B (אמצע)</strong>.<br>
-        • 🛫 <strong>טיסת חזור (שני 26.10):</strong> יובל מושב <strong>18E (אמצע)</strong> | כרמל מושב <strong>18F (חלון)</strong>.`;
-      }
-
-      if (hasAny('כבודה', 'טרולי', 'משקל', 'מידות', 'סנטימטר', 'בטן', 'מטען', 'priority', 'פריוריטי') && !hasAny('מלון', 'השארה', 'להשאיר')) {
-        return `🧳 <strong>הנחיות הכבודה המדויקות לטיסות (נרכש WIZZ Priority):</strong><br>
-        • 🎒 <strong>תיק גב אישי קטן:</strong> עד מידות <strong>40x30x20 ס"מ</strong> (להנחה תחת המושב שלפניכם).<br>
-        • 🧳 <strong>טרולי אישי לעלייה למטוס:</strong> עד <strong>10 ק"ג</strong> ובמידות <strong>55x40x23 ס"מ</strong> (לתאי האחסון העליונים).<br>
-        • ⚠️ <strong>שימו לב:</strong> אין כבודה לבטן המטוס (ללא מזוודות גדולות).`;
-      }
-
-      if (hasAny('ארוחת בוקר', 'בוקר', 'לאכול בבוקר', 'קפה בבוקר', 'ארוחה', 'בופה')) {
-        return `☕ <strong>מידע על ארוחות הבוקר במלונות:</strong><br>
-        • 🏨 <strong>במלון Seta בבלאג'ו:</strong> <strong>ארוחת הבוקר כלולה במחיר!</strong> היא מוגשת במרפסת המשקיפה ישירות לאגם קומו.<br>
-        • 🏨 <strong>במלון Smarthotel Duomo במילאנו:</strong> החדר ללא ארוחת בוקר – מומלץ לצאת ל-<em>Marchesi 1824</em> בגלריה ויטוריו עמנואלה או ל-<em>Luini</em> לפנצ'רוטי חם!`;
-      }
-
-      if (hasAny('מעלית', 'מדרגות', 'קומה', 'לסחוב', 'עליה', 'מזוודות למעלה')) {
-        return `🛗 <strong>מידע על מעליות ונגישות במלונות:</strong><br>
-        • 🏨 <strong>מלון Seta בבלאג'ו:</strong> המלון שוכן במבנה היסטורי ו<strong>אין בו מעלית</strong>. עם זאת, צוות המלון מסייע בהעלאת המזוודות לחדר.<br>
-        • 🏨 <strong>מלון Smarthotel Duomo במילאנו:</strong> יש מעלית וגישה נוחה.`;
-      }
-
-      if (hasAny('מזומן', 'מס', 'מס עיר', 'שטר', 'שטרות', 'cash', 'לשלם במקום', 'צקאין', 'צק אין', 'קבלה')) {
-        return `💶 <strong>תשלומים ומסי עיר במקום (חשוב להכין מראש!):</strong><br>
-        • 🏨 <strong>במילאנו (Smarthotel Duomo):</strong> לתשלום בצ'ק-אין: <strong>263.00€</strong> עבור החדר + <strong>20.00€ מס עיר במזומן בלבד!</strong> (חובה להביא שטר של 20€).<br>
-        • 🏨 <strong>בבלאג'ו (Seta Hotel):</strong> שולם מראש בבוקינג (432€). לתשלום במלון: <strong>12.00€ מס עיר</strong> (3€ לאדם ללילה x 2 לילות).`;
-      }
-
-      if (hasAny('סטה', 'seta', 'בלאג\'ו', 'קומו', 'לילה שני', 'לילה שלישי', 'שבת בערב', 'שישי בערב', 'אגם')) {
-        return `🏨 <strong>מלון Seta Hotel בבלאג'ו (אגם קומו | 23-25 באוקטובר, 2 לילות):</strong><br>
-        • <strong>כתובת:</strong> Via Teresio Olivelli 23, Bellagio.<br>
-        • 🔑 <strong>קוד סודי (PIN):</strong> <strong>0650</strong> | מספר הזמנה: 5591469937.<br>
-        • 📞 <strong>טלפון ישיר:</strong> +39 340 147 0026.<br>
-        • ⏰ <strong>צ'ק-אין:</strong> שישי 23.10 מ-14:00 ועד <strong>20:00 בלבד!</strong> (הקבלה נסגרת ב-20:00, חשוב להגיע בזמן).<br>
-        • ⏰ <strong>צ'ק-אאוט:</strong> ראשון 25.10 עד 10:30.<br>
-        • 🧳 <strong>שמירת מזוודות (Deposito Bagagli):</strong> <strong>חינם בקבלה</strong> לפני צ'ק-אין ואחרי צ'ק-אאוט.<br>
-        • ☕ <strong>ארוחת בוקר:</strong> <strong>כלולה במחיר</strong> במרפסת מול נוף האגם.<br>
-        • 💶 <strong>תשלום:</strong> שולם מראש 432.00€. לתשלום במקום: <strong>12.00€ מס עיר</strong>.<br>
-        • 💡 שימו לב: ללא מעלית (הצוות מסייע עם התיקים). חניה פרטית: 20€ ליום בתיאום מראש.`;
-      }
-
-      if (hasAny('מילאנו', 'דואומו', 'duomo', 'סמארט', 'לילה ראשון', 'חמישי בלילה', 'איפה ישנים במילאנו', 'איפה המלון')) {
-        return `🏨 <strong>המלון שלכם במילאנו (22-23 באוקטובר, לילה 1):</strong><br>
-        • <strong>BB Hotels Smarthotel Duomo</strong><br>
-        • <strong>כתובת:</strong> Piazza Santa Maria Beltrade 4, 20123 Milano (דקות הליכה ספורות מכיכר הדואומו).<br>
-        • 🛎️ <strong>קבלה ושמירת מזוודות:</strong> פעילה 24 שעות ביממה (24/7), כולל אפשרות להשאיר מזוודות ותיקים.<br>
-        • 💶 <strong>לתשלום בצ'ק-אין:</strong> 263.00€ לחדר + <strong>20.00€ מס עיר במזומן בלבד!</strong><br>
-        • 📞 <strong>טלפון:</strong> +39 02 72105205 | קוד הזמנה: BBE26100322421628.`;
-      }
-
-      if (hasAny('לישון', 'ישנים', 'מלון', 'מלונות', 'חדר', 'איפה נהיה בלילה', 'אירוח')) {
-        return `🏨 <strong>שני המלונות שלכם בטיול:</strong><br>
-        1. <strong>לילה ראשון (22-23.10) במילאנו:</strong><br>
-        • מלון <em>BB Hotels Smarthotel Duomo</em> (ליד כיכר הדואומו). קבלה ושמירת מזוודות 24/7. לתשלום בצ'ק-אין: 263€ + 20€ מס במזומן.<br><br>
-        2. <strong>לילות 2 ו-3 (23-25.10) באגם קומו:</strong><br>
-        • מלון <em>Seta Hotel</em> בבלאג'ו. קוד סודי: <strong>0650</strong>, טלפון: +39 340 147 0026. צ'ק-אין עד 20:00! שמירת מזוודות חינם, וארוחת בוקר כלולה מול האגם.`;
-      }
-
-      if (hasAny('טיסה', 'טיסות', 'לטוס', 'שדה', 'מלפנסה', 'נתבג', 'wizz', 'pnr', 'המראה', 'נחיתה', 'טרמינל', 'שעות טיסה', 'srkqwq', '6406', '6405')) {
-        return `✈️ <strong>פרטי הטיסות המלאים (Wizz Air | קוד הזמנה PNR: SRKQWQ):</strong><br>
-        • 🛫 <strong>טיסת הלוך (חמישי 22.10 | טיסה W4 6406):</strong><br>
-        המראה מנתב"ג טרמינל 3 ב-<strong>10:45</strong> ⟷ נחיתה במלפנסה טרמינל 1 ב-<strong>14:05</strong>.<br>
-        מושבים: כרמל 18A (חלון), יובל 18B (אמצע).<br><br>
-        • 🛫 <strong>טיסת חזור (שני 26.10 | טיסה W4 6405):</strong><br>
-        המראה ממלפנסה טרמינל 1 ב-<strong>05:00 לפנות בוקר</strong> ⟷ נחיתה בנתב"ג ב-<strong>09:55</strong>.<br>
-        מושבים: יובל 18E (אמצע), כרמל 18F (חלון).<br>
-        ⏰ <strong>התייצבות קריטית:</strong> חובה להתייצב בטרמינל 1 במלפנסה כבר ב-<strong>02:30 בלילה!</strong><br>
-        • שירות Auto Check-in נרכש ושולם במלואו (סך טיסות: 540.84€).`;
-      }
-
-      if (hasAny('רכבת', 'מעבורת', 'ורנה', 'איך מגיעים', 'תחבורה', 'נסיעה', 'שמאל', 'ימין', 'סירה', 'צנטראלה', 'centrale')) {
-        return `🚆 <strong>תחבורה, רכבות ומעבורות:</strong><br>
-        • <strong>רכבת Trenord מילאנו ⟷ ורנה:</strong> יוצאת מתחנת Milano Centrale ומגיעה לתחנת Varenna-Esino ב-1 שעה ו-4 דקות (~7.40€). <strong>טיפ זהב:</strong> שבו בצד <strong>שמאל</strong> של כיוון הנסיעה כדי לראות את נופי האגם נפתחים מולכם!<br>
-        • <strong>מעבורות Centro Lago (אגם קומו):</strong> מקשרות כל 20-30 דקות בין ורנה, בלאג'ו ומנאג'ו (כ-15 דקות שיט, מומלץ כרטיס יומי חופשי).<br>
-        • <strong>מלפנסה אקספרס:</strong> רכבת מהירה מטרמינל 1 למילאנו צ'נטראלה (13€ לאדם, ~50 דקות).`;
-      }
-
-      if (hasAny('תקציב', 'כמה עולה', 'כמה שילמנו', 'סך הכל', 'שער', 'אירו', 'יורו', 'שקלים', 'הוצאות')) {
-        const rate = state.exchangeRate || 3.50;
-        let varEur = 0;
-        state.expenses.forEach(e => varEur += (parseFloat(e.amount) || 0));
-        const fixedEur = 1267.84;
-        const totalEur = fixedEur + varEur;
-        return `💰 <strong>תקציב הטיול המעודכן מהמיילים והקבלות (לפי שער 1€ = ${rate.toFixed(2)} ₪):</strong><br>
-        • <strong>הוצאות קבועות מראש (טיסות ומלונות):</strong> €1,267.84 (₪${(fixedEur * rate).toFixed(2)}).<br>
-        • <strong>הוצאות שוטפות שהזנתם:</strong> €${varEur.toFixed(2)} (₪${(varEur * rate).toFixed(2)}) ב-${state.expenses.length} רשומות.<br>
-        • 🏆 <strong>סך הכל כללי:</strong> <strong>€${totalEur.toFixed(2)}</strong> (<strong>₪${(totalEur * rate).toFixed(2)}</strong>).`;
-      }
-
-      if (hasAny('חמישי', '22')) {
-        return `📅 <strong>יום חמישי 22.10 (מילאנו):</strong><br>
-        • 10:45 המראה מנתב"ג W4 6406 (כרמל 18A חלון, יובל 18B). נחיתה במלפנסה T1 ב-14:05.<br>
-        • רכבת מלפנסה אקספרס למילאנו צ'נטראלה והגעה ל-Smarthotel Duomo.<br>
-        • צ'ק-אין: 263€ לחדר + 20€ מס עיר במזומן בלבד.<br>
-        • אחה"צ וערב: דואומו, גלריה ויטוריו עמנואלה ואפריטיבו.`;
-      }
-      if (hasAny('שישי', '23')) {
-        return `📅 <strong>יום שישי 23.10 (מילאנו ⟷ מעבר לבלאג'ו):</strong><br>
-        • בוקר במילאנו וצ'ק-אאוט.<br>
-        • רכבת מילאנו צ'נטראלה ⟷ ורנה (Trenord, שבו בצד שמאל!).<br>
-        • מעבורת קצרה מורנה לבלאג'ו והתמקמות במלון Seta.<br>
-        • ⚠️ <strong>צ'ק-אין במלון סטה הוא עד 20:00 בלבד!</strong> (קוד סודי: 0650).`;
-      }
-      if (hasAny('שבת', '24')) {
-        return `📅 <strong>יום שבת 24.10 (אגם קומו):</strong><br>
-        • ארוחת בוקר כלולה במרפסת מלון סטה מול האגם.<br>
-        • יום סיורים במשולש העיירות והוילות: בלאג'ו, ורנה, וילה מלצי, וילה מונסטרו בעזרת מעבורות Centro Lago.`;
-      }
-      if (hasAny('ראשון', '25')) {
-        return `📅 <strong>יום ראשון 25.10 (סיום קומו וחזרה לאזור השדה):</strong><br>
-        • צ'ק-אאוט במלון סטה עד 10:30 (12€ מס עיר במקום).<br>
-        • יום אחרון של טיול באגם, וחזרה בשעות הערב לכיוון שדה התעופה מלפנסה לקראת טיסת הבוקר.`;
-      }
-      if (hasAny('שני', '26')) {
-        return `📅 <strong>יום שני 26.10 (טיסת בוקר חזרה לישראל):</strong><br>
-        • ⏰ <strong>התייצבות בטרמינל 1 במלפנסה ב-02:30 לפנות בוקר!</strong><br>
-        • 05:00 המראה בטיסה W4 6405 (יובל 18E, כרמל 18F חלון).<br>
-        • 09:55 נחיתה בנתב"ג טרמינל 3.`;
-      }
-
-      return `📌 <strong>תמצית הנתונים מהמיילים וההזמנות שלכם:</strong><br>
-      • ✈️ <strong>טיסות:</strong> הלוך 22.10 ב-10:45 | חזור 26.10 ב-05:00 (הגעה ב-02:30 לשדה!) | PNR: <code>SRKQWQ</code>.<br>
-      • 🪟 <strong>מושבים:</strong> כרמל בחלון בשתי הטיסות (18A בהלוך, 18F בחזור).<br>
-      • 🏨 <strong>מלון מילאנו (22-23.10):</strong> Smarthotel Duomo (263€ לחדר + 20€ מס במזומן, שמירת מזוודות 24/7).<br>
-      • 🏨 <strong>מלון בלאג'ו (23-25.10):</strong> Seta Hotel (קוד סודי: <strong>0650</strong>, צ'ק-אין עד 20:00, שמירת מזוודות חינם).<br>
-      • 🧳 <strong>כבודה לטיסה:</strong> תיק גב (40x30x20) + טרולי עד 10 ק"ג (55x40x23) לכל אחד.`;
-    }
-
-    function showToast(msg) {
-      const toast = document.getElementById('toast');
-      toast.innerText = msg;
-      toast.classList.remove('opacity-0');
-      toast.classList.add('opacity-100');
-      setTimeout(() => {
-        toast.classList.remove('opacity-100');
-        toast.classList.add('opacity-0');
-      }, 2200);
-    }
-
-    function initApp() {
+    window.onload = function() {
+      loadState();
+      switchTab('plan');
       selectDay(0);
-      renderBudgetSummary();
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initApp);
-    } else {
-      initApp();
-    }
+      renderBudgetView();
+    };
   </script>
 </body>
 </html>
