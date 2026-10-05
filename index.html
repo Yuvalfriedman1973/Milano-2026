@@ -69,13 +69,13 @@
     }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen pb-12 antialiased flex flex-col items-center">
+<body class="bg-slate-400/90 text-slate-800 min-h-screen pb-12 antialiased flex flex-col items-center">
 
-  <!-- Main Container (Mobile Frame Constraint) -->
-  <div class="w-full max-w-md min-h-screen bg-slate-50 flex flex-col relative shadow-xl">
+  <!-- Main Container (Mobile Frame Constraint with darker background) -->
+  <div class="w-full max-w-md min-h-screen bg-slate-200/90 flex flex-col relative shadow-2xl">
 
     <!-- Sticky App Header -->
-    <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 pt-3.5 pb-3 shadow-xs">
+    <header id="mainAppHeader" class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-300 px-4 pt-3.5 pb-2.5 shadow-sm">
       
       <!-- Top Row: App Title & Exchange Rate -->
       <div class="flex items-center justify-between gap-2 mb-3">
@@ -115,7 +115,7 @@
       </div>
 
       <!-- Plan Mode Switcher: Daily View vs General All-Days View -->
-      <div id="planModeBar" class="mt-3 pt-2.5 border-t border-slate-100 grid grid-cols-2 gap-2">
+      <div id="planModeBar" class="mt-2.5 pt-2 border-t border-slate-200 grid grid-cols-2 gap-2">
         <button onclick="setPlanMode('daily')" id="mode-btn-daily" class="py-1.5 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 bg-terracotta-500 text-white shadow-2xs">
           <i class="fa-solid fa-calendar-day"></i>
           <span>לפי ימים</span>
@@ -135,33 +135,35 @@
         <!-- VIEW 1: DAILY FLOW & IDEAS -->
         <div id="view-daily" class="space-y-3.5">
           
-          <!-- Days Horizontal Carousel -->
-          <div class="flex items-center gap-1.5 overflow-x-auto hide-scrollbar pb-1">
-            <button onclick="selectDay(0)" class="day-tab-btn flex-1 min-w-[70px] py-2 px-1 rounded-xl text-center border font-bold text-xs transition bg-slate-900 text-white border-slate-900 shadow-xs" data-day="0">
-              <span class="day-name block text-[11px] text-slate-300">חמישי</span>
-              <span class="block font-black text-sm">22.10</span>
-              <span class="day-tag block text-[10px] text-slate-400 font-medium">מילאנו</span>
-            </button>
-            <button onclick="selectDay(1)" class="day-tab-btn flex-1 min-w-[70px] py-2 px-1 rounded-xl text-center border font-bold text-xs transition bg-white text-slate-700 border-slate-200 hover:bg-slate-50 shadow-2xs" data-day="1">
-              <span class="day-name block text-[11px] text-slate-400">שישי</span>
-              <span class="block font-black text-sm">23.10</span>
-              <span class="day-tag block text-[10px] text-slate-400 font-medium">מילאנו/קומו</span>
-            </button>
-            <button onclick="selectDay(2)" class="day-tab-btn flex-1 min-w-[70px] py-2 px-1 rounded-xl text-center border font-bold text-xs transition bg-white text-slate-700 border-slate-200 hover:bg-slate-50 shadow-2xs" data-day="2">
-              <span class="day-name block text-[11px] text-slate-400">שבת</span>
-              <span class="block font-black text-sm">24.10</span>
-              <span class="day-tag block text-[10px] text-slate-400 font-medium">קומו</span>
-            </button>
-            <button onclick="selectDay(3)" class="day-tab-btn flex-1 min-w-[70px] py-2 px-1 rounded-xl text-center border font-bold text-xs transition bg-white text-slate-700 border-slate-200 hover:bg-slate-50 shadow-2xs" data-day="3">
-              <span class="day-name block text-[11px] text-slate-400">ראשון</span>
-              <span class="block font-black text-sm">25.10</span>
-              <span class="day-tag block text-[10px] text-slate-400 font-medium">קומו</span>
-            </button>
-            <button onclick="selectDay(4)" class="day-tab-btn flex-1 min-w-[70px] py-2 px-1 rounded-xl text-center border font-bold text-xs transition bg-white text-slate-700 border-slate-200 hover:bg-slate-50 shadow-2xs" data-day="4">
-              <span class="day-name block text-[11px] text-slate-400">שני</span>
-              <span class="block font-black text-sm">26.10</span>
-              <span class="day-tag block text-[10px] text-slate-400 font-medium">המראה</span>
-            </button>
+          <!-- Sticky Days Horizontal Carousel (Stays fixed while scrolling) -->
+          <div class="sticky top-[138px] z-20 bg-slate-200/95 backdrop-blur-md py-2 -mx-4 px-4 border-b border-slate-300 shadow-2xs">
+            <div class="flex items-center gap-1.5 overflow-x-auto hide-scrollbar">
+              <button onclick="selectDay(0)" class="day-tab-btn flex-1 min-w-[70px] py-2 px-1 rounded-xl text-center border font-bold text-xs transition bg-slate-900 text-white border-slate-900 shadow-xs" data-day="0">
+                <span class="day-name block text-[11px] text-slate-300">חמישי</span>
+                <span class="day-num block font-black text-sm text-white">22.10</span>
+                <span class="day-tag block text-[10px] text-slate-300 font-medium">מילאנו</span>
+              </button>
+              <button onclick="selectDay(1)" class="day-tab-btn flex-1 min-w-[70px] py-2 px-1 rounded-xl text-center border font-bold text-xs transition bg-white text-slate-700 border-slate-300 hover:bg-slate-50 shadow-2xs" data-day="1">
+                <span class="day-name block text-[11px] text-slate-400">שישי</span>
+                <span class="day-num block font-black text-sm text-slate-900">23.10</span>
+                <span class="day-tag block text-[10px] text-slate-400 font-medium">מילאנו/קומו</span>
+              </button>
+              <button onclick="selectDay(2)" class="day-tab-btn flex-1 min-w-[70px] py-2 px-1 rounded-xl text-center border font-bold text-xs transition bg-white text-slate-700 border-slate-300 hover:bg-slate-50 shadow-2xs" data-day="2">
+                <span class="day-name block text-[11px] text-slate-400">שבת</span>
+                <span class="day-num block font-black text-sm text-slate-900">24.10</span>
+                <span class="day-tag block text-[10px] text-slate-400 font-medium">קומו</span>
+              </button>
+              <button onclick="selectDay(3)" class="day-tab-btn flex-1 min-w-[70px] py-2 px-1 rounded-xl text-center border font-bold text-xs transition bg-white text-slate-700 border-slate-300 hover:bg-slate-50 shadow-2xs" data-day="3">
+                <span class="day-name block text-[11px] text-slate-400">ראשון</span>
+                <span class="day-num block font-black text-sm text-slate-900">25.10</span>
+                <span class="day-tag block text-[10px] text-slate-400 font-medium">קומו</span>
+              </button>
+              <button onclick="selectDay(4)" class="day-tab-btn flex-1 min-w-[70px] py-2 px-1 rounded-xl text-center border font-bold text-xs transition bg-white text-slate-700 border-slate-300 hover:bg-slate-50 shadow-2xs" data-day="4">
+                <span class="day-name block text-[11px] text-slate-400">שני</span>
+                <span class="day-num block font-black text-sm text-slate-900">26.10</span>
+                <span class="day-tag block text-[10px] text-slate-400 font-medium">המראה</span>
+              </button>
+            </div>
           </div>
 
           <!-- Active Day Header & Add Button -->
@@ -192,7 +194,7 @@
           <div class="flex items-center justify-between px-1">
             <div>
               <h2 class="text-base font-extrabold text-slate-900">כל הרעיונות לטיול</h2>
-              <p class="text-xs text-slate-500">רשימה מרוכזת של כל המקומות שביררתם</p>
+              <p class="text-xs text-slate-600">רשימה מרוכזת של כל המקומות שביררתם</p>
             </div>
             <button onclick="openAddIdeaModal('general')" class="py-2 px-3 bg-terracotta-500 hover:bg-terracotta-600 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-xs active:scale-95">
               <i class="fa-solid fa-plus"></i>
@@ -210,36 +212,38 @@
       <!-- ================= SECTION 2: BUDGET DASHBOARD ================= -->
       <div id="section-budget" class="hidden space-y-4">
         
-        <!-- Grand Total Budget Card -->
-        <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 text-white p-5 rounded-3xl shadow-xl border border-slate-800 space-y-4">
-          <!-- Top Row: Icon, Title & Exchange Rate -->
-          <div class="flex items-center justify-between gap-2">
-            <div class="flex items-center gap-2.5">
-              <span class="w-10 h-10 rounded-2xl bg-amber-400/15 text-amber-400 flex items-center justify-center text-base font-bold shadow-inner">
-                <i class="fa-solid fa-sack-dollar"></i>
-              </span>
-              <div>
-                <span class="text-xs sm:text-sm font-extrabold text-white block tracking-tight">סך כל הוצאות הטיול</span>
-                <span class="text-[11px] text-slate-400 block font-medium">קבועות (טיסות ומלונות) + שוטפות</span>
+        <!-- Sticky Grand Total Budget Card (Fixed while scrolling) -->
+        <div class="sticky top-[102px] z-20 bg-slate-200/95 backdrop-blur-md pt-1 pb-2">
+          <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 text-white p-4 sm:p-5 rounded-3xl shadow-xl border border-slate-800 space-y-3.5">
+            <!-- Top Row: Icon, Title & Exchange Rate -->
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex items-center gap-2.5">
+                <span class="w-9 h-9 rounded-2xl bg-amber-400/15 text-amber-400 flex items-center justify-center text-sm font-bold shadow-inner">
+                  <i class="fa-solid fa-sack-dollar"></i>
+                </span>
+                <div>
+                  <span class="text-xs sm:text-sm font-extrabold text-white block tracking-tight">סך כל הוצאות הטיול</span>
+                  <span class="text-[11px] text-slate-400 block font-medium">קבועות (טיסות ומלונות) + שוטפות</span>
+                </div>
               </div>
-            </div>
-            <button onclick="openRateModal()" class="text-xs px-2.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 active:scale-95 text-amber-300 border border-white/10 transition font-bold shrink-0">
-              1€ = <span id="rateLabelCard">3.50</span> ₪ ✏️
-            </button>
-          </div>
-
-          <!-- Bottom Grid: 2 Distinct Centered Currency Cards with Safe Padding -->
-          <div class="grid grid-cols-2 gap-2.5 pt-1 border-t border-slate-800/80">
-            <!-- Euro Card -->
-            <div class="bg-white/[0.05] border border-white/10 rounded-2xl px-3 py-3 flex flex-col items-center justify-center text-center">
-              <span class="text-[11px] font-semibold text-slate-400 mb-0.5">סך הכל באירו</span>
-              <span class="text-xl sm:text-2xl font-black tracking-tight text-white" id="grandTotalEur">€0.00</span>
+              <button onclick="openRateModal()" class="text-xs px-2.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 active:scale-95 text-amber-300 border border-white/10 transition font-bold shrink-0">
+                1€ = <span id="rateLabelCard">3.50</span> ₪ ✏️
+              </button>
             </div>
 
-            <!-- ILS Card -->
-            <div class="bg-amber-400/[0.08] border border-amber-400/20 rounded-2xl px-3 py-3 flex flex-col items-center justify-center text-center">
-              <span class="text-[11px] font-semibold text-amber-300/90 mb-0.5">שווה ערך בשקלים</span>
-              <span class="text-xl sm:text-2xl font-black tracking-tight text-amber-400" id="grandTotalIls">₪0.00</span>
+            <!-- Bottom Grid: 2 Distinct Centered Currency Cards with Safe Padding -->
+            <div class="grid grid-cols-2 gap-2.5 pt-1 border-t border-slate-800/80">
+              <!-- Euro Card -->
+              <div class="bg-white/[0.05] border border-white/10 rounded-2xl px-3 py-2.5 flex flex-col items-center justify-center text-center">
+                <span class="text-[11px] font-semibold text-slate-400 mb-0.5">סך הכל באירו</span>
+                <span class="text-xl sm:text-2xl font-black tracking-tight text-white" id="grandTotalEur">€0.00</span>
+              </div>
+
+              <!-- ILS Card -->
+              <div class="bg-amber-400/[0.08] border border-amber-400/20 rounded-2xl px-3 py-2.5 flex flex-col items-center justify-center text-center">
+                <span class="text-[11px] font-semibold text-amber-300/90 mb-0.5">שווה ערך בשקלים</span>
+                <span class="text-xl sm:text-2xl font-black tracking-tight text-amber-400" id="grandTotalIls">₪0.00</span>
+              </div>
             </div>
           </div>
         </div>
@@ -355,7 +359,7 @@
         <div class="flex items-center justify-between text-xs font-bold text-slate-800 px-1 pt-1">
           <span>רשימת הוצאות שוטפות</span>
           <div class="flex items-center gap-2">
-            <span id="expenseCountText" class="text-slate-400 font-normal">0 רשומות</span>
+            <span id="expenseCountText" class="text-slate-500 font-normal">0 רשומות</span>
             <button type="button" onclick="clearAllExpenses()" id="clearAllExpensesBtn" class="hidden text-xs text-red-600 hover:text-red-700 font-bold bg-red-50 px-2.5 py-1 rounded-lg border border-red-200 transition active:scale-95">
               <i class="fa-solid fa-trash-can ml-0.5"></i> נקה הכל
             </button>
@@ -660,24 +664,36 @@
       document.querySelectorAll('.day-tab-btn').forEach(btn => {
         const bIdx = parseInt(btn.getAttribute('data-day'));
         const dayName = btn.querySelector('.day-name');
+        const dayNum = btn.querySelector('.day-num');
         const dayTag = btn.querySelector('.day-tag');
+
         if (bIdx === idx) {
-          btn.classList.remove('bg-white', 'text-slate-700', 'border-slate-200');
-          btn.classList.add('bg-slate-900', 'text-white', 'border-slate-900');
+          // Dark state for selected day button
+          btn.classList.remove('bg-white', 'text-slate-700', 'border-slate-300', 'hover:bg-slate-50');
+          btn.classList.add('bg-slate-900', 'text-white', 'border-slate-900', 'shadow-xs');
           if (dayName) {
             dayName.classList.remove('text-slate-400');
             dayName.classList.add('text-slate-300');
+          }
+          if (dayNum) {
+            dayNum.classList.remove('text-slate-900');
+            dayNum.classList.add('text-white');
           }
           if (dayTag) {
             dayTag.classList.remove('text-slate-400');
             dayTag.classList.add('text-slate-300');
           }
         } else {
-          btn.classList.remove('bg-slate-900', 'text-white', 'border-slate-900');
-          btn.classList.add('bg-white', 'text-slate-700', 'border-slate-200');
+          // Light state for unselected day buttons
+          btn.classList.remove('bg-slate-900', 'text-white', 'border-slate-900', 'shadow-xs');
+          btn.classList.add('bg-white', 'text-slate-700', 'border-slate-300', 'hover:bg-slate-50');
           if (dayName) {
             dayName.classList.remove('text-slate-300');
             dayName.classList.add('text-slate-400');
+          }
+          if (dayNum) {
+            dayNum.classList.remove('text-white');
+            dayNum.classList.add('text-slate-900');
           }
           if (dayTag) {
             dayTag.classList.remove('text-slate-300');
@@ -710,7 +726,7 @@
 
       if (dayIdeas.length === 0) {
         container.innerHTML = `
-          <div class="p-6 bg-white rounded-2xl border border-dashed border-slate-200 text-center space-y-2">
+          <div class="p-6 bg-white rounded-2xl border border-dashed border-slate-300 text-center space-y-2">
             <div class="w-10 h-10 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center mx-auto text-lg">
               <i class="fa-regular fa-lightbulb"></i>
             </div>
@@ -733,7 +749,7 @@
       const container = document.getElementById('allIdeasList');
       if (state.ideas.length === 0) {
         container.innerHTML = `
-          <div class="p-8 bg-white rounded-2xl border border-dashed border-slate-200 text-center space-y-2">
+          <div class="p-8 bg-white rounded-2xl border border-dashed border-slate-300 text-center space-y-2">
             <div class="w-12 h-12 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center mx-auto text-xl">
               <i class="fa-solid fa-list-check"></i>
             </div>
@@ -749,10 +765,10 @@
       // Group by Days (0..4) and General
       const groups = [
         { key: '0', title: 'יום חמישי 22.10 (מילאנו)' },
-        { key: '1', title: 'יום שישי 23.10 (מעבר לאגם קומו)' },
-        { key: '2', title: 'יום שבת 24.10 (אגם קומו)' },
-        { key: '3', title: 'יום ראשון 25.10 (קומו & חזרה)' },
-        { key: '4', title: 'יום שני 26.10 (טיסת בוקר)' },
+        { key: '1', title: 'יום שישי 23.10 (מילאנו/קומו)' },
+        { key: '2', title: 'יום שבת 24.10 (קומו)' },
+        { key: '3', title: 'יום ראשון 25.10 (קומו)' },
+        { key: '4', title: 'יום שני 26.10 (המראה)' },
         { key: 'general', title: '📋 רעיונות כלליים (לכל הימים)' }
       ];
 
@@ -763,7 +779,7 @@
             <div class="space-y-2">
               <div class="flex items-center justify-between px-1">
                 <h3 class="font-extrabold text-xs text-slate-900">${g.title}</h3>
-                <span class="text-[11px] font-bold text-slate-400">${groupIdeas.length}</span>
+                <span class="text-[11px] font-bold text-slate-500">${groupIdeas.length}</span>
               </div>
               <div class="space-y-2">
                 ${groupIdeas.map(i => renderIdeaCard(i)).join('')}
@@ -944,7 +960,7 @@
 
       if (state.expenses.length === 0) {
         container.innerHTML = `
-          <div class="p-6 bg-white rounded-2xl border border-dashed border-slate-200 text-center text-slate-400 text-xs">
+          <div class="p-6 bg-white rounded-2xl border border-dashed border-slate-300 text-center text-slate-400 text-xs">
             <i class="fa-solid fa-receipt text-xl mb-1 text-slate-300 block"></i>
             אין עדיין הוצאות שוטפות שהוזנו.<br>לחצו על "הוספת הוצאה חדשה" למעלה!
           </div>
@@ -1096,7 +1112,7 @@
       typingDiv.className = 'flex items-start gap-2 max-w-[92%]';
       typingDiv.innerHTML = `
         <div class="w-6 h-6 rounded-lg bg-blue-600 text-white flex items-center justify-center text-[10px] shrink-0 font-bold">
-          AI
+          Data
         </div>
         <div class="p-2.5 bg-white border border-slate-200 rounded-2xl rounded-tr-xs shadow-2xs text-slate-500 text-xs flex items-center gap-1.5">
           <i class="fa-solid fa-circle-notch fa-spin text-blue-500 text-xs"></i>
@@ -1140,22 +1156,19 @@
       container.scrollTop = container.scrollHeight;
     }
 
-    // ================= HIGH-INTEL FREE-FORM SEMANTIC KNOWLEDGE BASE =================
+    // High-Intel Semantic Knowledge Base
     function getAiResponse(rawQuery) {
       if (!rawQuery || !rawQuery.trim()) return "אפשר לשאול אותי כל שאלה חופשית על הטיסות, המלונות, המושבים או הלו\"ז שלכם!";
 
       const q = rawQuery.toLowerCase().trim();
 
-      // Normalize common Hebrew typos, prefixes, and variations
       const cleanText = q
         .replace(/["'״׳`?!.,:;()\-]/g, ' ')
         .replace(/\s+/g, ' ');
 
-      // Extract core tokens and strip Hebrew prefixes (ב, ל, מ, ה, ש, כ, כש)
       const rawTokens = cleanText.split(' ').filter(w => w.length > 0);
       const stemmedTokens = rawTokens.map(w => {
         let stemmed = w;
-        // Map common synonyms & typos directly
         if (/מיחאנו|מילנו|מילאנוו|milan|milano/.test(w)) return 'מילאנו';
         if (/בלאגו|בלגיו|בלאגיו|בלג'יו|bellagio/.test(w)) return 'בלאג\'ו';
         if (/ורנה|וארנה|varenna/.test(w)) return 'ורנה';
@@ -1173,7 +1186,6 @@
         if (/שטרות|מזומן|מזומנים|cash/.test(w)) return 'מזומן';
         if (/תקציב|מחיר|עלות|כסף|יורו|אירו|שקלים/.test(w)) return 'תקציב';
 
-        // Strip prefixes if word is long enough
         if (stemmed.length > 3) {
           if (stemmed.startsWith('כש') || stemmed.startsWith('שב') || stemmed.startsWith('מה')) {
             stemmed = stemmed.substring(2);
@@ -1187,7 +1199,6 @@
       const tokenSet = new Set([...rawTokens, ...stemmedTokens]);
       const hasAny = (...words) => words.some(w => cleanText.includes(w) || tokenSet.has(w));
 
-      // 1. Luggage storage & Leaving bags at hotels (שמירת מזוודות / השארת חפצים)
       if (hasAny('שמירת_מזוודות') || 
           (hasAny('להשאיר', 'השארה', 'שמירה', 'לאחסן', 'לוקר', 'לוקרים', 'storage', 'deposito') && hasAny('מזוודה', 'מזוודות', 'תיק', 'תיקים', 'כבודה', 'מלון', 'בלאג\'ו', 'מילאנו', 'חדר')) ||
           cleanText.includes('להשאיר מזוודות') || cleanText.includes('שמירת מזוודות') || cleanText.includes('שמירת חפצים') || cleanText.includes('מזוודות במלון')) {
@@ -1200,7 +1211,6 @@
         • 🚆 <strong>בונוס תחבורתי:</strong> בתחנת הרכבת <em>Milano Centrale</em> פועל מתחם שמירת חפצים מאובטח (KiPoint) בקומת הקרקע למקרה שתרצו להסתובב בעיר ללא תיקים כלל.`;
       }
 
-      // 2. Check user-saved custom ideas first if explicitly asked about them
       if (hasAny('רעיון', 'רעיונות', 'שביררנו', 'ששמרנו', 'הוספנו', 'ברשימה', 'שביררתי')) {
         if (state.ideas.length === 0) {
           return `📋 <strong>רעיונות ומקומות שביררתם:</strong><br>עדיין לא הזנתם רעיונות באפליקציה. תוכלו ללחוץ על כפתור <em>"הוספת רעיון או מקום"</em> במסך הראשי והם יישמרו כאן מיד!`;
@@ -1209,7 +1219,6 @@
         return `📋 <strong>מצאתי ${state.ideas.length} רעיונות שהזנתם ברשימה שלכם:</strong><br>${listText}`;
       }
 
-      // Check if a specific custom saved idea was queried by its name
       const matchedIdea = state.ideas.find(i => cleanText.includes(i.title.toLowerCase()) || (i.notes && cleanText.includes(i.notes.toLowerCase())));
       if (matchedIdea) {
         return `💡 <strong>פרטי המקום מתוך הרעיונות ששמרתם:</strong><br>
@@ -1219,7 +1228,6 @@
         ${matchedIdea.notes ? `• <strong>הערה/טיפ:</strong> ${matchedIdea.notes}` : ''}`;
       }
 
-      // 3. Secret PIN code queries (door code, lock, pin, key, entry)
       if (hasAny('קוד', 'סודי', 'pin', '0650', 'סיסמה', 'מפתח', 'דלת', 'כניסה')) {
         return `🔑 <strong>הקוד הסודי (PIN Code) למלון Seta בבלאג'ו:</strong><br>
         • <strong>הקוד הסודי הוא: 0650</strong><br>
@@ -1228,7 +1236,6 @@
         • <strong>כתובת:</strong> Via Teresio Olivelli 23, Bellagio.`;
       }
 
-      // 4. Seats and Window queries (who sits where, window seats, Carmel, Yuval, seat numbers)
       if (hasAny('חלון', 'מושב', 'כיסא', 'כסא', 'לשבת', 'יושב', 'יושבת', 'יושבים', '18a', '18b', '18e', '18f', 'מקומות ישיבה')) {
         return `🪟 <strong>חלוקת המושבים בטיסות Wizz Air:</strong><br>
         • <strong>כרמל יושבת ליד החלון בשתי הטיסות! 🎉</strong><br>
@@ -1236,7 +1243,6 @@
         • 🛫 <strong>טיסת חזור (שני 26.10):</strong> יובל מושב <strong>18E (אמצע)</strong> | כרמל מושב <strong>18F (חלון)</strong>.`;
       }
 
-      // 5. Flight Baggage, Backpack, Trolley, Weight and Dimensions
       if (hasAny('כבודה', 'טרולי', 'משקל', 'מידות', 'סנטימטר', 'בטן', 'מטען', 'priority', 'פריוריטי') && !hasAny('מלון', 'השארה', 'להשאיר')) {
         return `🧳 <strong>הנחיות הכבודה המדויקות לטיסות (נרכש WIZZ Priority):</strong><br>
         • 🎒 <strong>תיק גב אישי קטן:</strong> עד מידות <strong>40x30x20 ס"מ</strong> (להנחה תחת המושב שלפניכם).<br>
@@ -1244,28 +1250,24 @@
         • ⚠️ <strong>שימו לב:</strong> אין כבודה לבטן המטוס (ללא מזוודות גדולות).`;
       }
 
-      // 6. Breakfast queries (is breakfast included, where, terrace)
       if (hasAny('ארוחת בוקר', 'בוקר', 'לאכול בבוקר', 'קפה בבוקר', 'ארוחה', 'בופה')) {
         return `☕ <strong>מידע על ארוחות הבוקר במלונות:</strong><br>
         • 🏨 <strong>במלון Seta בבלאג'ו:</strong> <strong>ארוחת הבוקר כלולה במחיר!</strong> היא מוגשת במרפסת המשקיפה ישירות לאגם קומו.<br>
         • 🏨 <strong>במלון Smarthotel Duomo במילאנו:</strong> החדר ללא ארוחת בוקר – מומלץ לצאת ל-<em>Marchesi 1824</em> בגלריה ויטוריו עמנואלה או ל-<em>Luini</em> לפנצ'רוטי חם!`;
       }
 
-      // 7. Elevators and Stairs queries
       if (hasAny('מעלית', 'מדרגות', 'קומה', 'לסחוב', 'עליה', 'מזוודות למעלה')) {
         return `🛗 <strong>מידע על מעליות ונגישות במלונות:</strong><br>
         • 🏨 <strong>מלון Seta בבלאג'ו:</strong> המלון שוכן במבנה היסטורי ו<strong>אין בו מעלית</strong>. עם זאת, צוות המלון מסייע בהעלאת המזוודות לחדר.<br>
         • 🏨 <strong>מלון Smarthotel Duomo במילאנו:</strong> יש מעלית וגישה נוחה.`;
       }
 
-      // 8. Cash, City tax, and Payments on site queries
       if (hasAny('מזומן', 'מס', 'מס עיר', 'שטר', 'שטרות', 'cash', 'לשלם במקום', 'צקאין', 'צק אין', 'קבלה')) {
         return `💶 <strong>תשלומים ומסי עיר במקום (חשוב להכין מראש!):</strong><br>
         • 🏨 <strong>במילאנו (Smarthotel Duomo):</strong> לתשלום בצ'ק-אין: <strong>263.00€</strong> עבור החדר + <strong>20.00€ מס עיר במזומן בלבד!</strong> (חובה להביא שטר של 20€).<br>
         • 🏨 <strong>בבלאג'ו (Seta Hotel):</strong> שולם מראש בבוקינג (432€). לתשלום במלון: <strong>12.00€ מס עיר</strong> (3€ לאדם ללילה x 2 לילות).`;
       }
 
-      // 9. Bellagio / Lake Como / Seta Hotel queries
       if (hasAny('סטה', 'seta', 'בלאג\'ו', 'קומו', 'לילה שני', 'לילה שלישי', 'שבת בערב', 'שישי בערב', 'אגם')) {
         return `🏨 <strong>מלון Seta Hotel בבלאג'ו (אגם קומו | 23-25 באוקטובר, 2 לילות):</strong><br>
         • <strong>כתובת:</strong> Via Teresio Olivelli 23, Bellagio.<br>
@@ -1279,7 +1281,6 @@
         • 💡 שימו לב: ללא מעלית (הצוות מסייע עם התיקים). חניה פרטית: 20€ ליום בתיאום מראש.`;
       }
 
-      // 10. Milan Hotel / Smarthotel Duomo queries
       if (hasAny('מילאנו', 'דואומו', 'duomo', 'סמארט', 'לילה ראשון', 'חמישי בלילה', 'איפה ישנים במילאנו', 'איפה המלון')) {
         return `🏨 <strong>המלון שלכם במילאנו (22-23 באוקטובר, לילה 1):</strong><br>
         • <strong>BB Hotels Smarthotel Duomo</strong><br>
@@ -1289,7 +1290,6 @@
         • 📞 <strong>טלפון:</strong> +39 02 72105205 | קוד הזמנה: BBE26100322421628.`;
       }
 
-      // 11. General "Where do we sleep" / "What hotels"
       if (hasAny('לישון', 'ישנים', 'מלון', 'מלונות', 'חדר', 'איפה נהיה בלילה', 'אירוח')) {
         return `🏨 <strong>שני המלונות שלכם בטיול:</strong><br>
         1. <strong>לילה ראשון (22-23.10) במילאנו:</strong><br>
@@ -1298,7 +1298,6 @@
         • מלון <em>Seta Hotel</em> בבלאג'ו. קוד סודי: <strong>0650</strong>, טלפון: +39 340 147 0026. צ'ק-אין עד 20:00! שמירת מזוודות חינם, וארוחת בוקר כלולה מול האגם.`;
       }
 
-      // 12. Flights, Airports, Hours, and PNR queries
       if (hasAny('טיסה', 'טיסות', 'לטוס', 'שדה', 'מלפנסה', 'נתבג', 'wizz', 'pnr', 'המראה', 'נחיתה', 'טרמינל', 'שעות טיסה', 'srkqwq', '6406', '6405')) {
         return `✈️ <strong>פרטי הטיסות המלאים (Wizz Air | קוד הזמנה PNR: SRKQWQ):</strong><br>
         • 🛫 <strong>טיסת הלוך (חמישי 22.10 | טיסה W4 6406):</strong><br>
@@ -1311,7 +1310,6 @@
         • שירות Auto Check-in נרכש ושולם במלואו (סך טיסות: 540.84€).`;
       }
 
-      // 13. Trains, Ferries, and Navigation queries
       if (hasAny('רכבת', 'מעבורת', 'ורנה', 'איך מגיעים', 'תחבורה', 'נסיעה', 'שמאל', 'ימין', 'סירה', 'צנטראלה', 'centrale')) {
         return `🚆 <strong>תחבורה, רכבות ומעבורות:</strong><br>
         • <strong>רכבת Trenord מילאנו ⟷ ורנה:</strong> יוצאת מתחנת Milano Centrale ומגיעה לתחנת Varenna-Esino ב-1 שעה ו-4 דקות (~7.40€). <strong>טיפ זהב:</strong> שבו בצד <strong>שמאל</strong> של כיוון הנסיעה כדי לראות את נופי האגם נפתחים מולכם!<br>
@@ -1319,7 +1317,6 @@
         • <strong>מלפנסה אקספרס:</strong> רכבת מהירה מטרמינל 1 למילאנו צ'נטראלה (13€ לאדם, ~50 דקות).`;
       }
 
-      // 14. Budget, Expenses, Exchange rate queries
       if (hasAny('תקציב', 'כמה עולה', 'כמה שילמנו', 'סך הכל', 'שער', 'אירו', 'יורו', 'שקלים', 'הוצאות')) {
         const rate = state.exchangeRate || 3.50;
         let varEur = 0;
@@ -1332,7 +1329,6 @@
         • 🏆 <strong>סך הכל כללי:</strong> <strong>€${totalEur.toFixed(2)}</strong> (<strong>₪${(totalEur * rate).toFixed(2)}</strong>).`;
       }
 
-      // 15. Dates and Days queries
       if (hasAny('חמישי', '22')) {
         return `📅 <strong>יום חמישי 22.10 (מילאנו):</strong><br>
         • 10:45 המראה מנתב"ג W4 6406 (כרמל 18A חלון, יובל 18B). נחיתה במלפנסה T1 ב-14:05.<br>
@@ -1364,7 +1360,6 @@
         • 09:55 נחיתה בנתב"ג טרמינל 3.`;
       }
 
-      // Universal Safe Match: If user asked anything else, provide the essential travel snapshot
       return `📌 <strong>תמצית הנתונים מהמיילים וההזמנות שלכם:</strong><br>
       • ✈️ <strong>טיסות:</strong> הלוך 22.10 ב-10:45 | חזור 26.10 ב-05:00 (הגעה ב-02:30 לשדה!) | PNR: <code>SRKQWQ</code>.<br>
       • 🪟 <strong>מושבים:</strong> כרמל בחלון בשתי הטיסות (18A בהלוך, 18F בחזור).<br>
