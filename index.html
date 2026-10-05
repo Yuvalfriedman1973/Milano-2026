@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="he" dir="rtl" class="h-full overflow-hidden">
 <head>
@@ -22,7 +23,7 @@
       height: 100dvh;
       margin: 0;
       padding: 0;
-      overflow: hidden; /* Prevents outer window scroll entirely */
+      overflow: hidden;
     }
     * {
       font-family: 'Rubik', system-ui, -apple-system, sans-serif;
@@ -30,12 +31,11 @@
       box-sizing: border-box;
     }
     body {
-      background-color: #cbd5e1; /* Subtle slate background for larger screens */
+      background-color: #cbd5e1;
       color: #0f172a;
       font-size: 15px;
       line-height: 1.5;
     }
-    /* Elegant smooth custom scrollbars */
     .custom-scroll::-webkit-scrollbar {
       width: 6px;
     }
@@ -53,10 +53,10 @@
 </head>
 <body class="h-full w-full flex justify-center items-center p-0 sm:p-2 md:p-3">
 
-  <!-- Main App Shell Frame - Expanded Width (100% on Mobile, Wide on Desktop/Tablet) -->
+  <!-- Main App Shell Frame -->
   <div class="w-full sm:max-w-3xl lg:max-w-4xl bg-slate-100 h-full max-h-[100dvh] sm:max-h-[98dvh] sm:rounded-[2rem] shadow-2xl border-x sm:border border-slate-300 flex flex-col overflow-hidden relative">
     
-    <!-- 1. Global Header Bar - Luxury Midnight Slate with Warm Amber Accents -->
+    <!-- 1. Global Header Bar -->
     <header class="relative px-4 py-3.5 border-b border-slate-800 bg-slate-900 shadow-md z-30 shrink-0 overflow-hidden flex items-center justify-center text-center">
       <div class="relative z-10 mx-auto">
         <h1 class="text-base sm:text-lg md:text-xl font-black text-white leading-tight flex items-center justify-center gap-2 tracking-tight">
@@ -67,7 +67,7 @@
       </div>
     </header>
 
-    <!-- 2. Primary Top Navigation Tabs (PERMANENTLY PINNED AT TOP) -->
+    <!-- 2. Primary Navigation Tabs -->
     <div class="px-4 py-2.5 bg-slate-100 border-b border-slate-200/80 z-30 shrink-0">
       <div class="grid grid-cols-3 gap-2">
         
@@ -92,13 +92,12 @@
       </div>
     </div>
 
-    <!-- SECTION 1: PLAN & IDEAS (Header + Days Permanently Pinned, Only Body Scrolls) -->
+    <!-- SECTION 1: PLAN & IDEAS -->
     <main id="sectionPlan" class="flex-1 flex flex-col min-h-0 overflow-hidden">
       
-      <!-- Pinned Plan Header: View Mode Switcher + Days Row (NEVER SCROLLS AWAY) -->
+      <!-- Pinned View Switcher & Days Row -->
       <div class="shrink-0 bg-slate-100 border-b border-slate-200 shadow-xs z-20">
         
-        <!-- View mode switch: By Day vs All Days -->
         <div class="px-4 pt-2.5 pb-2 flex gap-2">
           <button type="button" id="subTabDay" onclick="window.setPlanViewMode('day')" class="flex-1 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition cursor-pointer active:scale-95 bg-amber-600 text-white shadow-xs">
             <i class="fa-regular fa-calendar-days ml-1"></i>
@@ -110,39 +109,33 @@
           </button>
         </div>
 
-        <!-- Fixed Days Row (Buttons turn dark slate when active - NEVER SCROLLS AWAY) -->
         <div id="daysRowContainer" class="px-4 pb-2.5 pt-0.5">
           <div class="grid grid-cols-5 gap-1.5 sm:gap-2">
             
-            <!-- Day 1 -->
             <button type="button" onclick="window.selectDay(0)" id="dayBtn-0" class="flex flex-col items-center justify-center py-2 px-1 rounded-xl transition duration-150 cursor-pointer border active:scale-95 bg-slate-900 text-white border-slate-900 shadow-sm">
               <span class="text-[11px] sm:text-xs font-medium text-slate-400">חמישי</span>
               <span class="text-sm sm:text-base font-black leading-tight">22.10</span>
               <span class="text-[10px] sm:text-[11px] font-semibold text-slate-400 mt-0.5">מילאנו</span>
             </button>
 
-            <!-- Day 2 -->
             <button type="button" onclick="window.selectDay(1)" id="dayBtn-1" class="flex flex-col items-center justify-center py-2 px-1 rounded-xl transition duration-150 cursor-pointer border active:scale-95 bg-white text-slate-700 border-slate-200 shadow-xs hover:bg-slate-50">
               <span class="text-[11px] sm:text-xs font-medium text-slate-400">שישי</span>
               <span class="text-sm sm:text-base font-black leading-tight">23.10</span>
               <span class="text-[10px] sm:text-[11px] font-semibold text-slate-400 mt-0.5">מילאנו/קומו</span>
             </button>
 
-            <!-- Day 3 -->
             <button type="button" onclick="window.selectDay(2)" id="dayBtn-2" class="flex flex-col items-center justify-center py-2 px-1 rounded-xl transition duration-150 cursor-pointer border active:scale-95 bg-white text-slate-700 border-slate-200 shadow-xs hover:bg-slate-50">
               <span class="text-[11px] sm:text-xs font-medium text-slate-400">שבת</span>
               <span class="text-sm sm:text-base font-black leading-tight">24.10</span>
               <span class="text-[10px] sm:text-[11px] font-semibold text-slate-400 mt-0.5">קומו</span>
             </button>
 
-            <!-- Day 4 -->
             <button type="button" onclick="window.selectDay(3)" id="dayBtn-3" class="flex flex-col items-center justify-center py-2 px-1 rounded-xl transition duration-150 cursor-pointer border active:scale-95 bg-white text-slate-700 border-slate-200 shadow-xs hover:bg-slate-50">
               <span class="text-[11px] sm:text-xs font-medium text-slate-400">ראשון</span>
               <span class="text-sm sm:text-base font-black leading-tight">25.10</span>
               <span class="text-[10px] sm:text-[11px] font-semibold text-slate-400 mt-0.5">קומו</span>
             </button>
 
-            <!-- Day 5 -->
             <button type="button" onclick="window.selectDay(4)" id="dayBtn-4" class="flex flex-col items-center justify-center py-2 px-1 rounded-xl transition duration-150 cursor-pointer border active:scale-95 bg-white text-slate-700 border-slate-200 shadow-xs hover:bg-slate-50">
               <span class="text-[11px] sm:text-xs font-medium text-slate-400">שני</span>
               <span class="text-sm sm:text-base font-black leading-tight">26.10</span>
@@ -154,10 +147,9 @@
 
       </div>
 
-      <!-- Independently Scrollable Ideas Body (Only this part scrolls!) -->
+      <!-- Scrollable Ideas List -->
       <div class="flex-1 overflow-y-auto custom-scroll p-4 sm:p-5 md:p-6 space-y-4">
         
-        <!-- Day Banner Card -->
         <div id="dayInfoCard" class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
           <div>
             <span id="dayRouteTag" class="text-xs sm:text-sm font-black text-amber-600 uppercase tracking-wide">נתב"ג ⟵ מילאנו מלפנסה</span>
@@ -166,13 +158,11 @@
           <span id="dayIdeasCount" class="text-xs sm:text-sm font-bold px-3 py-1 bg-slate-100 text-slate-600 rounded-lg">0 רעיונות</span>
         </div>
 
-        <!-- Add Idea Action Button -->
         <button type="button" onclick="window.openAddIdeaModal()" class="w-full py-3.5 sm:py-4 px-4 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 active:scale-98 text-white rounded-2xl font-black text-sm sm:text-base shadow-md shadow-orange-500/20 flex items-center justify-center gap-2 transition cursor-pointer">
           <i class="fa-solid fa-circle-plus text-base sm:text-lg"></i>
           <span>הוספת רעיון או מקום ליום זה</span>
         </button>
 
-        <!-- Dynamic Ideas List Container -->
         <div id="ideasContainer" class="space-y-3 pb-8">
           <!-- Injected via JavaScript -->
         </div>
@@ -180,14 +170,13 @@
       </div>
     </main>
 
-    <!-- SECTION 2: BUDGET (Summary black card permanently pinned above scrollable body) -->
+    <!-- SECTION 2: BUDGET -->
     <section id="sectionBudget" class="hidden flex-1 flex flex-col min-h-0 overflow-hidden">
       
-      <!-- Pinned Budget Summary Card (NEVER SCROLLS AWAY) -->
+      <!-- Pinned Budget Summary Card -->
       <div class="shrink-0 px-4 py-2 border-b border-slate-200/80 bg-slate-100 shadow-xs z-20">
         <div class="bg-slate-900 text-white rounded-2xl p-2.5 sm:p-3 shadow-lg border border-slate-800 space-y-2">
           
-          <!-- Euro Rate pill button inside black card -->
           <div class="flex items-center justify-between px-1">
             <span class="text-[11px] sm:text-xs font-black text-slate-300 flex items-center gap-1">
               <i class="fa-solid fa-coins text-amber-400"></i>
@@ -200,12 +189,10 @@
           </div>
 
           <div class="grid grid-cols-2 gap-2 text-center">
-            <!-- Euro Card -->
             <div class="bg-slate-800/80 px-2 py-1.5 rounded-xl border border-slate-700/60">
               <span class="text-[10px] sm:text-xs font-medium text-slate-400 block mb-0.5">באירו</span>
               <span id="grandTotalEuro" class="text-lg sm:text-2xl font-black tracking-tight text-white block">€1,267.84</span>
             </div>
-            <!-- ILS Card -->
             <div class="bg-amber-500/10 px-2 py-1.5 rounded-xl border border-amber-500/30">
               <span class="text-[10px] sm:text-xs font-medium text-amber-300 block mb-0.5">בשקלים חדשים</span>
               <span id="grandTotalIls" class="text-lg sm:text-2xl font-black tracking-tight text-amber-400 block">₪4,437.44</span>
@@ -214,10 +201,9 @@
         </div>
       </div>
 
-      <!-- Independently Scrollable Expenses Body -->
+      <!-- Scrollable Budget Body -->
       <div class="flex-1 overflow-y-auto custom-scroll p-4 sm:p-5 md:p-6 space-y-4">
         
-        <!-- Fixed Booked Expenses Accordion -->
         <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
           <div class="px-4 py-3 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
             <div class="flex items-center gap-2">
@@ -228,7 +214,6 @@
           </div>
 
           <div class="p-3.5 sm:p-4 space-y-3 text-xs sm:text-sm">
-            <!-- Flight -->
             <div class="flex items-start justify-between pb-2.5 border-b border-slate-100">
               <div>
                 <h3 class="font-black text-slate-800 flex items-center gap-1.5">
@@ -243,7 +228,6 @@
               </div>
             </div>
 
-            <!-- Bellagio Hotel -->
             <div class="flex items-start justify-between pb-2.5 border-b border-slate-100">
               <div>
                 <h3 class="font-black text-slate-800 flex items-center gap-1.5">
@@ -258,7 +242,6 @@
               </div>
             </div>
 
-            <!-- Milan Hotel -->
             <div class="flex items-start justify-between">
               <div>
                 <h3 class="font-black text-slate-800 flex items-center gap-1.5">
@@ -275,13 +258,11 @@
           </div>
         </div>
 
-        <!-- Add Expense Full-Width Button -->
         <button type="button" onclick="window.openAddExpenseModal()" class="w-full py-3.5 sm:py-4 px-4 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 active:scale-98 text-white rounded-2xl font-black text-sm sm:text-base shadow-md shadow-orange-500/20 flex items-center justify-center gap-2 transition cursor-pointer">
           <i class="fa-solid fa-circle-plus text-base sm:text-lg"></i>
           <span>הוספת הוצאה חדשה</span>
         </button>
 
-        <!-- Categories Breakdown -->
         <div class="bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 shadow-xs">
           <h3 class="text-xs sm:text-sm font-black text-slate-700 mb-3">פילוח הוצאות שוטפות לפי קטגוריות</h3>
           <div id="categoriesBreakdown" class="space-y-2 text-xs sm:text-sm">
@@ -289,7 +270,6 @@
           </div>
         </div>
 
-        <!-- Active Expenses List -->
         <div>
           <h3 class="text-xs sm:text-sm font-black text-slate-700 mb-2 px-1">רשימת ההוצאות השוטפות שהוספתם</h3>
           <div id="expensesList" class="space-y-2 pb-8">
@@ -300,7 +280,7 @@
       </div>
     </section>
 
-    <!-- Toast Notification Message -->
+    <!-- Toast Notification -->
     <div id="toastNotification" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-5 py-3 rounded-2xl text-xs sm:text-sm font-bold shadow-2xl transition-all duration-300 opacity-0 pointer-events-none z-50 flex items-center gap-2">
       <span id="toastMessage">הודעה</span>
     </div>
@@ -457,7 +437,6 @@
   <div id="modalData" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-50 flex items-start sm:items-center justify-center p-2 pt-3 sm:p-4 overflow-y-auto">
     <div class="bg-white w-full max-w-xl rounded-3xl shadow-2xl border border-slate-200 flex flex-col h-[68dvh] sm:h-[75vh] max-h-[540px] overflow-hidden my-auto sm:my-0">
       
-      <!-- Modal Header (Compact) -->
       <div class="px-4 py-2.5 bg-slate-50 border-b border-slate-200 flex items-center justify-between shrink-0">
         <div class="flex items-center gap-2">
           <div class="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center text-xs shadow-xs">
@@ -473,7 +452,6 @@
         </button>
       </div>
 
-      <!-- Quick Shortcuts (Compact horizontal scroll) -->
       <div class="px-3 py-1.5 bg-slate-100/80 border-b border-slate-200 flex items-center gap-1.5 overflow-x-auto text-[10px] sm:text-xs font-bold text-slate-700 shrink-0">
         <button type="button" onclick="window.askQuickData('שמירת מזוודות בשני המלונות')" class="whitespace-nowrap px-2.5 py-1 bg-white border border-slate-200 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">🧳 שמירת מזוודות</button>
         <button type="button" onclick="window.askQuickData('קוד סודי ופרטי מלון בלאגו')" class="whitespace-nowrap px-2.5 py-1 bg-white border border-slate-200 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">🔑 מלון Seta וקוד</button>
@@ -482,7 +460,6 @@
         <button type="button" onclick="window.askQuickData('זמני טיסות וכבודה')" class="whitespace-nowrap px-2.5 py-1 bg-white border border-slate-200 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition">✈️ כבודה וטיסות</button>
       </div>
 
-      <!-- Chat Messages Container -->
       <div id="dataChatMessages" class="flex-1 p-3 overflow-y-auto custom-scroll space-y-2.5 text-xs sm:text-sm">
         <div class="bg-blue-50 border border-blue-200/80 p-3 rounded-2xl text-slate-800 space-y-1">
           <p class="font-bold text-blue-950 flex items-center gap-1.5 text-xs sm:text-sm">
@@ -495,7 +472,6 @@
         </div>
       </div>
 
-      <!-- Chat Input Bar (Compact) -->
       <div class="p-2.5 bg-white border-t border-slate-200 flex items-center gap-2 shrink-0">
         <input type="text" id="dataQuestionInput" onkeypress="if(event.key==='Enter') window.sendDataQuestion()" placeholder="שאלו כל שאלה (למשל: מתי צ'ק אין במלון סטה?)" class="flex-1 p-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
         <button type="button" onclick="window.sendDataQuestion()" class="w-10 h-10 bg-blue-600 hover:bg-blue-700 active:scale-95 text-white rounded-xl flex items-center justify-center transition cursor-pointer shadow-md shrink-0">
@@ -507,7 +483,6 @@
   </div>
 
   <script>
-    // Trip Days Data Structure
     const TRIP_DAYS = [
       { id: 0, dayName: 'חמישי', dateStr: '22.10', locationTag: 'מילאנו', routeTag: 'נתב"ג ⟵ מילאנו מלפנסה', fullTitle: 'יום חמישי, 22 באוקטובר 2026' },
       { id: 1, dayName: 'שישי', dateStr: '23.10', locationTag: 'מילאנו/קומו', routeTag: 'מילאנו ⟵ רכבת לורנה ⟵ בלאג\'ו', fullTitle: 'יום שישי, 23 באוקטובר 2026' },
@@ -516,10 +491,10 @@
       { id: 4, dayName: 'שני', dateStr: '26.10', locationTag: 'המראה', routeTag: 'מלפנסה ⟵ נתב"ג (המראה ב-05:00)', fullTitle: 'יום שני, 26 באוקטובר 2026' }
     ];
 
-    const FIXED_EXPENSES_EUR = 1267.84; // 540.84 flight + 444.00 Seta + 283.00 Milan
+    const FIXED_EXPENSES_EUR = 1267.84;
 
-    let currentTab = 'plan'; // 'plan' | 'budget'
-    let planViewMode = 'day'; // 'day' | 'all'
+    let currentTab = 'plan';
+    let planViewMode = 'day';
     let selectedDayIndex = 0;
     let euroRate = 3.50;
     let ideasList = [];
@@ -535,6 +510,19 @@
         const savedIdeas = localStorage.getItem('trip_ideas_v3');
         if (savedIdeas) {
           ideasList = JSON.parse(savedIdeas);
+          let cleanedAny = false;
+          ideasList.forEach(idea => {
+            if (idea && idea.url) {
+              const cleaned = normalizeWebUrl(idea.url);
+              if (cleaned !== idea.url) {
+                idea.url = cleaned;
+                cleanedAny = true;
+              }
+            }
+          });
+          if (cleanedAny) {
+            saveIdeasToStorage();
+          }
         } else {
           ideasList = [];
         }
@@ -566,18 +554,33 @@
       }
     }
 
+    function cleanUrlString(input) {
+      if (!input) return '';
+      return String(input)
+        .replace(/[\u200B-\u200D\u200E\u200F\u202A-\u202E\u2066-\u2069\uFEFF]/g, '')
+        .trim();
+    }
+
     function normalizeWebUrl(input) {
       if (!input) return '';
-      let str = String(input).trim();
+      let str = cleanUrlString(input);
       if (!str) return '';
 
-      const httpMatch = str.match(/https?:\/\/[^\s"'<>()[\]]+/i);
-      if (httpMatch) return httpMatch[0];
+      const httpMatch = str.match(/https?:\/\/[^\s"'<>()[\]{}|\\^`]+/i);
+      if (httpMatch) {
+        let url = httpMatch[0];
+        url = url.replace(/[.,;:!?]+$/, '');
+        return url;
+      }
 
-      const wwwMatch = str.match(/www\.[^\s"'<>()[\]]+/i);
-      if (wwwMatch) return 'https://' + wwwMatch[0];
+      const wwwMatch = str.match(/www\.[^\s"'<>()[\]{}|\\^`]+/i);
+      if (wwwMatch) {
+        let url = 'https://' + wwwMatch[0];
+        url = url.replace(/[.,;:!?]+$/, '');
+        return url;
+      }
 
-      if (/^[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+(\/[^\s"'<>]*)?$/i.test(str)) {
+      if (/^[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+(\/[^\s"'<>]*)?$/i.test(str)) {
         return 'https://' + str;
       }
 
@@ -741,7 +744,6 @@
 
         container.innerHTML = dayIdeas.map(idea => renderIdeaCard(idea)).join('');
       } else {
-        // All Days view
         if (dayInfoCard) dayInfoCard.classList.add('hidden');
         if (ideasList.length === 0) {
           container.innerHTML = `
@@ -808,7 +810,7 @@
 
           ${hasUrl ? `
             <div class="pt-1 flex items-center gap-2 flex-wrap">
-              <a href="${escapeHtml(safeUrl)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3.5 py-2 bg-blue-600 hover:bg-blue-700 active:scale-95 text-white rounded-xl text-xs sm:text-sm font-bold transition shadow-xs no-underline cursor-pointer">
+              <a href="${escapeHtml(safeUrl)}" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 px-3.5 py-2 bg-blue-600 hover:bg-blue-700 active:scale-95 text-white rounded-xl text-xs sm:text-sm font-bold transition shadow-xs no-underline cursor-pointer">
                 <i class="fa-solid fa-arrow-up-right-from-square text-[11px] sm:text-xs"></i>
                 <span>פתח קישור ששמרת 🌐</span>
               </a>
@@ -847,13 +849,16 @@
       const title = titleInput ? titleInput.value.trim() : '';
       if (!title) return;
 
+      const rawUrl = urlInput ? urlInput.value : '';
+      const cleanUrl = normalizeWebUrl(rawUrl);
+
       const newIdea = {
         id: 'idea_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
         title: title,
         dayIndex: daySelect ? parseInt(daySelect.value, 10) : selectedDayIndex,
         category: categorySelect ? categorySelect.value : 'רעיון',
         notes: notesInput ? notesInput.value.trim() : '',
-        url: urlInput ? urlInput.value.trim() : '',
+        url: cleanUrl,
         done: false,
         createdAt: Date.now()
       };
@@ -897,7 +902,6 @@
       if (grandEuroEl) grandEuroEl.innerText = `€${totalEuro.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
       if (grandIlsEl) grandIlsEl.innerText = `₪${totalIls.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-      // Category breakdown
       const categories = [
         { name: 'אוכל, מסעדות וקפה', icon: '🍝' },
         { name: 'תחבורה, רכבות ומעבורות', icon: '⛴️' },
@@ -923,7 +927,6 @@
         }).join('');
       }
 
-      // Expenses list
       if (listEl) {
         if (expensesList.length === 0) {
           listEl.innerHTML = `
@@ -1055,7 +1058,6 @@
       const chatContainer = document.getElementById('dataChatMessages');
       if (!chatContainer) return;
 
-      // User speech bubble
       const userBubble = document.createElement('div');
       userBubble.className = "bg-slate-900 text-white p-3 rounded-2xl rounded-br-none text-left self-end max-w-[85%] text-xs sm:text-sm font-semibold mr-auto";
       userBubble.innerText = question;
@@ -1063,7 +1065,6 @@
       input.value = '';
       chatContainer.scrollTop = chatContainer.scrollHeight;
 
-      // Compute Answer from Comprehensive Trip Database
       setTimeout(() => {
         const answerHtml = computeDataAnswer(question);
         const aiBubble = document.createElement('div');
@@ -1077,7 +1078,6 @@
     function computeDataAnswer(rawQ) {
       const q = rawQ.toLowerCase().replace(/['"״״]/g, '');
 
-      // 1. Luggage Storage at hotels
       if (q.includes('מזווד') || q.includes('שמירת') || q.includes('תיק') || q.includes('לוקר') || q.includes('להשאיר')) {
         return `
           <div class="font-black text-blue-950 mb-1">🧳 שמירת מזוודות בשני המלונות שלכם:</div>
@@ -1089,7 +1089,6 @@
         `;
       }
 
-      // 2. Secret code / Seta hotel in Bellagio
       if (q.includes('סטה') || q.includes('seta') || q.includes('קוד') || q.includes('בלאג') || q.includes('פין') || q.includes('0650')) {
         return `
           <div class="font-black text-blue-950 mb-1">🔑 פרטי מלון Seta בבלאג'ו (23-25 באוקטובר):</div>
@@ -1105,7 +1104,6 @@
         `;
       }
 
-      // 3. Milan Hotel
       if (q.includes('מילאנו') || q.includes('דואומו') || q.includes('סמארט') || q.includes('smarthotel') || q.includes('לילה ראשון')) {
         return `
           <div class="font-black text-blue-950 mb-1">🏨 מלון BB Smarthotel Duomo במילאנו (22-23 באוקטובר):</div>
@@ -1118,22 +1116,20 @@
         `;
       }
 
-      // 4. Seats & Window
       if (q.includes('מושב') || q.includes('חלון') || q.includes('מי יושב') || q.includes('כיסא') || q.includes('מטוס') || q.includes('שורה')) {
         return `
           <div class="font-black text-blue-950 mb-1">🪟 מושבים ומיקום ליד החלון (Wizz Air):</div>
           <div class="space-y-1 leading-relaxed">
             <p>• <strong>הלוך (22.10 טיסה W4 6406):</strong></p>
             <p class="mr-2">✈️ <strong>כרמל: מושב 18A ליד החלון!</strong></p>
-            <p class="mr-2">✈️ <strong>יובל:</strong> מושב 18B (אמצעי, צמוד לכרמל).</p>
+            <p class="mr-2">✈️️ <strong>יובל:</strong> מושב 18B (אמצעי, צמוד לכרמל).</p>
             <p class="mt-1">• <strong>חזור (26.10 טיסה W4 6405):</strong></p>
             <p class="mr-2">✈️ <strong>כרמל: מושב 18F ליד החלון!</strong></p>
-            <p class="mr-2">✈️️ <strong>יובל:</strong> מושב 18E (אמצעי, צמוד לכרמל).</p>
+            <p class="mr-2">✈️ <strong>יובל:</strong> מושב 18E (אמצעי, צמוד לכרמל).</p>
           </div>
         `;
       }
 
-      // 5. Flights, Baggage & PNR
       if (q.includes('טיס') || q.includes('טיסה') || q.includes('כבוד') || q.includes('טרולי') || q.includes('תיק') || q.includes('pnr') || q.includes('שדה') || q.includes('וויז') || q.includes('wizz')) {
         return `
           <div class="font-black text-blue-950 mb-1">✈️ פרטי טיסות וכבודה (Wizz Air):</div>
@@ -1149,7 +1145,6 @@
         `;
       }
 
-      // 6. Trains & Transit
       if (q.includes('רכבת') || q.includes('ורנה') || q.includes('מעבורת') || q.includes('תחבורה') || q.includes('איך מגיעים')) {
         return `
           <div class="font-black text-blue-950 mb-1">🚆 תחבורה ומעבורות:</div>
@@ -1161,7 +1156,6 @@
         `;
       }
 
-      // Fallback response with summary overview
       return `
         <div class="font-black text-blue-950 mb-1">📋 סיכום נתוני הטיול שלכם:</div>
         <div class="space-y-1 leading-relaxed">
@@ -1173,7 +1167,6 @@
       `;
     }
 
-    // Explicit Global Window Bindings for Click Handlers
     window.switchTab = switchTab;
     window.setPlanViewMode = setPlanViewMode;
     window.selectDay = selectDay;
