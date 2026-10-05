@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -139,7 +140,7 @@
             <button onclick="selectDay(0)" class="day-tab-btn flex-1 min-w-[70px] py-2 px-1 rounded-xl text-center border font-bold text-xs transition bg-slate-900 text-white border-slate-900 shadow-xs" data-day="0">
               <span class="day-name block text-[11px] text-slate-300">חמישי</span>
               <span class="block font-black text-sm">22.10</span>
-              <span class="day-tag block text-[10px] text-slate-300 font-medium">מילאנו</span>
+              <span class="day-tag block text-[10px] text-slate-400 font-medium">מילאנו</span>
             </button>
             <button onclick="selectDay(1)" class="day-tab-btn flex-1 min-w-[70px] py-2 px-1 rounded-xl text-center border font-bold text-xs transition bg-white text-slate-700 border-slate-200 hover:bg-slate-50 shadow-2xs" data-day="1">
               <span class="day-name block text-[11px] text-slate-400">שישי</span>
@@ -394,6 +395,7 @@
           <button onclick="askPresetAi('מה הקוד הסודי והטלפון של מלון סטה בבלאגו?')" class="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 font-bold shrink-0 hover:bg-slate-100">🔑 מלון Seta</button>
           <button onclick="askPresetAi('מי יושב ליד החלון בטיסות?')" class="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 font-bold shrink-0 hover:bg-slate-100">🪟 מושבים וחלון</button>
           <button onclick="askPresetAi('כמה שילמנו על הטיסות ומה הקוד PNR?')" class="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 font-bold shrink-0 hover:bg-slate-100">✈️ טיסות וויז</button>
+          <button onclick="askPresetAi('איזה כבודה מותר לנו לקחת?')" class="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 font-bold shrink-0 hover:bg-slate-100">🧳 כבודה וטרולי</button>
         </div>
 
         <div id="aiChatMessages" class="flex-1 p-3 overflow-y-auto space-y-2.5 bg-slate-50/50 text-xs sm:text-sm">
@@ -403,13 +405,13 @@
             </div>
             <div class="p-3 bg-white border border-slate-200 rounded-2xl rounded-tr-xs shadow-2xs space-y-1.5 text-slate-800 leading-relaxed text-xs sm:text-sm">
               <p>היי יובל וכרמל! 👋 אני מלווה הטיול שלכם למילאנו ואגם קומו.</p>
-              <p>כל פרטי הטיסות, המלונות, הקודים הסודיים והתקציב שמורים אצלי. שאלו אותי כל שאלה!</p>
+              <p>כל פרטי הטיסות, המלונות, הקודים הסודיים, התקציב והרעיונות שלכם שמורים ומסונכרנים אצלי. שאלו אותי כל שאלה!</p>
             </div>
           </div>
         </div>
 
         <div class="p-2.5 bg-white border-t border-slate-200 flex items-center gap-2 shrink-0 shadow-sm">
-          <input type="text" id="aiChatInput" autocomplete="off" onkeydown="handleAiChatKey(event)" placeholder="שאלו כל שאלה (למשל: באיזה מלון אני במילאנו)..." class="flex-1 py-2 px-3 bg-slate-100 border border-slate-300 rounded-xl text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:bg-white">
+          <input type="text" id="aiChatInput" autocomplete="off" onkeydown="handleAiChatKey(event)" placeholder="שאלו כל שאלה (למשל: איפה ישנים בלילה הראשון)..." class="flex-1 py-2 px-3 bg-slate-100 border border-slate-300 rounded-xl text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:bg-white">
           <button onclick="sendAiChatMessage()" class="w-9 h-9 rounded-xl bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center text-sm active:scale-95 transition shadow-xs shrink-0">
             <i class="fa-solid fa-paper-plane"></i>
           </button>
@@ -450,7 +452,7 @@
               <select id="ideaCatSelect" class="w-full py-2.5 px-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-xs">
                 <option value="food">🍝 אוכל / מסעדה / קפה</option>
                 <option value="view">🌅 נוף / תצפית / שקיעה</option>
-                <option value="attraction">🏛️ אתר / וילה / מוזיאון</option>
+                <option value="attraction">🏛️️ אתר / וילה / מוזיאון</option>
                 <option value="shopping">🛍 שופינג / קניות</option>
                 <option value="other">✨ חוויה / כללי</option>
               </select>
@@ -748,7 +750,7 @@
         { key: '0', title: 'יום חמישי 22.10 (מילאנו)' },
         { key: '1', title: 'יום שישי 23.10 (מעבר לאגם קומו)' },
         { key: '2', title: 'יום שבת 24.10 (אגם קומו)' },
-        { key: '3', title: 'יום ראשון 25.10 (ורנה & חזרה)' },
+        { key: '3', title: 'יום ראשון 25.10 (קומו & חזרה)' },
         { key: '4', title: 'יום שני 26.10 (טיסת בוקר)' },
         { key: 'general', title: '📋 רעיונות כלליים (לכל הימים)' }
       ];
@@ -808,7 +810,7 @@
       if (cat === 'food') return { label: '🍝 אוכל ומסעדות', bg: 'bg-amber-50', color: 'text-amber-800' };
       if (cat === 'view') return { label: '🌅 נוף ותצפית', bg: 'bg-sky-50', color: 'text-sky-800' };
       if (cat === 'attraction') return { label: '🏛️ אתר ווילה', bg: 'bg-indigo-50', color: 'text-indigo-800' };
-      if (cat === 'shopping') return { label: '🛍️️ שופינג', bg: 'bg-purple-50', color: 'text-purple-800' };
+      if (cat === 'shopping') return { label: '🛍 שופינג', bg: 'bg-purple-50', color: 'text-purple-800' };
       return { label: '✨ חוויה', bg: 'bg-teal-50', color: 'text-teal-800' };
     }
 
@@ -1097,7 +1099,7 @@
         </div>
         <div class="p-2.5 bg-white border border-slate-200 rounded-2xl rounded-tr-xs shadow-2xs text-slate-500 text-xs flex items-center gap-1.5">
           <i class="fa-solid fa-circle-notch fa-spin text-blue-500 text-xs"></i>
-          <span>בודק בפרטי הטיול...</span>
+          <span>בודק בבנק הידע של הטיול...</span>
         </div>
       `;
       container.appendChild(typingDiv);
@@ -1107,7 +1109,7 @@
         typingDiv.remove();
         const reply = getAiResponse(text);
         appendAiMessage(reply, 'ai');
-      }, 350);
+      }, 300);
     }
 
     function appendAiMessage(msg, sender) {
@@ -1137,84 +1139,175 @@
       container.scrollTop = container.scrollHeight;
     }
 
-    function getAiResponse(query) {
-      const q = query.toLowerCase();
+    // ================= ROBUST TRIP KNOWLEDGE BASE ENGINE =================
+    function getAiResponse(rawQuery) {
+      const q = rawQuery.toLowerCase().trim();
 
-      // Check user ideas first
-      const matchedIdea = state.ideas.find(i => q.includes(i.title.toLowerCase()) || (i.notes && q.includes(i.notes.toLowerCase())));
+      // Normalize common Hebrew typos, aliases, and variations
+      const normalized = q
+        .replace(/מיחאנו|מילנו|מילאנוו/g, 'מילאנו')
+        .replace(/בלאגו|בלאג'יו|בלג'יו|בלגיו/g, 'בלאג\'ו')
+        .replace(/סטה|סתה/g, 'סטה')
+        .replace(/קודד|קודים/g, 'קוד')
+        .replace(/וויז|ויז|wizzair/g, 'wizz');
+
+      // 1. Direct Check: Did user ask about their custom saved ideas?
+      if (normalized.includes('רעיון') || normalized.includes('רעיונות') || normalized.includes('שביררנו') || normalized.includes('ששמרנו') || normalized.includes('הוספתי')) {
+        if (state.ideas.length === 0) {
+          return `📋 <strong>רעיונות שביררתם:</strong><br>עדיין לא הזנתם רעיונות באפליקציה. תוכלו ללחוץ על כפתור <em>"הוספת רעיון או מקום"</em> במסך הראשי והם יופיעו כאן מיד!`;
+        }
+        let listText = state.ideas.map((item, idx) => `• <strong>${item.title}</strong> (${getCatBadge(item.category).label})${item.notes ? ` - ${item.notes}` : ''}`).join('<br>');
+        return `📋 <strong>מצאתי ${state.ideas.length} רעיונות שהזנתם באפליקציה:</strong><br>${listText}`;
+      }
+
+      // Check if a specific saved idea was queried by name
+      const matchedIdea = state.ideas.find(i => normalized.includes(i.title.toLowerCase()) || (i.notes && normalized.includes(i.notes.toLowerCase())));
       if (matchedIdea) {
-        return `💡 <strong>מצאתי ברעיונות שהזנתם:</strong><br>
+        return `💡 <strong>מצאתי ברעיונות שביררתם:</strong><br>
         • <strong>שם:</strong> ${matchedIdea.title}<br>
         • <strong>סוג:</strong> ${getCatBadge(matchedIdea.category).label}<br>
-        ${matchedIdea.notes ? `• <strong>הערה/טיפ:</strong> ${matchedIdea.notes}` : ''}`;
+        • <strong>סטטוס:</strong> ${matchedIdea.done ? '✅ סומן שביקרתם בו' : 'טרם ביקרתם'}<br>
+        ${matchedIdea.notes ? `• <strong>טיפ/הערה:</strong> ${matchedIdea.notes}` : ''}`;
       }
 
-      // Hotel Milan
-      if (q.includes('מילאנו') || q.includes('מיחאנו') || q.includes('duomo') || q.includes('סמארט') || q.includes('beltrade') || (q.includes('מלון') && !q.includes('סטה') && !q.includes('קומו') && !q.includes('בלאג'))) {
-        return `🏨 <strong>המלון שלכם במילאנו (22-23 באוקטובר):</strong><br>
-        • <strong>BB Hotels Smarthotel Duomo</strong><br>
-        • <strong>כתובת:</strong> Piazza Santa Maria Beltrade 4, מילאנו (ליד הדואומו).<br>
-        • <strong>קבלה:</strong> 24 שעות ביממה (24/7). צ'ק-אין מ-14:00.<br>
-        • 💶 <strong>לתשלום בצ'ק-אין:</strong> 263.00€ חדר + <strong>20.00€ מס עיר במזומן בלבד!</strong><br>
-        • <strong>טלפון:</strong> +39 02 72105205 | אישור: BBE26100322421628.`;
+      // 2. PIN Code / Secret Key queries
+      if (normalized.includes('קוד') || normalized.includes('סודי') || normalized.includes('pin') || normalized.includes('0650') || normalized.includes('סיסמ')) {
+        return `🔑 <strong>הקוד הסודי (PIN Code) של מלון Seta בבלאג'ו:</strong><br>
+        • <strong>הקוד הסודי הוא: 0650</strong><br>
+        • <strong>מספר הזמנה בבוקינג:</strong> 5591469937.<br>
+        • <strong>טלפון ישיר למלון:</strong> +39 340 147 0026.`;
       }
 
-      // Hotel Como / Seta
-      if (q.includes('סטה') || q.includes('seta') || q.includes('בלאג') || q.includes('קומו') || q.includes('סודי') || q.includes('0650')) {
-        return `🏨 <strong>מלון Seta Hotel בבלאג'ו (23-25 באוקטובר, 2 לילות):</strong><br>
-        • <strong>שם:</strong> Seta Hotel | כתובת: Via Teresio Olivelli 23, Bellagio.<br>
-        • 🔑 <strong>קוד סודי (PIN):</strong> <strong>0650</strong> (הזמנה: 5591469937).<br>
+      // 3. Seats & Window queries
+      if (normalized.includes('חלון') || normalized.includes('מושב') || normalized.includes('כיסא') || normalized.includes('כסא') || normalized.includes('18a') || normalized.includes('18f') || normalized.includes('מי יושב') || normalized.includes('איפה יושבים')) {
+        return `🪟 <strong>חלוקת המושבים בטיסות Wizz Air:</strong><br>
+        • <strong>כרמל יושבת ליד החלון בשתי הטיסות! 🎉</strong><br>
+        • <strong>טיסת הלוך (22.10):</strong> כרמל מושב <strong>18A (חלון)</strong>, יובל מושב <strong>18B (אמצע)</strong>.<br>
+        • <strong>טיסת חזור (26.10):</strong> יובל מושב <strong>18E (אמצע)</strong>, כרמל מושב <strong>18F (חלון)</strong>.`;
+      }
+
+      // 4. Luggage & Baggage queries
+      if (normalized.includes('כבוד') || normalized.includes('טרולי') || normalized.includes('מזווד') || normalized.includes('תיק') || normalized.includes('משקל') || normalized.includes('מידות') || normalized.includes('בטן המטוס')) {
+        return `🧳 <strong>פרטי הכבודה לטיסות (נרכש WIZZ Priority לכל אחד):</strong><br>
+        • <strong>תיק גב קטן:</strong> עד $40\\times30\\times20$ ס"מ (להנחה מתחת למושב שלפניכם).<br>
+        • <strong>טרולי אישי לעלייה למטוס:</strong> עד 10 ק"ג ובמידות מקסימליות של $55\\times40\\times23$ ס"מ.<br>
+        • ⚠️ <strong>אין כבודה לבטן המטוס</strong> (ללא מזוודות גדולות).`;
+      }
+
+      // 5. Flights, Hours, Airports, PNR queries
+      if (normalized.includes('טיס') || normalized.includes('שדה') || normalized.includes('מלפנסה') || normalized.includes('נתבג') || normalized.includes('pnr') || normalized.includes('w4') || normalized.includes('ממריא') || normalized.includes('נוחת') || normalized.includes('שעות') && normalized.includes('טיס')) {
+        return `✈️ <strong>פרטי הטיסות המלאים (Wizz Air | קוד הזמנה PNR: SRKQWQ):</strong><br>
+        • 🛫 <strong>הלוך (חמישי 22.10):</strong> טיסה W4 6406 | המראה מנתב"ג T3 ב-<strong>10:45</strong> ⟷ נחיתה במלפנסה MXP טרמינל 1 ב-<strong>14:05</strong>.<br>
+        • 🛫 <strong>חזור (שני 26.10):</strong> טיסה W4 6405 | המראה ממלפנסה MXP טרמינל 1 ב-<strong>05:00 לפנות בוקר</strong> ⟷ נחיתה בנתב"ג ב-<strong>09:55</strong>.<br>
+        • ⏰ <strong>חשוב מאוד לטיסת החזור:</strong> חובה להתייצב בטרמינל 1 כבר ב-<strong>02:30 בלילה!</strong><br>
+        • שירות Auto Check-in נרכש ושולם במלואו (540.84€ לזוג).`;
+      }
+
+      // 6. Breakfast queries
+      if (normalized.includes('ארוחת בוקר') || normalized.includes('בוקר') && (normalized.includes('כלול') || normalized.includes('אוכל') || normalized.includes('מלון'))) {
+        return `☕ <strong>ארוחת בוקר בטיול:</strong><br>
+        • <strong>במלון Seta בבלאג'ו:</strong> <strong>ארוחת הבוקר כלולה במחיר!</strong> היא מוגשת במרפסת המשקיפה ישירות לנוף אגם קומו המרהיב.<br>
+        • <strong>במלון Smarthotel Duomo במילאנו:</strong> החדר ללא ארוחת בוקר – מומלץ בחום לקפוץ בבוקר ל-<em>Marchesi 1824</em> בגלריה ויטוריו עמנואלה או ל-<em>Luini</em> לפנצ'רוטי חם!`;
+      }
+
+      // 7. Elevator queries
+      if (normalized.includes('מעלית') || normalized.includes('מדרגות')) {
+        return `🛗 <strong>מידע על מעליות במלונות:</strong><br>
+        • <strong>מלון Seta בבלאג'ו:</strong> המלון שוכן במבנה היסטורי אותנטי ו<strong>אין בו מעלית</strong>. עם זאת, צוות המלון מסייע בשמחה בהעלאת המזוודות לחדר.<br>
+        • <strong>מלון Smarthotel Duomo במילאנו:</strong> יש מעלית וגישה נוחה.`;
+      }
+
+      // 8. Hotel Como / Bellagio / Seta
+      if (normalized.includes('סטה') || normalized.includes('seta') || normalized.includes('בלאג') || normalized.includes('קומו') || normalized.includes('לילה שני') || normalized.includes('המלון השני')) {
+        return `🏨 <strong>מלון Seta Hotel בבלאג'ו (23 עד 25 באוקטובר, 2 לילות):</strong><br>
+        • <strong>כתובת:</strong> Via Teresio Olivelli 23, Bellagio (אגם קומו).<br>
+        • 🔑 <strong>קוד סודי (PIN):</strong> <strong>0650</strong> (הזמנה בוקינג: 5591469937).<br>
         • 📞 <strong>טלפון ישיר:</strong> +39 340 147 0026.<br>
-        • ⚠️ <strong>שעות צ'ק-אין:</strong> מ-14:00 ועד <strong>20:00 בלבד</strong> (הקבלה נסגרת ב-20:00!).<br>
-        • ☕ <strong>ארוחת בוקר:</strong> <strong>כלולה במחיר!</strong> מוגשת במרפסת מול האגם.<br>
-        • 💶 <strong>תשלום:</strong> שולם מראש בבוקינג 432€. לתשלום במלון <strong>12.00€ מס עיר</strong> (3€ לאדם ללילה).<br>
-        • 💡 מבנה היסטורי ללא מעלית (הצוות מסייע בהעלאת המזוודות).`;
+        • ⏰ <strong>צ'ק-אין:</strong> שישי 23.10 מ-14:00 ועד <strong>20:00 בלבד</strong> (הקבלה נסגרת ב-20:00, חשוב להגיע בזמן!).<br>
+        • ⏰ <strong>צ'ק-אאוט:</strong> ראשון 25.10 עד 10:30.<br>
+        • ☕ <strong>ארוחת בוקר:</strong> <strong>כלולה במחיר</strong> במרפסת מול האגם.<br>
+        • 💶 <strong>תשלום:</strong> שולם מראש בבוקינג 432.00€. לתשלום במקום <strong>12.00€ מס עיר</strong> (3€ לאדם ללילה).<br>
+        • 💡 ללא מעלית (הצוות עוזר עם המזוודות). חניה: 20€ ליום בתיאום מראש.`;
       }
 
-      // Seats & Windows
-      if (q.includes('חלון') || q.includes('מושב') || q.includes('18a') || q.includes('18f') || q.includes('מי יושב')) {
-        return `🪟 <strong>המושבים שלכם בטיסות Wizz Air:</strong><br>
-        • <strong>כרמל יושבת ליד החלון בשתי הטיסות!</strong><br>
-        • <strong>הלוך (22.10):</strong> כרמל מושב <strong>18A</strong> (חלון), יובל מושב <strong>18B</strong> (אמצע).<br>
-        • <strong>חזור (26.10):</strong> יובל מושב <strong>18E</strong> (אמצע), כרמל מושב <strong>18F</strong> (חלון).`;
+      // 9. Hotel Milan / Smarthotel Duomo
+      if (normalized.includes('מילאנו') || normalized.includes('duomo') || normalized.includes('דואומו') || normalized.includes('סמארט') || normalized.includes('beltrade') || normalized.includes('לילה ראשון') || (normalized.includes('מלון') && !normalized.includes('סטה'))) {
+        return `🏨 <strong>המלון שלכם במילאנו (22 עד 23 באוקטובר, לילה 1):</strong><br>
+        • <strong>BB Hotels Smarthotel Duomo</strong><br>
+        • <strong>כתובת:</strong> Piazza Santa Maria Beltrade 4, 20123 Milano (דקות הליכה ספורות מהדואומו).<br>
+        • 🛎️ <strong>קבלה:</strong> פעילה 24 שעות ביממה (24/7). צ'ק-אין החל מ-14:00.<br>
+        • 💶 <strong>לתשלום בצ'ק-אין:</strong> 263.00€ עבור החדר + <strong>20.00€ מס עיר במזומן בלבד!</strong><br>
+        • 📞 <strong>טלפון:</strong> +39 02 72105205 | אישור הזמנה: BBE26100322421628.`;
       }
 
-      // Flights & Baggage
-      if (q.includes('טיס') || q.includes('שדה') || q.includes('מלפנסה') || q.includes('וויז') || q.includes('wizz') || q.includes('כבוד') || q.includes('טרולי') || q.includes('pnr')) {
-        return `✈️ <strong>טיסות Wizz Air (קוד PNR: SRKQWQ):</strong><br>
-        • <strong>הלוך (22.10):</strong> טיסה W4 6406 מנתב"ג טרמינל 3 (10:45) ⟷ מלפנסה T1 (14:05).<br>
-        • <strong>חזור (26.10):</strong> טיסה W4 6405 ממלפנסה T1 (05:00 לפנות בוקר) ⟷ נתב"ג (09:55). חובה להגיע לשדה ב-<strong>02:30 בלילה</strong>!<br>
-        • <strong>כבודה לכל אחד:</strong> תיק גב קטן ($40\times30\times20$) + טרולי עד 10 ק"ג ($55\times40\times23$). ללא כבודה לבטן המטוס.<br>
-        • שירות Auto Check-in בוצע אוטומטית. סה"כ שולם: 540.84€.`;
+      // 10. Taxes & Cash
+      if (normalized.includes('מס') || normalized.includes('מזומן') || normalized.includes('כמה לשלם במלון') || normalized.includes('מס עיר')) {
+        return `💶 <strong>תשלומים ומסי עיר במקום:</strong><br>
+        • 🏨 <strong>במילאנו (Smarthotel Duomo):</strong> יש לשלם בצ'ק-אין 263.00€ עבור החדר + <strong>20.00€ מס עיר במזומן בלבד!</strong> (חובה להביא שטר של 20€ במזומן).<br>
+        • 🏨 <strong>בבלאג'ו (Seta Hotel):</strong> שולם מראש בבוקינג 432€. לתשלום במלון: <strong>12.00€ מס עיר</strong> (3€ לאדם ללילה $\\times$ 2 לילות).`;
       }
 
-      // Trains & Transit
-      if (q.includes('רכבת') || q.includes('מעבורת') || q.includes('ורנה') || q.includes('תחבורה')) {
-        return `🚆 <strong>תחבורה עיקרית:</strong><br>
-        • <strong>מילאנו ⟷ ורנה (Trenord):</strong> מ-Milano Centrale לתחנת Varenna-Esino (שעה ו-4 דק'). שבו בצד <strong>שמאל</strong> לנוף האגם!<br>
-        • <strong>מעבורות Centro Lago:</strong> מחברות בין ורנה, בלאג'ו ומנאג'ו כל 20-30 דק' (כ-15 דקות שיט, ~15€ לכרטיס יומי).<br>
-        • <strong>מלפנסה אקספרס:</strong> מטרמינל 1 לתחנת Milano Centrale (13€, כ-50 דק').`;
+      // 11. Trains & Ferries
+      if (normalized.includes('רכבת') || normalized.includes('מעבורת') || normalized.includes('ורנה') || normalized.includes('תחבורה') || normalized.includes('איך מגיעים') || normalized.includes('שמאל')) {
+        return `🚆 <strong>תחבורה, רכבות ומעבורות:</strong><br>
+        • <strong>רכבת מילאנו ⟷ ורנה (Trenord):</strong> יוצאת מ-Milano Centrale ומגיעה לתחנת Varenna-Esino תוך שעה ו-4 דקות (~7.40€). <strong>טיפ חובה:</strong> שבו בצד <strong>שמאל</strong> של כיוון הנסיעה כדי לראות את נופי האגם נפתחים!<br>
+        • <strong>מעבורות Centro Lago:</strong> מחברות בין ורנה, בלאג'ו ומנאג'ו כל 20-30 דקות (כ-15 דק' שיט, ~15€ לחופשי יומי).<br>
+        • <strong>מלפנסה אקספרס (שדה התעופה):</strong> מחבר את טרמינל 1 לתחנת Milano Centrale (13€ לאדם, כ-50 דק').`;
       }
 
-      // Budget
-      if (q.includes('תקציב') || q.includes('כמה') || q.includes('שער') || q.includes('הוצאות')) {
+      // 12. Budget, Rate, Grand Total
+      if (normalized.includes('תקציב') || normalized.includes('כמה עולה') || normalized.includes('כמה שילמנו') || normalized.includes('סך הכל') || normalized.includes('שער') || normalized.includes('יורו') || normalized.includes('אירו') || normalized.includes('שקלים')) {
         const rate = state.exchangeRate || 3.50;
         let varEur = 0;
         state.expenses.forEach(e => varEur += (parseFloat(e.amount) || 0));
         const fixedEur = 1267.84;
         const totalEur = fixedEur + varEur;
-        return `💰 <strong>תקציב הטיול (שער: 1€ = ${rate.toFixed(2)} ₪):</strong><br>
-        • הוצאות קבועות מראש: €1,267.84 (טיסות ומלונות).<br>
-        • הוצאות שוטפות שהוזנו: €${varEur.toFixed(2)} (${state.expenses.length} רשומות).<br>
-        • סה"כ כולל: €${totalEur.toFixed(2)} (₪${(totalEur * rate).toFixed(2)}).`;
+        return `💰 <strong>תמונת מצב תקציב הטיול (לפי שער 1€ = ${rate.toFixed(2)} ₪):</strong><br>
+        • <strong>הוצאות קבועות מראש (טיסות ומלונות):</strong> €1,267.84 (₪${(fixedEur * rate).toFixed(2)}).<br>
+        • <strong>הוצאות שוטפות שהזנתם:</strong> €${varEur.toFixed(2)} (₪${(varEur * rate).toFixed(2)}) ב-${state.expenses.length} רשומות.<br>
+        • 🏆 <strong>סך כל עלות הטיול הכוללת:</strong> <strong>€${totalEur.toFixed(2)}</strong> (<strong>₪${(totalEur * rate).toFixed(2)}</strong>).`;
       }
 
-      return `היי יובל וכרמל! הנה שאלות שתוכלו לשאול אותי בכל רגע:<br>
-      • 🏨 <em>"באיזה מלון אני במילאנו?"</em> או <em>"מה הקוד של מלון סטה בבלאג'ו?"</em><br>
-      • 🪟 <em>"מי יושב ליד החלון?"</em><br>
-      • ✈️ <em>"מה שעות הטיסות והכבודה המותרת?"</em><br>
-      • 🚆 <em>"איך נוסעים ברכבת לורנה?"</em><br>
-      • 💰 <em>"מה סך ההוצאות שלנו עד כה?"</em>`;
+      // 13. Days / Dates breakdown
+      if (normalized.includes('חמישי') || normalized.includes('22')) {
+        return `📅 <strong>יום חמישי 22.10 (מילאנו):</strong><br>
+        • המראה מנתב"ג ב-10:45 (כרמל 18A חלון, יובל 18B). נחיתה במלפנסה T1 ב-14:05.<br>
+        • רכבת מלפנסה אקספרס למילאנו צ'נטראלה והגעה ל-Smarthotel Duomo ליד הדואומו.<br>
+        • תשלום בצ'ק-אין: 263€ + 20€ מס עיר במזומן בלבד.<br>
+        • שעות ערב: שיטוט בכיכר הדואומו, גלריה ויטוריו עמנואלה ואפריטיבו.`;
+      }
+      if (normalized.includes('שישי') || normalized.includes('23')) {
+        return `📅 <strong>יום שישי 23.10 (מילאנו ⟷ בלאג'ו):</strong><br>
+        • בוקר במילאנו, צ'ק אאוט מהמלון.<br>
+        • רכבת Trenord מ-Milano Centrale לתחנת Varenna-Esino (שבו בצד שמאל!).<br>
+        • מעבורת קצרה מורנה לבלאג'ו והתמקמות במלון Seta.<br>
+        • ⚠️ <strong>צ'ק-אין במלון סטה הוא עד 20:00 בלבד!</strong> (קוד סודי: 0650).`;
+      }
+      if (normalized.includes('שבת') || normalized.includes('24')) {
+        return `📅 <strong>יום שבת 24.10 (אגם קומו):</strong><br>
+        • ארוחת בוקר כלולה במרפסת של מלון סטה מול האגם.<br>
+        • יום סיורים במשולש העיירות והוילות: בלאג'ו, ורנה, וילה מלצי ווילה מונסטרו בעזרת מעבורות Centro Lago.`;
+      }
+      if (normalized.includes('ראשון') || normalized.includes('25')) {
+        return `📅 <strong>יום ראשון 25.10 (סיום קומו והיערכות לחזרה):</strong><br>
+        • צ'ק-אאוט במלון סטה עד 10:30 (תשלום 12€ מס עיר במקום).<br>
+        • השלמת טיולים באגם, וחזרה בשעות הערב לכיוון שדה התעופה מלפנסה לקראת הטיסה המוקדמת.`;
+      }
+      if (normalized.includes('שני') || normalized.includes('26')) {
+        return `📅 <strong>יום שני 26.10 (טיסת בוקר לישראל):</strong><br>
+        • ⏰ <strong>חובה להתייצב בטרמינל 1 במלפנסה כבר ב-02:30 לפנות בוקר!</strong><br>
+        • המראה ב-05:00 בטיסה W4 6405 (יובל 18E, כרמל 18F חלון).<br>
+        • נחיתה בנתב"ג טרמינל 3 ב-09:55 בבוקר.`;
+      }
+
+      // Default contextual response
+      return `היי יובל וכרמל! הנה נושאים מרכזיים שאוכל לענות עליהם מיד:<br>
+      • 🏨 <em>"באיזה מלון אנחנו במילאנו?"</em> או <em>"מה הקוד הסודי של מלון סטה בבלאג'ו?"</em><br>
+      • 🪟 <em>"מי יושב ליד החלון בטיסות?"</em><br>
+      • 🧳 <em>"איזה גודל של טרולי מותר לקחת?"</em><br>
+      • 💶 <em>"כמה מזומן צריך לשלם במלון במילאנו?"</em><br>
+      • 🚆 <em>"איך נוסעים ברכבת לורנה ובאיזה צד לשבת?"</em><br>
+      • 📋 <em>"איזה רעיונות ביררנו עד כה?"</em>`;
     }
 
     function showToast(msg) {
@@ -1241,3 +1334,4 @@
   </script>
 </body>
 </html>
+```
