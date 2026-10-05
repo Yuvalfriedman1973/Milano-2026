@@ -370,15 +370,11 @@
           </div>
         </div>
 
-        <!-- Add Expense & Share Action Buttons -->
-        <div class="grid grid-cols-3 gap-2">
-          <button onclick="openExpenseModal()" class="col-span-2 py-3 bg-gradient-to-r from-terracotta-500 to-amber-500 text-white rounded-2xl font-bold text-xs shadow-md active:scale-95 transition flex items-center justify-center gap-2">
+        <!-- Add Expense Action Button -->
+        <div>
+          <button onclick="openExpenseModal()" class="w-full py-3 bg-gradient-to-r from-terracotta-500 to-amber-500 text-white rounded-2xl font-bold text-xs shadow-md active:scale-95 transition flex items-center justify-center gap-2">
             <i class="fa-solid fa-plus-circle text-sm"></i>
             <span>הוספת הוצאה חדשה</span>
-          </button>
-          <button onclick="copyBudgetSummary()" class="py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 rounded-2xl font-bold text-xs active:scale-95 transition flex items-center justify-center gap-1.5">
-            <i class="fa-solid fa-share-nodes text-xs"></i>
-            <span>שתף סיכום</span>
           </button>
         </div>
 
@@ -405,54 +401,54 @@
     
     <!-- 1. SPARK IDEAS MODAL -->
     <div id="sparkModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-start justify-center p-3 pt-5 pb-32 sm:p-4 sm:items-center">
-      <div class="bg-white w-[94%] max-w-sm rounded-3xl h-[54vh] max-h-[54vh] flex flex-col overflow-hidden shadow-2xl border border-slate-100">
+      <div class="bg-white w-[94%] max-w-sm rounded-3xl h-[56vh] max-h-[56vh] flex flex-col overflow-hidden shadow-2xl border border-slate-100">
         
-        <div class="p-2.5 border-b border-slate-100 flex items-center justify-between bg-gradient-to-r from-amber-50 to-orange-50 shrink-0">
+        <div class="p-3 border-b border-slate-100 flex items-center justify-between bg-gradient-to-r from-amber-50 to-orange-50 shrink-0">
           <div class="flex items-center gap-2">
-            <div class="w-7 h-7 rounded-xl bg-amber-500 text-white flex items-center justify-center font-bold text-xs shadow-xs">
+            <div class="w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center font-bold text-sm shadow-xs">
               <i class="fa-solid fa-wand-magic-sparkles"></i>
             </div>
             <div>
-              <h3 class="font-extrabold text-slate-900 text-xs">מחולל הרעיונות</h3>
-              <p class="text-[9px] text-slate-500">מה בא לכם לעשות ברגע זה?</p>
+              <h3 class="font-extrabold text-slate-900 text-sm">מחולל הרעיונות</h3>
+              <p class="text-xs text-slate-500">מה בא לכם לעשות ברגע זה?</p>
             </div>
           </div>
-          <button onclick="closeSparkModal()" class="w-7 h-7 rounded-full bg-slate-200/60 hover:bg-slate-200 flex items-center justify-center text-slate-600 transition active:scale-90 text-xs">
+          <button onclick="closeSparkModal()" class="w-8 h-8 rounded-full bg-slate-200/60 hover:bg-slate-200 flex items-center justify-center text-slate-600 transition active:scale-90 text-sm">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
 
-        <div class="p-2 bg-amber-50/70 border-b border-amber-100 space-y-1 shrink-0">
+        <div class="p-2.5 bg-amber-50/70 border-b border-amber-100 space-y-1.5 shrink-0">
           <div class="flex items-center gap-1.5">
             <div class="relative flex-1">
-              <input type="text" id="sparkCustomInput" autocomplete="off" onkeydown="handleSparkInputKey(event)" placeholder="הקלידו כיוון (שקיעה, קפה, גשם...)" class="w-full py-1.5 pr-2.5 pl-8 bg-white border border-amber-300 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-amber-500">
-              <button onclick="applySparkCustomPrompt()" class="absolute left-1 top-1/2 -translate-y-1/2 w-6 h-6 rounded-lg bg-amber-500 text-white flex items-center justify-center text-xs active:scale-90 transition">
+              <input type="text" id="sparkCustomInput" autocomplete="off" onkeydown="handleSparkInputKey(event)" placeholder="הקלידו כיוון (שקיעה, קפה, גשם...)" class="w-full py-2 pr-3 pl-9 bg-white border border-amber-300 rounded-xl text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-amber-500">
+              <button onclick="applySparkCustomPrompt()" class="absolute left-1.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-lg bg-amber-500 text-white flex items-center justify-center text-xs active:scale-90 transition">
                 <i class="fa-solid fa-arrow-left"></i>
               </button>
             </div>
           </div>
 
-          <div class="flex items-center gap-1 overflow-x-auto hide-scrollbar text-[10px]">
-            <button onclick="quickPromptSpark('רומנטי לזוג')" class="px-2 py-0.5 rounded-full bg-white border border-amber-200 text-amber-900 font-bold shrink-0 hover:bg-amber-100">✨ רומנטי</button>
-            <button onclick="quickPromptSpark('שקיעה ונוף')" class="px-2 py-0.5 rounded-full bg-white border border-amber-200 text-amber-900 font-bold shrink-0 hover:bg-amber-100">🌅 שקיעה</button>
-            <button onclick="quickPromptSpark('אפריטיבו ודרינק')" class="px-2 py-0.5 rounded-full bg-white border border-amber-200 text-amber-900 font-bold shrink-0 hover:bg-amber-100">🍹 אפריטיבו</button>
-            <button onclick="quickPromptSpark('יום גשום ומקורה')" class="px-2 py-0.5 rounded-full bg-white border border-amber-200 text-amber-900 font-bold shrink-0 hover:bg-amber-100">☔ גשום</button>
-            <button onclick="quickPromptSpark('שופינג וקניות')" class="px-2 py-0.5 rounded-full bg-white border border-amber-200 text-amber-900 font-bold shrink-0 hover:bg-amber-100">🛍 שופינג</button>
+          <div class="flex items-center gap-1.5 overflow-x-auto hide-scrollbar text-xs">
+            <button onclick="quickPromptSpark('רומנטי לזוג')" class="px-2.5 py-1 rounded-full bg-white border border-amber-200 text-amber-900 font-bold shrink-0 hover:bg-amber-100">✨ רומנטי</button>
+            <button onclick="quickPromptSpark('שקיעה ונוף')" class="px-2.5 py-1 rounded-full bg-white border border-amber-200 text-amber-900 font-bold shrink-0 hover:bg-amber-100">🌅 שקיעה</button>
+            <button onclick="quickPromptSpark('אפריטיבו ודרינק')" class="px-2.5 py-1 rounded-full bg-white border border-amber-200 text-amber-900 font-bold shrink-0 hover:bg-amber-100">🍹 אפריטיבו</button>
+            <button onclick="quickPromptSpark('יום גשום ומקורה')" class="px-2.5 py-1 rounded-full bg-white border border-amber-200 text-amber-900 font-bold shrink-0 hover:bg-amber-100">☔ גשום</button>
+            <button onclick="quickPromptSpark('שופינג וקניות')" class="px-2.5 py-1 rounded-full bg-white border border-amber-200 text-amber-900 font-bold shrink-0 hover:bg-amber-100">🛍 שופינג</button>
           </div>
         </div>
 
-        <div class="p-2 border-b border-slate-100 flex items-center justify-between text-xs gap-2 shrink-0">
+        <div class="p-2.5 border-b border-slate-100 flex items-center justify-between text-xs sm:text-sm gap-2 shrink-0">
           <div class="flex items-center gap-1.5">
-            <span class="text-slate-400 text-[10px] font-bold">מיקום:</span>
-            <button onclick="setSparkLoc('milan')" id="sparkLocMilan" class="px-2 py-0.5 rounded-lg font-bold text-[10px] bg-slate-900 text-white">מילאנו</button>
-            <button onclick="setSparkLoc('como')" id="sparkLocComo" class="px-2 py-0.5 rounded-lg font-bold text-[10px] bg-slate-100 text-slate-700">ורנה & קומו</button>
+            <span class="text-slate-500 text-xs font-bold">מיקום:</span>
+            <button onclick="setSparkLoc('milan')" id="sparkLocMilan" class="px-2.5 py-1 rounded-lg font-bold text-xs bg-slate-900 text-white">מילאנו</button>
+            <button onclick="setSparkLoc('como')" id="sparkLocComo" class="px-2.5 py-1 rounded-lg font-bold text-xs bg-slate-100 text-slate-700">ורנה & קומו</button>
           </div>
-          <button onclick="generateSparkIdea()" class="px-2.5 py-1 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-lg text-[10px] transition active:scale-95 shadow-xs">
+          <button onclick="generateSparkIdea()" class="px-3 py-1 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-lg text-xs transition active:scale-95 shadow-xs">
             <i class="fa-solid fa-shuffle ml-1"></i> שוב רעיון
           </button>
         </div>
 
-        <div id="sparkResultContainer" class="p-3 overflow-y-auto space-y-2 flex-1">
+        <div id="sparkResultContainer" class="p-3.5 overflow-y-auto space-y-2.5 flex-1">
           <!-- Dynamically populated -->
         </div>
       </div>
@@ -460,47 +456,47 @@
 
     <!-- 2. AI CHAT MODAL -->
     <div id="aiChatModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-start justify-center p-3 pt-5 pb-32 sm:p-4 sm:items-center">
-      <div class="bg-white w-[94%] max-w-sm rounded-3xl h-[54vh] max-h-[54vh] flex flex-col overflow-hidden shadow-2xl border border-slate-100">
+      <div class="bg-white w-[94%] max-w-sm rounded-3xl h-[56vh] max-h-[56vh] flex flex-col overflow-hidden shadow-2xl border border-slate-100">
         
-        <div class="p-2.5 border-b border-slate-100 flex items-center justify-between bg-gradient-to-r from-blue-50 to-indigo-50 shrink-0">
+        <div class="p-3 border-b border-slate-100 flex items-center justify-between bg-gradient-to-r from-blue-50 to-indigo-50 shrink-0">
           <div class="flex items-center gap-2">
-            <div class="w-7 h-7 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
+            <div class="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-sm shadow-xs">
               <i class="fa-solid fa-robot"></i>
             </div>
             <div>
-              <h3 class="font-extrabold text-slate-900 text-xs">העוזר האישי של יובל & כרמל</h3>
-              <p class="text-[9px] text-slate-500">עונה על טיסות, מלונות, רכבות, תקציב ולו"ז</p>
+              <h3 class="font-extrabold text-slate-900 text-sm">העוזר האישי של יובל & כרמל</h3>
+              <p class="text-xs text-slate-500">עונה על טיסות, מלונות, רכבות, תקציב ולו"ז</p>
             </div>
           </div>
-          <button onclick="closeAiChatModal()" class="w-7 h-7 rounded-full bg-slate-200/60 hover:bg-slate-200 flex items-center justify-center text-slate-600 transition active:scale-90 text-xs">
+          <button onclick="closeAiChatModal()" class="w-8 h-8 rounded-full bg-slate-200/60 hover:bg-slate-200 flex items-center justify-center text-slate-600 transition active:scale-90 text-sm">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
 
-        <div class="p-1.5 border-b border-slate-100 flex items-center gap-1.5 overflow-x-auto hide-scrollbar text-[10px] bg-slate-50 shrink-0">
-          <button onclick="askPresetAi('באיזה מלון אני במילאנו?')" class="px-2 py-0.5 rounded-full bg-white border border-slate-200 text-slate-700 font-bold shrink-0 hover:bg-slate-100">🏨 מלון מילאנו</button>
-          <button onclick="askPresetAi('מה הקוד הסודי והטלפון של מלון סטה בבלאגו?')" class="px-2 py-0.5 rounded-full bg-white border border-slate-200 text-slate-700 font-bold shrink-0 hover:bg-slate-100">🔑 מלון Seta</button>
-          <button onclick="askPresetAi('מי יושב ליד החלון בטיסות?')" class="px-2 py-0.5 rounded-full bg-white border border-slate-200 text-slate-700 font-bold shrink-0 hover:bg-slate-100">🪟 מושבים וחלון</button>
-          <button onclick="askPresetAi('מה הלוז ליום שישי באגם קומו?')" class="px-2 py-0.5 rounded-full bg-white border border-slate-200 text-slate-700 font-bold shrink-0 hover:bg-slate-100">🗓 לו"ז שישי</button>
-          <button onclick="askPresetAi('איזה מסעדות וגלידריות מומלצות יש?')" class="px-2 py-0.5 rounded-full bg-white border border-slate-200 text-slate-700 font-bold shrink-0 hover:bg-slate-100">🍝 המלצות אוכל</button>
-          <button onclick="askPresetAi('איך מגיעים ברכבת לורנה?')" class="px-2 py-0.5 rounded-full bg-white border border-slate-200 text-slate-700 font-bold shrink-0 hover:bg-slate-100">🚆 רכבת ומעבורת</button>
+        <div class="p-2 border-b border-slate-100 flex items-center gap-1.5 overflow-x-auto hide-scrollbar text-xs bg-slate-50 shrink-0">
+          <button onclick="askPresetAi('באיזה מלון אני במילאנו?')" class="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 font-bold shrink-0 hover:bg-slate-100">🏨 מלון מילאנו</button>
+          <button onclick="askPresetAi('מה הקוד הסודי והטלפון של מלון סטה בבלאגו?')" class="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 font-bold shrink-0 hover:bg-slate-100">🔑 מלון Seta</button>
+          <button onclick="askPresetAi('מי יושב ליד החלון בטיסות?')" class="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 font-bold shrink-0 hover:bg-slate-100">🪟 מושבים וחלון</button>
+          <button onclick="askPresetAi('מה הלוז ליום שישי באגם קומו?')" class="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 font-bold shrink-0 hover:bg-slate-100">🗓 לו"ז שישי</button>
+          <button onclick="askPresetAi('איזה מסעדות וגלידריות מומלצות יש?')" class="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 font-bold shrink-0 hover:bg-slate-100">🍝 המלצות אוכל</button>
+          <button onclick="askPresetAi('איך מגיעים ברכבת לורנה?')" class="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 font-bold shrink-0 hover:bg-slate-100">🚆 רכבת ומעבורת</button>
         </div>
 
-        <div id="aiChatMessages" class="flex-1 p-2.5 overflow-y-auto space-y-2 bg-slate-50/50 text-xs">
+        <div id="aiChatMessages" class="flex-1 p-3 overflow-y-auto space-y-2.5 bg-slate-50/50 text-xs sm:text-sm">
           <div class="flex items-start gap-2 max-w-[92%]">
-            <div class="w-6 h-6 rounded-lg bg-blue-600 text-white flex items-center justify-center text-[10px] shrink-0 font-bold">
+            <div class="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center text-xs shrink-0 font-bold">
               AI
             </div>
-            <div class="p-2.5 bg-white border border-slate-200 rounded-2xl rounded-tr-xs shadow-2xs space-y-1 text-slate-800 leading-relaxed text-[11px]">
+            <div class="p-3 bg-white border border-slate-200 rounded-2xl rounded-tr-xs shadow-2xs space-y-1.5 text-slate-800 leading-relaxed text-xs sm:text-sm">
               <p>היי יובל וכרמל! 👋 אני מלווה הטיול שלכם למילאנו ואגם קומו.</p>
               <p>כל פרטי הטיסות, המלונות, הקודים הסודיים, הרכבות והתקציב מוזנים אצלי. שאלו אותי כל שאלה!</p>
             </div>
           </div>
         </div>
 
-        <div class="p-2 bg-white border-t border-slate-200 flex items-center gap-1.5 shrink-0 shadow-sm">
-          <input type="text" id="aiChatInput" autocomplete="off" onkeydown="handleAiChatKey(event)" placeholder="שאלו כל שאלה (למשל: באיזה מלון אני במילאנו)..." class="flex-1 py-1.5 px-3 bg-slate-100 border border-slate-300 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:bg-white">
-          <button onclick="sendAiChatMessage()" class="w-8 h-8 rounded-xl bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center text-xs active:scale-95 transition shadow-xs shrink-0">
+        <div class="p-2.5 bg-white border-t border-slate-200 flex items-center gap-2 shrink-0 shadow-sm">
+          <input type="text" id="aiChatInput" autocomplete="off" onkeydown="handleAiChatKey(event)" placeholder="שאלו כל שאלה (למשל: באיזה מלון אני במילאנו)..." class="flex-1 py-2 px-3 bg-slate-100 border border-slate-300 rounded-xl text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:bg-white">
+          <button onclick="sendAiChatMessage()" class="w-9 h-9 rounded-xl bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center text-sm active:scale-95 transition shadow-xs shrink-0">
             <i class="fa-solid fa-paper-plane"></i>
           </button>
         </div>
