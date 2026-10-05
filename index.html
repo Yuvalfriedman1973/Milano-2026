@@ -98,17 +98,17 @@
 
       <!-- Second Row: 3 Equal-Sized Navigation Buttons -->
       <div class="grid grid-cols-3 gap-2">
-        <button onclick="switchTab('schedule')" id="nav-btn-schedule" class="nav-top-btn py-2.5 px-2 rounded-xl text-xs font-extrabold transition flex flex-col items-center justify-center gap-1 shadow-2xs active:scale-95 bg-slate-900 text-white">
+        <button onclick="switchTab('schedule')" id="nav-btn-schedule" class="nav-top-btn py-2.5 px-2 rounded-xl text-xs font-extrabold transition flex flex-col items-center justify-center gap-1 shadow-xs active:scale-95 bg-slate-900 text-white hover:bg-slate-800 border border-slate-900">
           <i class="fa-solid fa-lightbulb text-sm"></i>
           <span class="truncate">תכנית ורעיונות</span>
         </button>
 
-        <button onclick="switchTab('budget')" id="nav-btn-budget" class="nav-top-btn py-2.5 px-2 rounded-xl text-xs font-extrabold transition flex flex-col items-center justify-center gap-1 shadow-2xs active:scale-95 bg-slate-100 text-slate-700 hover:bg-slate-200">
+        <button onclick="switchTab('budget')" id="nav-btn-budget" class="nav-top-btn py-2.5 px-2 rounded-xl text-xs font-extrabold transition flex flex-col items-center justify-center gap-1 shadow-2xs active:scale-95 bg-white text-slate-700 hover:bg-slate-100 border border-slate-300">
           <i class="fa-solid fa-wallet text-sm"></i>
           <span class="truncate">תקציב</span>
         </button>
 
-        <button onclick="openAiChatModal()" id="nav-btn-ai" class="nav-top-btn py-2.5 px-2 rounded-xl text-xs font-extrabold transition flex flex-col items-center justify-center gap-1 shadow-2xs active:scale-95 bg-slate-100 text-blue-700 hover:bg-blue-100">
+        <button onclick="openAiChatModal()" id="nav-btn-ai" class="nav-top-btn py-2.5 px-2 rounded-xl text-xs font-extrabold transition flex flex-col items-center justify-center gap-1 shadow-2xs active:scale-95 bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200">
           <i class="fa-solid fa-database text-sm text-blue-600"></i>
           <span class="truncate">Data מהמיילים</span>
         </button>
@@ -141,7 +141,7 @@
               <button onclick="selectDay(0)" class="day-tab-btn flex-1 min-w-[70px] py-2 px-1 rounded-xl text-center border font-bold text-xs transition bg-slate-900 text-white border-slate-900 shadow-xs" data-day="0">
                 <span class="day-name block text-[11px] text-slate-300">חמישי</span>
                 <span class="day-num block font-black text-sm text-white">22.10</span>
-                <span class="day-tag block text-[10px] text-slate-300 font-medium">מילאנו</span>
+                <span class="day-tag block text-[10px] text-slate-400 font-medium">מילאנו</span>
               </button>
               <button onclick="selectDay(1)" class="day-tab-btn flex-1 min-w-[70px] py-2 px-1 rounded-xl text-center border font-bold text-xs transition bg-white text-slate-700 border-slate-300 hover:bg-slate-50 shadow-2xs" data-day="1">
                 <span class="day-name block text-[11px] text-slate-400">שישי</span>
@@ -607,9 +607,14 @@
       const secBudget = document.getElementById('section-budget');
       const planModeBar = document.getElementById('planModeBar');
 
-      document.querySelectorAll('.nav-top-btn').forEach(btn => {
-        btn.classList.remove('bg-slate-900', 'text-white');
-        btn.classList.add('bg-slate-100', 'text-slate-700');
+      const btnSchedule = document.getElementById('nav-btn-schedule');
+      const btnBudget = document.getElementById('nav-btn-budget');
+
+      // Reset both main view buttons to clean inactive style
+      [btnSchedule, btnBudget].forEach(btn => {
+        if (!btn) return;
+        btn.classList.remove('bg-slate-900', 'text-white', 'hover:bg-slate-800', 'shadow-xs', 'border-slate-900');
+        btn.classList.add('bg-white', 'text-slate-700', 'border-slate-300', 'hover:bg-slate-100');
       });
 
       if (tabId === 'schedule') {
@@ -617,18 +622,16 @@
         secBudget.classList.add('hidden');
         planModeBar.classList.remove('hidden');
         
-        const btn = document.getElementById('nav-btn-schedule');
-        btn.classList.add('bg-slate-900', 'text-white');
-        btn.classList.remove('bg-slate-100', 'text-slate-700');
+        btnSchedule.classList.remove('bg-white', 'text-slate-700', 'border-slate-300', 'hover:bg-slate-100');
+        btnSchedule.classList.add('bg-slate-900', 'text-white', 'hover:bg-slate-800', 'shadow-xs', 'border-slate-900');
         renderPlanView();
       } else if (tabId === 'budget') {
         secSchedule.classList.add('hidden');
         secBudget.classList.remove('hidden');
         planModeBar.classList.add('hidden');
 
-        const btn = document.getElementById('nav-btn-budget');
-        btn.classList.add('bg-slate-900', 'text-white');
-        btn.classList.remove('bg-slate-100', 'text-slate-700');
+        btnBudget.classList.remove('bg-white', 'text-slate-700', 'border-slate-300', 'hover:bg-slate-100');
+        btnBudget.classList.add('bg-slate-900', 'text-white', 'hover:bg-slate-800', 'shadow-xs', 'border-slate-900');
         renderBudgetSummary();
       }
     }
