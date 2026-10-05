@@ -137,29 +137,29 @@
           <!-- Days Horizontal Carousel -->
           <div class="flex items-center gap-1.5 overflow-x-auto hide-scrollbar pb-1">
             <button onclick="selectDay(0)" class="day-tab-btn flex-1 min-w-[70px] py-2 px-1 rounded-xl text-center border font-bold text-xs transition bg-slate-900 text-white border-slate-900 shadow-xs" data-day="0">
-              <span class="block text-[11px] opacity-80">חמישי</span>
+              <span class="day-name block text-[11px] text-slate-300">חמישי</span>
               <span class="block font-black text-sm">22.10</span>
-              <span class="block text-[10px] text-amber-300">מילאנו</span>
+              <span class="day-tag block text-[10px] text-slate-300 font-medium">מילאנו</span>
             </button>
             <button onclick="selectDay(1)" class="day-tab-btn flex-1 min-w-[70px] py-2 px-1 rounded-xl text-center border font-bold text-xs transition bg-white text-slate-700 border-slate-200 hover:bg-slate-50 shadow-2xs" data-day="1">
-              <span class="block text-[11px] text-slate-400">שישי</span>
+              <span class="day-name block text-[11px] text-slate-400">שישי</span>
               <span class="block font-black text-sm">23.10</span>
-              <span class="block text-[10px] text-teal-600 font-semibold">לאגם</span>
+              <span class="day-tag block text-[10px] text-slate-400 font-medium">מילאנו/קומו</span>
             </button>
             <button onclick="selectDay(2)" class="day-tab-btn flex-1 min-w-[70px] py-2 px-1 rounded-xl text-center border font-bold text-xs transition bg-white text-slate-700 border-slate-200 hover:bg-slate-50 shadow-2xs" data-day="2">
-              <span class="block text-[11px] text-slate-400">שבת</span>
+              <span class="day-name block text-[11px] text-slate-400">שבת</span>
               <span class="block font-black text-sm">24.10</span>
-              <span class="block text-[10px] text-teal-600 font-semibold">קומו</span>
+              <span class="day-tag block text-[10px] text-slate-400 font-medium">קומו</span>
             </button>
             <button onclick="selectDay(3)" class="day-tab-btn flex-1 min-w-[70px] py-2 px-1 rounded-xl text-center border font-bold text-xs transition bg-white text-slate-700 border-slate-200 hover:bg-slate-50 shadow-2xs" data-day="3">
-              <span class="block text-[11px] text-slate-400">ראשון</span>
+              <span class="day-name block text-[11px] text-slate-400">ראשון</span>
               <span class="block font-black text-sm">25.10</span>
-              <span class="block text-[10px] text-indigo-600 font-semibold">ורנה</span>
+              <span class="day-tag block text-[10px] text-slate-400 font-medium">קומו</span>
             </button>
             <button onclick="selectDay(4)" class="day-tab-btn flex-1 min-w-[70px] py-2 px-1 rounded-xl text-center border font-bold text-xs transition bg-white text-slate-700 border-slate-200 hover:bg-slate-50 shadow-2xs" data-day="4">
-              <span class="block text-[11px] text-slate-400">שני</span>
+              <span class="day-name block text-[11px] text-slate-400">שני</span>
               <span class="block font-black text-sm">26.10</span>
-              <span class="block text-[10px] text-red-500 font-semibold">המראה</span>
+              <span class="day-tag block text-[10px] text-slate-400 font-medium">המראה</span>
             </button>
           </div>
 
@@ -210,30 +210,35 @@
       <div id="section-budget" class="hidden space-y-4">
         
         <!-- Grand Total Budget Card -->
-        <div class="bg-gradient-to-br from-slate-900 via-slate-850 to-slate-950 text-white p-4.5 rounded-3xl shadow-lg border border-slate-800 space-y-3">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <span class="w-9 h-9 rounded-xl bg-amber-400/20 text-amber-400 flex items-center justify-center text-sm font-bold">
+        <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 text-white p-5 rounded-3xl shadow-xl border border-slate-800 space-y-4">
+          <!-- Top Row: Icon, Title & Exchange Rate -->
+          <div class="flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2.5">
+              <span class="w-10 h-10 rounded-2xl bg-amber-400/15 text-amber-400 flex items-center justify-center text-base font-bold shadow-inner">
                 <i class="fa-solid fa-sack-dollar"></i>
               </span>
               <div>
-                <span class="text-xs text-slate-300 font-bold block">סך כל הוצאות הטיול</span>
+                <span class="text-xs sm:text-sm font-extrabold text-white block tracking-tight">סך כל הוצאות הטיול</span>
                 <span class="text-[11px] text-slate-400 block font-medium">קבועות (טיסות ומלונות) + שוטפות</span>
               </div>
             </div>
-            <button onclick="openRateModal()" class="text-xs px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-amber-300 border border-white/10 transition">
+            <button onclick="openRateModal()" class="text-xs px-2.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 active:scale-95 text-amber-300 border border-white/10 transition font-bold shrink-0">
               1€ = <span id="rateLabelCard">3.50</span> ₪ ✏️
             </button>
           </div>
 
-          <div class="pt-2 border-t border-slate-800 flex items-baseline justify-between">
-            <div>
-              <span class="text-3xl font-black tracking-tight text-white" id="grandTotalEur">€0.00</span>
-              <span class="text-xs text-slate-400 ml-1">אירו</span>
+          <!-- Bottom Grid: 2 Distinct Centered Currency Cards with Safe Padding -->
+          <div class="grid grid-cols-2 gap-2.5 pt-1 border-t border-slate-800/80">
+            <!-- Euro Card -->
+            <div class="bg-white/[0.05] border border-white/10 rounded-2xl px-3 py-3 flex flex-col items-center justify-center text-center">
+              <span class="text-[11px] font-semibold text-slate-400 mb-0.5">סך הכל באירו</span>
+              <span class="text-xl sm:text-2xl font-black tracking-tight text-white" id="grandTotalEur">€0.00</span>
             </div>
-            <div class="text-left">
-              <span class="text-2xl font-black text-amber-400" id="grandTotalIls">₪0.00</span>
-              <span class="text-xs text-slate-300 block font-medium">בשקלים חדשים</span>
+
+            <!-- ILS Card -->
+            <div class="bg-amber-400/[0.08] border border-amber-400/20 rounded-2xl px-3 py-3 flex flex-col items-center justify-center text-center">
+              <span class="text-[11px] font-semibold text-amber-300/90 mb-0.5">שווה ערך בשקלים</span>
+              <span class="text-xl sm:text-2xl font-black tracking-tight text-amber-400" id="grandTotalIls">₪0.00</span>
             </div>
           </div>
         </div>
@@ -413,51 +418,51 @@
     </div>
 
     <!-- 2. ADD IDEA MODAL -->
-    <div id="ideaModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
-      <div class="bg-white w-full max-w-md rounded-t-3xl sm:rounded-3xl p-4.5 space-y-3.5 shadow-2xl animate-in slide-in-from-bottom duration-200">
-        <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
-          <h3 class="font-extrabold text-slate-900 text-sm">הוספת רעיון או מקום לטיול ✨</h3>
-          <button onclick="closeIdeaModal()" class="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-500">
-            <i class="fa-solid fa-xmark"></i>
+    <div id="ideaModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-end sm:items-center justify-center p-3 sm:p-6">
+      <div class="bg-white w-full max-w-md rounded-3xl p-6 sm:p-7 space-y-4 shadow-2xl animate-in zoom-in-95 duration-200 border border-slate-100">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+          <h3 class="font-extrabold text-slate-900 text-base">הוספת רעיון או מקום לטיול ✨</h3>
+          <button onclick="closeIdeaModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 transition active:scale-95">
+            <i class="fa-solid fa-xmark text-sm"></i>
           </button>
         </div>
 
-        <form onsubmit="submitIdea(event)" class="space-y-3 text-xs">
+        <form onsubmit="submitIdea(event)" class="space-y-4 text-xs">
           <div>
-            <label class="block font-bold text-slate-700 mb-1">שם המקום או הרעיון</label>
-            <input type="text" id="ideaTitle" required placeholder="למשל: תצפית שקיעה / מסעדת פסטה / וילה מונסטרו" class="w-full py-2.5 px-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-terracotta-500">
+            <label class="block font-bold text-slate-700 mb-1.5 text-xs sm:text-sm">שם המקום או הרעיון</label>
+            <input type="text" id="ideaTitle" required placeholder="למשל: תצפית שקיעה / מסעדת פסטה / וילה מונסטרו" class="w-full py-2.5 px-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-bold text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-terracotta-500">
           </div>
 
-          <div class="grid grid-cols-2 gap-2">
+          <div class="grid grid-cols-2 gap-2.5">
             <div>
-              <label class="block font-bold text-slate-700 mb-1">לאיזה יום?</label>
-              <select id="ideaDaySelect" class="w-full py-2 px-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-bold">
+              <label class="block font-bold text-slate-700 mb-1.5 text-xs">לאיזה יום?</label>
+              <select id="ideaDaySelect" class="w-full py-2.5 px-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-bold text-xs">
                 <option value="0">חמישי 22.10 (מילאנו)</option>
-                <option value="1">שישי 23.10 (מעבר לאגם)</option>
-                <option value="2">שבת 24.10 (אגם קומו)</option>
-                <option value="3">ראשון 25.10 (ורנה & חזרה)</option>
-                <option value="4">שני 26.10 (טיסת בוקר)</option>
+                <option value="1">שישי 23.10 (מילאנו/קומו)</option>
+                <option value="2">שבת 24.10 (קומו)</option>
+                <option value="3">ראשון 25.10 (קומו)</option>
+                <option value="4">שני 26.10 (המראה)</option>
                 <option value="general">📋 כללי (לכל הימים)</option>
               </select>
             </div>
             <div>
-              <label class="block font-bold text-slate-700 mb-1">סוג הרעיון</label>
-              <select id="ideaCatSelect" class="w-full py-2 px-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900">
+              <label class="block font-bold text-slate-700 mb-1.5 text-xs">סוג הרעיון</label>
+              <select id="ideaCatSelect" class="w-full py-2.5 px-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-xs">
                 <option value="food">🍝 אוכל / מסעדה / קפה</option>
                 <option value="view">🌅 נוף / תצפית / שקיעה</option>
                 <option value="attraction">🏛️ אתר / וילה / מוזיאון</option>
-                <option value="shopping">🛍️️ שופינג / קניות</option>
+                <option value="shopping">🛍 שופינג / קניות</option>
                 <option value="other">✨ חוויה / כללי</option>
               </select>
             </div>
           </div>
 
           <div>
-            <label class="block font-bold text-slate-700 mb-1">הערות / טיפ שביררתם (אופציונלי)</label>
-            <textarea id="ideaNotes" rows="2" placeholder="למשל: שולחן מומלץ על המים, שעות פתיחה, להזמין מקום מראש..." class="w-full py-2 px-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-terracotta-500 text-xs"></textarea>
+            <label class="block font-bold text-slate-700 mb-1.5 text-xs">הערות / טיפ שביררתם (אופציונלי)</label>
+            <textarea id="ideaNotes" rows="2" placeholder="למשל: שולחן מומלץ על המים, שעות פתיחה, להזמין מקום מראש..." class="w-full py-2.5 px-3.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-terracotta-500 text-xs"></textarea>
           </div>
 
-          <button type="submit" class="w-full py-3 bg-terracotta-500 hover:bg-terracotta-600 text-white rounded-xl font-bold text-xs shadow-md transition active:scale-95 mt-2">
+          <button type="submit" class="w-full py-3 bg-terracotta-500 hover:bg-terracotta-600 text-white rounded-xl font-bold text-xs sm:text-sm shadow-md transition active:scale-95 mt-1">
             שמור רעיון לטיול
           </button>
         </form>
@@ -465,33 +470,33 @@
     </div>
 
     <!-- 3. ADD EXPENSE MODAL -->
-    <div id="expenseModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
-      <div class="bg-white w-full max-w-md rounded-t-3xl sm:rounded-3xl p-4.5 space-y-3.5 shadow-2xl animate-in slide-in-from-bottom duration-200">
-        <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
-          <h3 class="font-extrabold text-slate-900 text-sm">הוספת הוצאה שוטפת</h3>
-          <button onclick="closeExpenseModal()" class="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-500">
-            <i class="fa-solid fa-xmark"></i>
+    <div id="expenseModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-end sm:items-center justify-center p-3 sm:p-6">
+      <div class="bg-white w-full max-w-md rounded-3xl p-6 sm:p-7 space-y-4 shadow-2xl animate-in zoom-in-95 duration-200 border border-slate-100">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+          <h3 class="font-extrabold text-slate-900 text-base">הוספת הוצאה שוטפת</h3>
+          <button onclick="closeExpenseModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 transition active:scale-95">
+            <i class="fa-solid fa-xmark text-sm"></i>
           </button>
         </div>
 
-        <form onsubmit="submitExpense(event)" class="space-y-3 text-xs">
+        <form onsubmit="submitExpense(event)" class="space-y-4 text-xs">
           <div>
-            <label class="block font-bold text-slate-700 mb-1">סכום באירו (€)</label>
+            <label class="block font-bold text-slate-700 mb-1.5 text-xs sm:text-sm">סכום באירו (€)</label>
             <div class="relative">
-              <input type="number" step="0.01" id="expAmount" required placeholder="0.00" oninput="updateExpenseIlsPreview()" class="w-full py-2.5 pr-3 pl-16 bg-slate-50 border border-slate-200 rounded-xl text-base font-extrabold text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-terracotta-500">
-              <span id="expIlsPreview" class="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">≈ ₪0.00</span>
+              <input type="number" step="0.01" id="expAmount" required placeholder="0.00" oninput="updateExpenseIlsPreview()" class="w-full py-2.5 pr-3.5 pl-16 bg-slate-50 border border-slate-200 rounded-xl text-base font-extrabold text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-terracotta-500">
+              <span id="expIlsPreview" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">≈ ₪0.00</span>
             </div>
           </div>
 
           <div>
-            <label class="block font-bold text-slate-700 mb-1">תיאור ההוצאה</label>
-            <input type="text" id="expDesc" required placeholder="למשל: ארוחת צהריים / ג'לטו / רכבת" class="w-full py-2 px-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-terracotta-500">
+            <label class="block font-bold text-slate-700 mb-1.5 text-xs">תיאור ההוצאה</label>
+            <input type="text" id="expDesc" required placeholder="למשל: ארוחת צהריים / ג'לטו / רכבת" class="w-full py-2.5 px-3.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-terracotta-500 text-xs">
           </div>
 
-          <div class="grid grid-cols-2 gap-2">
+          <div class="grid grid-cols-2 gap-2.5">
             <div>
-              <label class="block font-bold text-slate-700 mb-1">קטגוריה</label>
-              <select id="expCategory" class="w-full py-2 px-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900">
+              <label class="block font-bold text-slate-700 mb-1.5 text-xs">קטגוריה</label>
+              <select id="expCategory" class="w-full py-2.5 px-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-xs">
                 <option value="food">🍝 אוכל ומסעדות</option>
                 <option value="transit">🚆 תחבורה ומעבורות</option>
                 <option value="shopping">🛍 קניות ושופינג</option>
@@ -499,8 +504,8 @@
               </select>
             </div>
             <div>
-              <label class="block font-bold text-slate-700 mb-1">מי שילם?</label>
-              <select id="expPayer" class="w-full py-2 px-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900">
+              <label class="block font-bold text-slate-700 mb-1.5 text-xs">מי שילם?</label>
+              <select id="expPayer" class="w-full py-2.5 px-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-xs">
                 <option value="joint">קופה משותפת</option>
                 <option value="yuval">יובל</option>
                 <option value="carmel">כרמל</option>
@@ -508,7 +513,7 @@
             </div>
           </div>
 
-          <button type="submit" class="w-full py-3 bg-terracotta-500 hover:bg-terracotta-600 text-white rounded-xl font-bold text-xs shadow-md transition active:scale-95 mt-2">
+          <button type="submit" class="w-full py-3 bg-terracotta-500 hover:bg-terracotta-600 text-white rounded-xl font-bold text-xs sm:text-sm shadow-md transition active:scale-95 mt-1">
             שמור הוצאה
           </button>
         </form>
@@ -517,17 +522,17 @@
 
     <!-- 4. EXCHANGE RATE SETTINGS MODAL -->
     <div id="rateModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
-      <div class="bg-white w-full max-w-xs rounded-3xl p-4.5 space-y-3.5 shadow-2xl animate-in zoom-in-95 duration-150">
-        <div class="flex items-center justify-between border-b border-slate-100 pb-2">
-          <h3 class="font-extrabold text-slate-900 text-sm">הגדרת שער אירו 💶</h3>
-          <button onclick="closeRateModal()" class="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-500">
-            <i class="fa-solid fa-xmark"></i>
+      <div class="bg-white w-full max-w-xs rounded-3xl p-6 space-y-4 shadow-2xl animate-in zoom-in-95 duration-150 border border-slate-100">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+          <h3 class="font-extrabold text-slate-900 text-sm sm:text-base">הגדרת שער אירו 💶</h3>
+          <button onclick="closeRateModal()" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 transition active:scale-95">
+            <i class="fa-solid fa-xmark text-xs"></i>
           </button>
         </div>
 
-        <div class="space-y-2 text-xs">
+        <div class="space-y-2.5 text-xs">
           <p class="text-slate-500 text-xs">הגדר את שער ההמרה הנוכחי לחישוב השקלים:</p>
-          <div class="flex items-center gap-2">
+          <div class="flex items-center justify-center gap-2 pt-1">
             <span class="font-bold text-slate-700">1€ =</span>
             <input type="number" step="0.01" id="rateInputVal" value="3.50" class="w-24 py-1.5 px-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-extrabold text-slate-900 text-center">
             <span class="font-bold text-slate-700">₪ שקלים</span>
@@ -651,12 +656,30 @@
       state.currentDayIdx = idx;
       document.querySelectorAll('.day-tab-btn').forEach(btn => {
         const bIdx = parseInt(btn.getAttribute('data-day'));
+        const dayName = btn.querySelector('.day-name');
+        const dayTag = btn.querySelector('.day-tag');
         if (bIdx === idx) {
           btn.classList.remove('bg-white', 'text-slate-700', 'border-slate-200');
           btn.classList.add('bg-slate-900', 'text-white', 'border-slate-900');
+          if (dayName) {
+            dayName.classList.remove('text-slate-400');
+            dayName.classList.add('text-slate-300');
+          }
+          if (dayTag) {
+            dayTag.classList.remove('text-slate-400');
+            dayTag.classList.add('text-slate-300');
+          }
         } else {
           btn.classList.remove('bg-slate-900', 'text-white', 'border-slate-900');
           btn.classList.add('bg-white', 'text-slate-700', 'border-slate-200');
+          if (dayName) {
+            dayName.classList.remove('text-slate-300');
+            dayName.classList.add('text-slate-400');
+          }
+          if (dayTag) {
+            dayTag.classList.remove('text-slate-300');
+            dayTag.classList.add('text-slate-400');
+          }
         }
       });
       renderDayView();
